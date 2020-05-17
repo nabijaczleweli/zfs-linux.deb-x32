@@ -46,8 +46,12 @@ extern "C" {
 #define	__x86
 #endif
 
+#if defined(_ILP32)
+/* x32-specific defines; careful to *not* define _LP64 here */
+#else
 #if !defined(_LP64)
 #define	_LP64
+#endif
 #endif
 
 #if !defined(_LITTLE_ENDIAN)
@@ -195,7 +199,7 @@ extern "C" {
 #else
 /*
  * Currently supported:
- * x86_64, i386, arm, powerpc, s390, sparc, and mips
+ * x86_64, x32, i386, arm, powerpc, s390, sparc, and mips
  */
 #error "Unsupported ISA type"
 #endif
