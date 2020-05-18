@@ -31,48 +31,10 @@
 extern "C" {
 #endif
 
-/* x86_64-x32 arch specific defines */
-#if (defined(__x86_64) || defined(__x86_64__)) && (defined(__i386) || defined(__i386__))
-#warning its x32 baybeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
-
-#if !defined(__x86_64)
-#define __x86_64
-#endif
-
-#if !defined(__amd64)
-#define __amd64
-#endif
-
-#if !defined(__x86)
-#define __x86
-#endif
-
-#if !defined(__i386)
-#define __i386
-#endif
-
-#if !defined(__x86)
-#define __x86
-#endif
-
-#if defined(_LP64)
-#undef _LP64
-#warning Cleansing_LP64
-#endif
-
-#if !defined(_ILP32)
-#define _ILP32
-#endif
-
-#if !defined(_LITTLE_ENDIAN)
-#define _LITTLE_ENDIAN
-#endif
-
-#define _SUNOS_VTOC_16
-#define HAVE_EFFICIENT_UNALIGNED_ACCESS
 
 /* x86_64 arch specific defines */
-#elif defined(__x86_64) || defined(__x86_64__)
+#if defined(__x86_64) || defined(__x86_64__)
+#warning x86-64
 
 #if !defined(__x86_64)
 #define	__x86_64
@@ -86,8 +48,19 @@ extern "C" {
 #define	__x86
 #endif
 
+
+#if defined(_ILP32)
+/* x86_64 with 32-bit pointers: it's x32;
+   some code checks for _LP64 first, some for _ILP32; by undefining _LP64 we avoid problems caused by the former;
+   the downside of this approach is, of course, that all code that checks _LP64 first needs to include this header, though ideally all of them would */
+#warning its x32 baybeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+#if defined(_LP64)
+#undef	_LP64
+#endif
+#else
 #if !defined(_LP64)
 #define	_LP64
+#endif
 #endif
 
 #if !defined(_LITTLE_ENDIAN)
@@ -99,6 +72,7 @@ extern "C" {
 
 /* i386 arch specific defines */
 #elif defined(__i386) || defined(__i386__)
+#warning just i386
 
 #if !defined(__i386)
 #define	__i386
