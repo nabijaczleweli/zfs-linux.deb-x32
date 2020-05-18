@@ -33,7 +33,7 @@
 #include <pthread.h>
 
 #include <sys/avl_impl.h>
-#include  <sys/isa_defs.h>
+//#include  <sys/isa_defs.h>
 #include <sys/byteorder.h>
 
 #ifdef _SYS_ISA_DEFS_H
