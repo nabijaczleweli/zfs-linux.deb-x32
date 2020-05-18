@@ -33,7 +33,7 @@ extern "C" {
 
 /* x86_64-x32 arch specific defines */
 #if (defined(__x86_64) || defined(__x86_64__)) && (defined(__i386) || defined(__i386__))
-
+#warning its x32 baybeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
 
 #if !defined(__x86_64)
 #define __x86_64
