@@ -91,6 +91,7 @@ install() {
 
 	if dracut_module_included "systemd"; then
 		mkdir -p "${initdir}/$systemdsystemunitdir/zfs-import.target.wants"
+		dracut_install @systemdunitdir@/zfs-load-module.service
 		for _item in scan cache ; do
 			dracut_install @systemdunitdir@/zfs-import-$_item.service
 			if ! [ -L "${initdir}/$systemdsystemunitdir/zfs-import.target.wants"/zfs-import-$_item.service ]; then
