@@ -1,0 +1,37 @@
+From 9cbb40dee58360ad617664ff97e009c6f94a1e53 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?=D0=BD=D0=B0=D0=B1?= <nabijaczleweli@gmail.com>
+Date: Mon, 18 May 2020 18:44:58 +0200
+Subject: dupa7: remove isa_defs include since it's transitive apparently
+
+---
+ include/libuutil_impl.h           | 1 -
+ lib/libspl/include/sys/isa_defs.h | 1 +
+ 2 files changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/include/libuutil_impl.h b/include/libuutil_impl.h
+index 9e89889a..f978b475 100644
+--- a/include/libuutil_impl.h
++++ b/include/libuutil_impl.h
+@@ -33,7 +33,6 @@
+ #include <pthread.h>
+ 
+ #include <sys/avl_impl.h>
+-#include <sys/isa_defs.h>
+ #include <sys/byteorder.h>
+ 
+ #ifdef	__cplusplus
+diff --git a/lib/libspl/include/sys/isa_defs.h b/lib/libspl/include/sys/isa_defs.h
+index fcb6ecbf..bb7d1b98 100644
+--- a/lib/libspl/include/sys/isa_defs.h
++++ b/lib/libspl/include/sys/isa_defs.h
+@@ -55,6 +55,7 @@ extern "C" {
+    the downside of this approach is, of course, that all code that checks _LP64 first needs to include this header, though ideally all of them would */
+ #warning its x32 baybeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+ #if defined(_LP64)
++#warning beriddiing of_LP64
+ #undef	_LP64
+ #endif
+ #else
+-- 
+2.26.2
+
