@@ -31,8 +31,48 @@
 extern "C" {
 #endif
 
+/* x86_64-x32 arch specific defines */
+#if (defined(__x86_64) || defined(__x86_64__)) && (defined(__i386) || defined(__i386__))
+
+
+#if !defined(__x86_64)
+#define __x86_64
+#endif
+
+#if !defined(__amd64)
+#define __amd64
+#endif
+
+#if !defined(__x86)
+#define __x86
+#endif
+
+#if !defined(__i386)
+#define __i386
+#endif
+
+#if !defined(__x86)
+#define __x86
+#endif
+
+#if defined(_LP64)
+#undef _LP64
+#warning Cleansing_LP64
+#endif
+
+#if !defined(_ILP32)
+#define _ILP32
+#endif
+
+#if !defined(_LITTLE_ENDIAN)
+#define _LITTLE_ENDIAN
+#endif
+
+#define _SUNOS_VTOC_16
+#define HAVE_EFFICIENT_UNALIGNED_ACCESS
+
 /* x86_64 arch specific defines */
-#if defined(__x86_64) || defined(__x86_64__)
+#elif defined(__x86_64) || defined(__x86_64__)
 
 #if !defined(__x86_64)
 #define	__x86_64
