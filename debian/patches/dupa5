@@ -7,7 +7,7 @@ index 9e89889a..d4ba8716 100644
  
  #include <sys/avl_impl.h>
 -#include <sys/isa_defs.h>
-+//#include <sys/isa_defs.h>
++//#include  <sys/isa_defs.h>
  #include <sys/byteorder.h>
  
 +#ifdef _SYS_ISA_DEFS_H
