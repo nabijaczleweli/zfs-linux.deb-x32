@@ -55,6 +55,7 @@ extern "C" {
    the downside of this approach is, of course, that all code that checks _LP64 first needs to include this header, though ideally all of them would */
 #warning its x32 baybeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
 #if defined(_LP64)
+#warning beriddiing of_LP64
 #undef	_LP64
 #endif
 #else
