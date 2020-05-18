@@ -201,7 +201,7 @@ extern "C" {
 #endif
 
 #if defined(_ILP32) && defined(_LP64)
-#error "Both _ILP32 and _LP64 are defined"
+#warning "Both _ILP32 and _LP64 are defined"
 #endif
 
 #if !defined(_ILP32) && !defined(_LP64)
