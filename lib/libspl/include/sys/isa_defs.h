@@ -31,10 +31,8 @@
 extern "C" {
 #endif
 
-
 /* x86_64 arch specific defines */
 #if defined(__x86_64) || defined(__x86_64__)
-#warning x86-64
 
 #if !defined(__x86_64)
 #define	__x86_64
@@ -53,7 +51,6 @@ extern "C" {
 /* x86_64 with 32-bit pointers: it's x32;
    some code checks for _LP64 first, some for _ILP32; by undefining _LP64 we avoid problems caused by the former;
    the downside of this approach is, of course, that all code that checks _LP64 first needs to include this header, though ideally all of them would */
-#warning its x32 baybeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
 #if defined(_LP64)
 #warning beriddiing of_LP64
 #undef	_LP64
@@ -73,7 +70,6 @@ extern "C" {
 
 /* i386 arch specific defines */
 #elif defined(__i386) || defined(__i386__)
-#warning just i386
 
 #if !defined(__i386)
 #define	__i386
