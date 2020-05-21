@@ -23,8 +23,6 @@ AC_DEFUN([ZFS_AC_CONFIG_USER], [
 
 	ZFS_AC_TEST_FRAMEWORK
 
-	GUESS_TIME_T_FORMAT
-
 	AC_CHECK_FUNCS([mlockall strlcat strlcpy])
 ])
 
