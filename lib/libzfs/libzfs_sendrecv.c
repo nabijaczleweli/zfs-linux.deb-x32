@@ -4606,7 +4606,7 @@ zfs_receive_one(libzfs_handle_t *hdl, int infd, const char *tosnap,
 		zfs_nicebytes(bytes, buf1, sizeof (buf1));
 		zfs_nicebytes(bytes/delta, buf2, sizeof (buf1));
 
-		(void) printf("received %s stream in %lu seconds (%s/sec)\n",
+		(void) printf("received %s stream in %" TIME_T_FORMAT "u seconds (%s/sec)\n",
 		    buf1, delta, buf2);
 	}
 

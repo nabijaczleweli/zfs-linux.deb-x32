@@ -791,6 +791,9 @@
 /* __posix_acl_chmod() exists */
 #undef HAVE___POSIX_ACL_CHMOD
 
+/* "l" if sizeof(time_t) == sizeof(long) or "ll" if sizeof(time_t) == sizeof(long long) */
+#undef TIME_T_FORMAT
+
 /* Define as const if the declaration of iconv() needs const. */
 #undef ICONV_CONST
 
