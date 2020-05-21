@@ -46,15 +46,8 @@ extern "C" {
 #define	__x86
 #endif
 
-
 #if defined(_ILP32)
-/* x86_64 with 32-bit pointers: it's x32;
-   some code checks for _LP64 first, some for _ILP32; by undefining _LP64 we avoid problems caused by the former;
-   the downside of this approach is, of course, that all code that checks _LP64 first needs to include this header, though ideally all of them would */
-#if defined(_LP64)
-#warning beriddiing of_LP64
-#undef	_LP64
-#endif
+/* x32-specific defines; careful to *not* define _LP64 here */
 #else
 #if !defined(_LP64)
 #define	_LP64
@@ -206,13 +199,13 @@ extern "C" {
 #else
 /*
  * Currently supported:
- * x86_64, i386, arm, powerpc, s390, sparc, and mips
+ * x86_64, x32, i386, arm, powerpc, s390, sparc, and mips
  */
 #error "Unsupported ISA type"
 #endif
 
 #if defined(_ILP32) && defined(_LP64)
-#warning "Both _ILP32 and _LP64 are defined"
+#error "Both _ILP32 and _LP64 are defined"
 #endif
 
 #if !defined(_ILP32) && !defined(_LP64)
