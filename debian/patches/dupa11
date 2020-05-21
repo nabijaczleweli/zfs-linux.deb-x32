@@ -1,4 +1,4 @@
-From 03581d341d747fdd90419f48f4d42dc2fc47c870 Mon Sep 17 00:00:00 2001
+From 3fc76d0bba6c7397f8907c7b81dd5e5c83f42cb3 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?=D0=BD=D0=B0=D0=B1?= <nabijaczleweli@gmail.com>
 Date: Thu, 21 May 2020 22:46:44 +0200
 Subject: dupa11: namespacing; also maybe substitute right lol
@@ -51,7 +51,7 @@ index a9ddb806..c3e6b4a9 100644
 -])
 diff --git a/config/always-time_t.m4 b/config/always-time_t.m4
 new file mode 100644
-index 00000000..3e53856b
+index 00000000..5e3d7e73
 --- /dev/null
 +++ b/config/always-time_t.m4
 @@ -0,0 +1,22 @@
@@ -74,7 +74,7 @@ index 00000000..3e53856b
 +    [time_t_format="l"],
 +    [time_t_format="ll"])
 +
-+  AC_DEFINE(ZFS_TIME_T_FORMAT, time_t_format,
++  AC_DEFINE(ZFS_TIME_T_FORMAT, [$time_t_format],
 +    [Argument to %d/%u to format a time_t -- "l" if sizeof(time_t) == sizeof(long) or "ll" otherwise])
 +])
 diff --git a/config/zfs-build.m4 b/config/zfs-build.m4
