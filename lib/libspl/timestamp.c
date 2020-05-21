@@ -51,7 +51,7 @@ print_timestamp(uint_t timestamp_fmt)
 		fmt = nl_langinfo(_DATE_FMT);
 
 	if (timestamp_fmt == UDATE) {
-		(void) printf("%" TIME_T_FORMAT "d\n", t);
+		(void) printf("%" ZFS_TIME_T_FORMAT "d\n", t);
 	} else if (timestamp_fmt == DDATE) {
 		char dstr[64];
 		int len;
