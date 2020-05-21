@@ -1,0 +1,121 @@
+From 03581d341d747fdd90419f48f4d42dc2fc47c870 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?=D0=BD=D0=B0=D0=B1?= <nabijaczleweli@gmail.com>
+Date: Thu, 21 May 2020 22:46:44 +0200
+Subject: dupa11: namespacing; also maybe substitute right lol
+
+---
+ config/always-arch.m4        | 29 -----------------------------
+ config/always-time_t.m4      | 22 ++++++++++++++++++++++
+ config/zfs-build.m4          |  2 +-
+ lib/libspl/timestamp.c       |  2 +-
+ lib/libzfs/libzfs_sendrecv.c |  2 +-
+ 5 files changed, 25 insertions(+), 32 deletions(-)
+ create mode 100644 config/always-time_t.m4
+
+diff --git a/config/always-arch.m4 b/config/always-arch.m4
+index a9ddb806..c3e6b4a9 100644
+--- a/config/always-arch.m4
++++ b/config/always-arch.m4
+@@ -20,32 +20,3 @@ AC_DEFUN([ZFS_AC_CONFIG_ALWAYS_ARCH], [
+ 	AM_CONDITIONAL([TARGET_ASM_GENERIC], test $TARGET_ASM_DIR = asm-generic)
+ 	AC_MSG_RESULT([$TARGET_ASM_DIR])
+ ])
+-
+-# time_t-format-string.m4
+-dnl Copyright (C) 2002-2020 Free Software Foundation, Inc.
+-dnl This file is free software; the Free Software Foundation
+-dnl gives unlimited permission to copy and/or distribute it,
+-dnl with or without modifications, as long as this notice is preserved.
+-
+-dnl From nabijaczleweli.
+-
+-dnl Sets the TIME_T_FORMAT variable to the modifiers
+-dnl to %d or %u required to C-style format a time_t from time.h.
+-dnl
+-dnl This means "l"  if sizeof(time_t) == sizeof(long),
+-dnl        and "ll" if sizeof(time_t) == sizeof(long long).
+-dnl In practice, these are the only viable types,
+-dnl so the second check can be omitted entirely.
+-AC_DEFUN([ZFS_AC_GUESS_TIME_T_FORMAT],
+-[
+-  AC_COMPILE_IFELSE(
+-    [AC_LANG_SOURCE(
+-      [[#include <time.h>
+-        typedef char sizeof_time_t_eq_sizeof_long[(sizeof(time_t) == sizeof(long)) ? 1 : -1];
+-      ]])],
+-    [time_t_format="l"],
+-    [time_t_format="ll"])
+-
+-  AC_DEFINE(TIME_T_FORMAT, "$time_t_format",
+-    ["l" if sizeof(time_t) == sizeof(long) or "ll" if sizeof(time_t) == sizeof(long long)])
+-])
+diff --git a/config/always-time_t.m4 b/config/always-time_t.m4
+new file mode 100644
+index 00000000..3e53856b
+--- /dev/null
++++ b/config/always-time_t.m4
+@@ -0,0 +1,22 @@
++dnl #
++dnl # Set TIME_T_FORMAT to the modifiers to %d or %u required to format a time_t.
++dnl #
++dnl # This means "l"  if sizeof(time_t) == sizeof(long),
++dnl #        and "ll" if sizeof(time_t) == sizeof(long long).
++dnl #
++dnl # In practice, these are the only viable types,
++dnl # so the second check can be omitted entirely.
++dnl #
++AC_DEFUN([ZFS_AC_CONFIG_ALWAYS_TIME_T_FORMAT],
++[
++  AC_COMPILE_IFELSE(
++    [AC_LANG_SOURCE(
++      [[#include <time.h>
++        typedef char sizeof_time_t_eq_sizeof_long[(sizeof(time_t) == sizeof(long)) ? 1 : -1];
++      ]])],
++    [time_t_format="l"],
++    [time_t_format="ll"])
++
++  AC_DEFINE(ZFS_TIME_T_FORMAT, time_t_format,
++    [Argument to %d/%u to format a time_t -- "l" if sizeof(time_t) == sizeof(long) or "ll" otherwise])
++])
+diff --git a/config/zfs-build.m4 b/config/zfs-build.m4
+index f9cf0ad6..bd85e5a1 100644
+--- a/config/zfs-build.m4
++++ b/config/zfs-build.m4
+@@ -161,7 +161,7 @@ AC_DEFUN([ZFS_AC_CONFIG_ALWAYS], [
+ 	ZFS_AC_CONFIG_ALWAYS_CC_ASAN
+ 	ZFS_AC_CONFIG_ALWAYS_TOOLCHAIN_SIMD
+ 	ZFS_AC_CONFIG_ALWAYS_ARCH
+-	ZFS_AC_GUESS_TIME_T_FORMAT
++	ZFS_AC_CONFIG_ALWAYS_TIME_T_FORMAT
+ 	ZFS_AC_CONFIG_ALWAYS_PYTHON
+ 	ZFS_AC_CONFIG_ALWAYS_PYZFS
+ ])
+diff --git a/lib/libspl/timestamp.c b/lib/libspl/timestamp.c
+index 3e0ef913..1b8e245c 100644
+--- a/lib/libspl/timestamp.c
++++ b/lib/libspl/timestamp.c
+@@ -51,7 +51,7 @@ print_timestamp(uint_t timestamp_fmt)
+ 		fmt = nl_langinfo(_DATE_FMT);
+ 
+ 	if (timestamp_fmt == UDATE) {
+-		(void) printf("%" TIME_T_FORMAT "d\n", t);
++		(void) printf("%" ZFS_TIME_T_FORMAT "d\n", t);
+ 	} else if (timestamp_fmt == DDATE) {
+ 		char dstr[64];
+ 		int len;
+diff --git a/lib/libzfs/libzfs_sendrecv.c b/lib/libzfs/libzfs_sendrecv.c
+index c56b1795..5fc1a355 100644
+--- a/lib/libzfs/libzfs_sendrecv.c
++++ b/lib/libzfs/libzfs_sendrecv.c
+@@ -4606,7 +4606,7 @@ zfs_receive_one(libzfs_handle_t *hdl, int infd, const char *tosnap,
+ 		zfs_nicebytes(bytes, buf1, sizeof (buf1));
+ 		zfs_nicebytes(bytes/delta, buf2, sizeof (buf1));
+ 
+-		(void) printf("received %s stream in %" TIME_T_FORMAT "u seconds (%s/sec)\n",
++		(void) printf("received %s stream in %" ZFS_TIME_T_FORMAT "u seconds (%s/sec)\n",
+ 		    buf1, delta, buf2);
+ 	}
+ 
+-- 
+2.27.0.rc0
+
