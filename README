@@ -8,8 +8,8 @@ This repository is mostly for my reference later, but:
   * branch zfs-patched-clean: my working patches as commits, squashed, clean for upstream/debian
   * branch zfsv*:             git-worktrees with (roughly) one new patch per branch; dpkg-buildpackageable
   * branch zfsv*+rollup:      like above but with -clean patches
-  * branch upstream-v1:       clone of openzfs/zfs at HEAD@{2020-05-20T19-06-09-0600} (fb822260)
-                              + -clean patches with upstream issue refs 
+  * branch upstream-v*:       clone of openzfs/zfs at HEAD@{2020-05-20T19-06-09-0600} (fb822260)
+                              + a patchset, see below
 
 For ease of consumption, 0001-original-patches/ contains the patches as written on a night that is (mostly) one big haze:
     $ stat -c "%n:;%y" $(realpath 0001-original-patches/*) | column -ts ';':
@@ -65,3 +65,7 @@ For ease of consumption, 0001-original-patches/ contains the patches as written 
   Submitted in https://github.com/openzfs/zfs/pull/10357. See 0004-upstream-v1.md for the original PR message.
 
 0005-upstream-v2/ fixes a style warning and a patch message broken by #include directives starting with a #.
+
+0006-upstream-v3/ applies the SPL ABI detection change to the linux include/ tree as well,
+  and switches to an [u]longlong_t cast with "%ll[ud]" formatting instead of ZFS_CONFIG_TIME_T_FORMAT autoconf variable,
+  following review from upstream.
