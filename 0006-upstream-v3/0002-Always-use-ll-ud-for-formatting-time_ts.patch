@@ -56,7 +56,7 @@ index c65673dd3..112b4ed38 100644
 -		(void) printf("received %s stream in %lu seconds (%s/sec)\n",
 -		    buf1, delta, buf2);
 +		(void) printf("received %s stream in %llu seconds (%s/sec)\n",
-+		    buf1, (ulonglong_t)delta, buf2);
++		    buf1, (u_longlong_t)delta, buf2);
  	}
  
  	err = 0;
