@@ -14,5 +14,5 @@ enable-zed.patch
 #4500-fix-generator-invalid-cache.patch
 force-verbose-rules.patch
 #zfs-mount-container-start.patch
-x32/0001-lib-libspl-include-sys-isa_defs.h.patch
-x32/0002-TIME_T_FORMAT.patch
+x32/0001-Correctly-handle-the-x32-ABI.patch
+x32/0002-Add-TIME_T_FORMAT-config-matching-l-or-ll-on-respect.patch

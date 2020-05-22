@@ -58,7 +58,8 @@ endif
 	  --with-systemdpresetdir=/lib/systemd/system-preset \
 	  --with-systemdgeneratordir=/lib/systemd/system-generators \
 	  --with-config=user \
-	  --enable-debug
+	  --enable-debug \
+	  --enable-debuginfo
 
 override_dh_gencontrol:
 	dh_gencontrol -- -Vlinux:Recommends="linux-libc-dev (<< $(LINUX_NEXT)~), linux-libc-dev (>= $(LINUX_MIN)~),"

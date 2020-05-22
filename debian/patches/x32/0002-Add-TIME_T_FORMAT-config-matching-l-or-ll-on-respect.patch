@@ -1,11 +1,33 @@
-From 627413d105d05a830d2c180ef58b994bcc536bd0 Mon Sep 17 00:00:00 2001
+From 4d8f40cda81aa7dc6fc492efe070fcd45d431288 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?=D0=BD=D0=B0=D0=B1?= <nabijaczleweli@gmail.com>
 Date: Thu, 21 May 2020 21:53:13 +0200
-Subject: TIME_T_FORMAT
+Subject: [PATCH 2/2] Add TIME_T_FORMAT config, matching l or ll on respective
+ platforms
 
-dupa10: add TIME_T_FORMAT
-dupa10.5: move into always-arch.m4
-dupa11: namespacing; also maybe substitute right lol
+Given the following test program:
+#include <time.h>
+#include <stdio.h>
+#include <stdint.h>
+int main() {
+        printf("time_t:    %d\n", sizeof(time_t));
+        printf("long:      %d\n", sizeof(long));
+        printf("long long: %d\n", sizeof(long long));
+}
+
+These are output on various architectures:
+x32$   time_t:    8
+x32$   long:      4
+x32$   long long: 8
+
+amd64$ time_t:    8
+amd64$ long:      8
+amd64$ long long: 8
+
+i386$  time_t:    4
+i386$  long:      4
+i386$  long long: 8
+
+Therefore code using "%l[du]" to format time_ts produced warnings on x32
 ---
  config/always-time_t.m4      | 22 ++++++++++++++++++++++
  config/zfs-build.m4          |  1 +
