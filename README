@@ -1,0 +1,58 @@
+src:zfs-linux x32 port
+======================
+
+This repository is mostly for my reference later, but:
+  * branch debian:            clone of the Salsa debian repository at 0.8.4-1 (54029be)
+  * branch zfs-patched:       git-amed patches from debian + my working patches as commits;
+                              they are not clean in a number of ways
+  * branch zfs-patched-clean: my working patches as commits, squashed, clean for upstream/debian
+  * branch zfsv*:             git-worktrees with (roughly) one new patch per branch; dpkg-buildpackageable
+  * branch zfsv*+rollup:      like above but with -clean patches
+
+For ease of consumption, 0001-original-patches/ contains the patches as written on a night that is (mostly) one big haze:
+    $ stat -c "%n:;%y" $(realpath 0001-original-patches/*) | column -ts ';':
+    /usr/local/src/zfs/zfsv2/debian/patches/dupa:       2020-05-17 20:25:39.457872029 +0200
+    /usr/local/src/zfs/zfsv2/debian/patches/dupa2:      2020-05-18 00:52:08.437135459 +0200
+    /usr/local/src/zfs/zfsv4/debian/patches/dupa3:      2020-05-18 01:26:45.528012565 +0200
+    /usr/local/src/zfs/zfsv5/debian/patches/dupa4:      2020-05-18 01:59:03.797065392 +0200
+    /usr/local/src/zfs/zfsv6/debian/patches/dupa5:      2020-05-18 18:18:03.163268104 +0200
+    /usr/local/src/zfs/zfsv7/debian/patches/dupa6:      2020-05-18 18:43:30.438114050 +0200
+    /usr/local/src/zfs/zfsv7/debian/patches/dupa7:      2020-05-18 18:59:28.993259247 +0200
+    /usr/local/src/zfs/zfsv8/debian/patches/dupa8:      2020-05-18 22:00:54.255434431 +0200
+    /usr/local/src/zfs/zfsv9/debian/patches/dupa9:      2020-05-21 17:05:06.133528826 +0200
+    /usr/local/src/zfs/zfsv10/debian/patches/dupa10:    2020-05-21 22:21:22.372369062 +0200
+    /usr/local/src/zfs/zfsv10/debian/patches/dupa10.5:  2020-05-21 22:21:29.904570275 +0200
+    /usr/local/src/zfs/zfsv11/debian/patches/dupa11:    2020-05-22 13:06:07.709604612 +0200
+
+0002-logs/ contains debuild-style logs (e.g. dpkg-buildpackage -us -uc -nc 2>&1 | tee ../v8.build),
+  some straces from when the userspace tools (here: zfs mount -a) crashed,
+  and comparative logs from and amd64 machine to verify that the time warnings were x32-specfic (*-tarta.build),
+  alongside diffnote, which notes where they occured in some logs.
+    $ stat -c "%Y %n:;%y" $(realpath 0002-logs/*) | column -ts ';'
+    /usr/local/src/zfs/diffnote:          2020-05-21 23:31:41.617427568 +0200
+    /usr/local/src/zfs/v2.build:          2020-05-17 20:37:39.181293916 +0200
+    /usr/local/src/zfs/v2.strace:         2020-05-17 21:11:11.900035592 +0200
+    /usr/local/src/zfs/v3.build:          2020-05-18 01:01:05.839408356 +0200
+    /usr/local/src/zfs/v3.strace:         2020-05-18 01:24:30.484437735 +0200
+    /usr/local/src/zfs/v4.build:          2020-05-18 01:37:28.129257524 +0200
+    /usr/local/src/zfs/v4.strace:         2020-05-18 01:45:37.467048055 +0200
+    /usr/local/src/zfs/v5.build:          2020-05-18 02:08:19.648086511 +0200
+    /usr/local/src/zfs/v6.build:          2020-05-18 18:21:46.653503076 +0200
+    /usr/local/src/zfs/v7.build:          2020-05-18 18:56:02.159434699 +0200
+    /usr/local/src/zfs/v7.1.build:        2020-05-18 19:08:20.864206953 +0200
+    /usr/local/src/zfs/v7.1.strace:       2020-05-18 19:42:15.876927099 +0200
+    /usr/local/src/zfs/v7.1+.strace:      2020-05-18 19:44:44.000427001 +0200
+    /usr/local/src/zfs/v7.2-j1.build:     2020-05-18 20:31:53.833428083 +0200
+    /usr/local/src/zfs/v7-tarta.build:    2020-05-18 20:28:26.747623822 +0200
+    /usr/local/src/zfs/v8.build:          2020-05-18 22:13:08.224028641 +0200
+    /usr/local/src/zfs/v8-tarta.build:    2020-05-18 22:12:34.678803129 +0200
+    /usr/local/src/zfs/v9.build:          2020-05-21 17:16:33.232530878 +0200
+    /usr/local/src/zfs/v10.build:         2020-05-21 22:33:25.039719627 +0200
+    /usr/local/src/zfs/v11.build:         2020-05-21 23:22:13.974223257 +0200
+    /usr/local/src/zfs/v11_.build:        2020-05-22 00:43:47.313114405 +0200
+    /usr/local/src/zfs/v11_-j1.build:     2020-05-22 01:32:42.015089607 +0200
+    /usr/local/src/zfs/v11-tarta.build:   2020-05-22 01:27:23.377345443 +0200
+    /usr/local/src/zfs/v12+rollup.build:  2020-05-22 13:47:21.578251615 +0200
+    /usr/local/src/zfs/v13+rollup.build:  2020-05-22 14:55:36.705166048 +0200
+
+0003-clean-patches/ has the -clean patchset based on debian 0.8.4-1, alongside a tiny time_t demo program.

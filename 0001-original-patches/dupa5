@@ -1,0 +1,19 @@
+diff --git a/include/libuutil_impl.h b/include/libuutil_impl.h
+index 9e89889a..d4ba8716 100644
+--- a/include/libuutil_impl.h
++++ b/include/libuutil_impl.h
+@@ -33,9 +33,13 @@
+ #include <pthread.h>
+ 
+ #include <sys/avl_impl.h>
+-#include <sys/isa_defs.h>
++//#include <sys/isa_defs.h>
+ #include <sys/byteorder.h>
+ 
++#ifdef _SYS_ISA_DEFS_H
++#error ipipoo
++#endif
++
+ #ifdef	__cplusplus
+ extern "C" {
+ #endif

@@ -1,0 +1,117 @@
+Description: <short summary of the patch>
+ TODO: Put a short summary on the line above and replace this paragraph
+ with a longer explanation of this change. Complete the meta-information
+ with other relevant fields (see below for details). To make it easier, the
+ information below has been extracted from the changelog. Adjust it or drop
+ it.
+ .
+ zfs-linux (0.8.4-1) unstable; urgency=medium
+ .
+   [ Antonio Russo ]
+   * Let zfs-test use installed python3
+   * Add dependencies for zfs-test
+   * Refresh patches for 0.8.4
+   * Refresh debian/not-installed
+ .
+   [ Mo Zhou ]
+   * New upstream version 0.8.4
+   * Bump Standards-Version to 4.5.0 (no change).
+   * Refresh symbols control file.
+   * Remove the unnecessary --with systemd dh option.
+Author: Mo Zhou <lumin@debian.org>
+
+---
+The information above should follow the Patch Tagging Guidelines, please
+checkout http://dep.debian.net/deps/dep3/ to learn about the format. Here
+are templates for supplementary fields that you might want to add:
+
+Origin: <vendor|upstream|other>, <url of original patch>
+Bug: <url in upstream bugtracker>
+Bug-Debian: https://bugs.debian.org/<bugnumber>
+Bug-Ubuntu: https://launchpad.net/bugs/<bugnumber>
+Forwarded: <no|not-needed|url proving that it has been forwarded>
+Reviewed-By: <name and email of someone who approved the patch>
+Last-Update: 2020-05-17
+
+--- zfs-linux-0.8.4.orig/lib/libspl/include/sys/isa_defs.h
++++ zfs-linux-0.8.4/lib/libspl/include/sys/isa_defs.h
+@@ -31,48 +31,10 @@
+ extern "C" {
+ #endif
+ 
+-/* x86_64-x32 arch specific defines */
+-#if (defined(__x86_64) || defined(__x86_64__)) && (defined(__i386) || defined(__i386__))
+-#warning its x32 baybeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+-
+-#if !defined(__x86_64)
+-#define __x86_64
+-#endif
+-
+-#if !defined(__amd64)
+-#define __amd64
+-#endif
+-
+-#if !defined(__x86)
+-#define __x86
+-#endif
+-
+-#if !defined(__i386)
+-#define __i386
+-#endif
+-
+-#if !defined(__x86)
+-#define __x86
+-#endif
+-
+-#if defined(_LP64)
+-#undef _LP64
+-#warning Cleansing_LP64
+-#endif
+-
+-#if !defined(_ILP32)
+-#define _ILP32
+-#endif
+-
+-#if !defined(_LITTLE_ENDIAN)
+-#define _LITTLE_ENDIAN
+-#endif
+-
+-#define _SUNOS_VTOC_16
+-#define HAVE_EFFICIENT_UNALIGNED_ACCESS
+ 
+ /* x86_64 arch specific defines */
+-#elif defined(__x86_64) || defined(__x86_64__)
++#if defined(__x86_64) || defined(__x86_64__)
++#warning x86-64
+ 
+ #if !defined(__x86_64)
+ #define	__x86_64
+@@ -86,9 +48,20 @@ extern "C" {
+ #define	__x86
+ #endif
+ 
++
++#if defined(_ILP32)
++/* x86_64 with 32-bit pointers: it's x32;
++   some code checks for _LP64 first, some for _ILP32; by undefining _LP64 we avoid problems caused by the former;
++   the downside of this approach is, of course, that all code that checks _LP64 first needs to include this header, though ideally all of them would */
++#warning its x32 baybeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
++#if defined(_LP64)
++#undef	_LP64
++#endif
++#else
+ #if !defined(_LP64)
+ #define	_LP64
+ #endif
++#endif
+ 
+ #if !defined(_LITTLE_ENDIAN)
+ #define	_LITTLE_ENDIAN
+@@ -99,6 +72,7 @@ extern "C" {
+ 
+ /* i386 arch specific defines */
+ #elif defined(__i386) || defined(__i386__)
++#warning just i386
+ 
+ #if !defined(__i386)
+ #define	__i386

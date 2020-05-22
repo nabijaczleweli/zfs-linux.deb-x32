@@ -1,0 +1,338 @@
+execve("/usr/sbin/zfs", ["zfs", "mount", "-a"], 0xffc6b8c0 /* 13 vars */) = 0
+brk(NULL)                               = 0x5823d000
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xf7f9f000
+access("/etc/ld.so.preload", R_OK)      = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=37739, ...}) = 0
+mmap(NULL, 37739, PROT_READ, MAP_PRIVATE, 3, 0) = 0xf7f95000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/libnvpair.so.1", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\1\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\360H\0\0004\0\0\0"..., 512) = 512
+fstat(3, {st_mode=S_IFREG|0644, st_size=87396, ...}) = 0
+mmap(NULL, 90168, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xf7f7e000
+mprotect(0xf7f82000, 69632, PROT_NONE)  = 0
+mmap(0xf7f82000, 45056, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x4000) = 0xf7f82000
+mmap(0xf7f8d000, 20480, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0xf000) = 0xf7f8d000
+mmap(0xf7f93000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x14000) = 0xf7f93000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/libuutil.so.1", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\1\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\340E\0\0004\0\0\0"..., 512) = 512
+fstat(3, {st_mode=S_IFREG|0644, st_size=50880, ...}) = 0
+mmap(NULL, 58092, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xf7f6f000
+mmap(0xf7f73000, 20480, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x4000) = 0xf7f73000
+mmap(0xf7f78000, 12288, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x9000) = 0xf7f78000
+mmap(0xf7f7b000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0xb000) = 0xf7f7b000
+mmap(0xf7f7d000, 748, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0xf7f7d000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/libzfs.so.2", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\1\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0p\344\0\0004\0\0\0"..., 512) = 512
+fstat(3, {st_mode=S_IFREG|0644, st_size=473232, ...}) = 0
+mmap(NULL, 489252, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xf7ef7000
+mprotect(0xf7f03000, 413696, PROT_NONE) = 0
+mmap(0xf7f03000, 319488, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0xc000) = 0xf7f03000
+mmap(0xf7f51000, 90112, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x5a000) = 0xf7f51000
+mmap(0xf7f68000, 16384, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x70000) = 0xf7f68000
+mmap(0xf7f6c000, 10020, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0xf7f6c000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/libzfs_core.so.1", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\1\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\360\"\0\0004\0\0\0"..., 512) = 512
+fstat(3, {st_mode=S_IFREG|0644, st_size=25860, ...}) = 0
+mmap(NULL, 28800, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xf7eef000
+mmap(0xf7ef1000, 12288, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x2000) = 0xf7ef1000
+mmap(0xf7ef4000, 4096, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x5000) = 0xf7ef4000
+mmap(0xf7ef5000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x5000) = 0xf7ef5000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/x86_64-linux-gnux32/libpthread.so.0", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\1\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\0l\0\0004\0\0\0"..., 512) = 512
+fstat(3, {st_mode=S_IFREG|0755, st_size=134416, ...}) = 0
+mmap(NULL, 119832, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xf7ed1000
+mmap(0xf7ed7000, 61440, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x6000) = 0xf7ed7000
+mmap(0xf7ee6000, 20480, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x15000) = 0xf7ee6000
+mmap(0xf7eeb000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x19000) = 0xf7eeb000
+mmap(0xf7eed000, 5144, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0xf7eed000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/x86_64-linux-gnux32/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\1\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\320\336\1\0004\0\0\0"..., 512) = 512
+fstat(3, {st_mode=S_IFREG|0755, st_size=1773256, ...}) = 0
+mmap(NULL, 1781936, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xf7d1d000
+mmap(0xf7d39000, 1339392, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1c000) = 0xf7d39000
+mmap(0xf7e80000, 303104, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x163000) = 0xf7e80000
+mmap(0xf7eca000, 16384, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1ac000) = 0xf7eca000
+mmap(0xf7ece000, 8368, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0xf7ece000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/x86_64-linux-gnux32/libblkid.so.1", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\1\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\20o\0\0004\0\0\0"..., 512) = 512
+fstat(3, {st_mode=S_IFREG|0644, st_size=309120, ...}) = 0
+mmap(NULL, 312596, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xf7cd0000
+mprotect(0xf7cd6000, 274432, PROT_NONE) = 0
+mmap(0xf7cd6000, 204800, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x6000) = 0xf7cd6000
+mmap(0xf7d08000, 65536, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x38000) = 0xf7d08000
+mmap(0xf7d19000, 16384, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x48000) = 0xf7d19000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/x86_64-linux-gnux32/libm.so.6", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\1\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\0\302\0\0004\0\0\0"..., 512) = 512
+fstat(3, {st_mode=S_IFREG|0644, st_size=1308352, ...}) = 0
+mmap(NULL, 1310984, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xf7b8f000
+mmap(0xf7b9b000, 634880, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0xc000) = 0xf7b9b000
+mmap(0xf7c36000, 622592, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0xa7000) = 0xf7c36000
+mmap(0xf7cce000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x13e000) = 0xf7cce000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/x86_64-linux-gnux32/libcrypto.so.1.1", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\1\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\0 \6\0004\0\0\0"..., 512) = 512
+fstat(3, {st_mode=S_IFREG|0644, st_size=2774244, ...}) = 0
+mmap(NULL, 2792616, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xf78e5000
+mmap(0xf793d000, 1691648, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x58000) = 0xf793d000
+mmap(0xf7ada000, 598016, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1f5000) = 0xf7ada000
+mmap(0xf7b6c000, 126976, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x286000) = 0xf7b6c000
+mmap(0xf7b8b000, 15528, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0xf7b8b000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/x86_64-linux-gnux32/libudev.so.1", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\1\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0 8\0\0004\0\0\0"..., 512) = 512
+fstat(3, {st_mode=S_IFREG|0644, st_size=161264, ...}) = 0
+mmap(NULL, 166084, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xf78bc000
+mmap(0xf78bf000, 106496, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x3000) = 0xf78bf000
+mmap(0xf78d9000, 40960, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1d000) = 0xf78d9000
+mmap(0xf78e3000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x26000) = 0xf78e3000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/x86_64-linux-gnux32/libuuid.so.1", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\1\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\20\23\0\0004\0\0\0"..., 512) = 512
+fstat(3, {st_mode=S_IFREG|0644, st_size=26004, ...}) = 0
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xf78ba000
+mmap(NULL, 28692, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xf78b2000
+mmap(0xf78b3000, 16384, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1000) = 0xf78b3000
+mmap(0xf78b7000, 4096, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x5000) = 0xf78b7000
+mmap(0xf78b8000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x5000) = 0xf78b8000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/x86_64-linux-gnux32/libz.so.1", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\1\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\20#\0\0004\0\0\0"..., 512) = 512
+fstat(3, {st_mode=S_IFREG|0644, st_size=108316, ...}) = 0
+mmap(NULL, 110984, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xf7896000
+mprotect(0xf7898000, 98304, PROT_NONE)  = 0
+mmap(0xf7898000, 69632, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x2000) = 0xf7898000
+mmap(0xf78a9000, 24576, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x13000) = 0xf78a9000
+mmap(0xf78b0000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x19000) = 0xf78b0000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/x86_64-linux-gnux32/libdl.so.2", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\1\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0000\21\0\0004\0\0\0"..., 512) = 512
+fstat(3, {st_mode=S_IFREG|0644, st_size=13892, ...}) = 0
+mmap(NULL, 16588, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xf7891000
+mmap(0xf7892000, 4096, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1000) = 0xf7892000
+mmap(0xf7893000, 4096, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x2000) = 0xf7893000
+mmap(0xf7894000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x2000) = 0xf7894000
+close(3)                                = 0
+mmap(NULL, 16384, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xf788d000
+arch_prctl(ARCH_SET_FS, 0xf788f780)     = 0
+mprotect(0xf7eca000, 8192, PROT_READ)   = 0
+mprotect(0xf7894000, 4096, PROT_READ)   = 0
+mprotect(0xf78b0000, 4096, PROT_READ)   = 0
+mprotect(0xf78b8000, 4096, PROT_READ)   = 0
+mprotect(0xf7eeb000, 4096, PROT_READ)   = 0
+mprotect(0xf78e3000, 4096, PROT_READ)   = 0
+mprotect(0xf7b6c000, 122880, PROT_READ) = 0
+mprotect(0xf7cce000, 4096, PROT_READ)   = 0
+mprotect(0xf7d19000, 12288, PROT_READ)  = 0
+mprotect(0xf7f93000, 4096, PROT_READ)   = 0
+mprotect(0xf7f7b000, 4096, PROT_READ)   = 0
+mprotect(0xf7ef5000, 4096, PROT_READ)   = 0
+mprotect(0xf7f68000, 8192, PROT_READ)   = 0
+mprotect(0x56669000, 4096, PROT_READ)   = 0
+mprotect(0xf7fc9000, 4096, PROT_READ)   = 0
+munmap(0xf7f95000, 37739)               = 0
+set_tid_address(0xf788fa08)             = 1854
+set_robust_list(0xf788fa14, 12)         = 0
+rt_sigaction(SIGRTMIN, {sa_handler=0xf7ed76a0, sa_mask=[], sa_flags=SA_RESTORER|SA_SIGINFO, sa_restorer=0xf7ee4060}, NULL, 8) = 0
+rt_sigaction(SIGRT_1, {sa_handler=0xf7ed7740, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART|SA_SIGINFO, sa_restorer=0xf7ee4060}, NULL, 8) = 0
+rt_sigprocmask(SIG_UNBLOCK, [RTMIN RT_1], NULL, 8) = 0
+prlimit64(0, RLIMIT_STACK, NULL, {rlim_cur=8192*1024, rlim_max=RLIM64_INFINITY}) = 0
+brk(NULL)                               = 0x5823d000
+brk(0x5825e000)                         = 0x5825e000
+brk(0x5825f000)                         = 0x5825f000
+openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=3035280, ...}) = 0
+mmap(NULL, 2097152, PROT_READ, MAP_PRIVATE, 3, 0) = 0xf768d000
+mmap(NULL, 2596864, PROT_READ, MAP_PRIVATE, 3, 0x6c000) = 0xf7413000
+close(3)                                = 0
+access("/run/systemd/container", R_OK)  = -1 ENOENT (No such file or directory)
+access("/sys/module/zfs", F_OK)         = 0
+openat(AT_FDCWD, "/dev/zfs", O_RDWR)    = 3
+close(3)                                = 0
+openat(AT_FDCWD, "/dev/zfs", O_RDWR)    = 3
+openat(AT_FDCWD, "/proc/self/mounts", O_RDONLY) = 4
+openat(AT_FDCWD, "/etc/dfs/sharetab", O_RDONLY) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/dev/zfs", O_RDWR)    = 5
+stat("/sys/module/zfs/properties.dataset/redundant_metadata", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/sync", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/checksum", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/dedup", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/compression", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/snapdir", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/snapdev", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/acltype", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/aclinherit", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/copies", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/primarycache", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/secondarycache", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/logbias", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/xattr", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/dnodesize", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/volmode", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/atime", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/relatime", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/devices", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/exec", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/setuid", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/readonly", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/zoned", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/vscan", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/nbmand", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/overlay", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/version", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/canmount", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/mounted", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/defer_destroy", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/keystatus", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/normalization", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/casesensitivity", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/keyformat", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/encryption", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/utf8only", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/origin", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/clones", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/mountpoint", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/sharenfs", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/type", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/sharesmb", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/mlslabel", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/context", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/fscontext", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/defcontext", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/rootcontext", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/receive_resume_token", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/encryptionroot", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/keylocation", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/used", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/available", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/referenced", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/compressratio", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/refcompressratio", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/volblocksize", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/usedbysnapshots", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/usedbydataset", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/usedbychildren", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/usedbyrefreservation", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/userrefs", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/written", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/logicalused", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/logicalreferenced", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/filesystem_count", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/snapshot_count", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/guid", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/createtxg", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/remaptxg", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/pbkdf2iters", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/objsetid", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/quota", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/reservation", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/volsize", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/refquota", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/refreservation", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/filesystem_limit", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/snapshot_limit", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/recordsize", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/special_small_blocks", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/numclones", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/name", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/iscsioptions", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/stmf_sbd_lu", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/useraccounting", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/unique", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/inconsistent", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/ivsetguid", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/prevsnap", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/pbkdf2salt", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/keyguid", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/priv_prop", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.dataset/creation", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.pool/altroot", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.pool/bootfs", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.pool/cachefile", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.pool/comment", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.pool/size", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.pool/free", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.pool/freeing", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.pool/checkpoint", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.pool/leaked", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.pool/allocated", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.pool/expandsize", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.pool/fragmentation", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.pool/capacity", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.pool/guid", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.pool/load_guid", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.pool/health", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.pool/dedupratio", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.pool/version", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.pool/dedupditto", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.pool/ashift", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.pool/delegation", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.pool/autoreplace", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.pool/listsnapshots", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.pool/autoexpand", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.pool/readonly", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.pool/multihost", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.pool/failmode", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.pool/autotrim", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.pool/name", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.pool/maxblocksize", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.pool/tname", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/properties.pool/maxdnodesize", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/features.pool/com.delphix:async_destroy", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/features.pool/com.delphix:empty_bpobj", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/features.pool/org.illumos:lz4_compress", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/features.pool/com.joyent:multi_vdev_crash_dump", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/features.pool/com.delphix:spacemap_histogram", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/features.pool/com.delphix:enabled_txg", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/features.pool/com.delphix:hole_birth", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/features.pool/com.delphix:zpool_checkpoint", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/features.pool/com.delphix:spacemap_v2", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/features.pool/com.delphix:extensible_dataset", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/features.pool/com.delphix:bookmarks", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/features.pool/com.joyent:filesystem_limits", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/features.pool/com.delphix:embedded_data", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/features.pool/org.open-zfs:large_blocks", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/features.pool/org.zfsonlinux:large_dnode", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/features.pool/org.illumos:sha512", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/features.pool/org.illumos:skein", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/features.pool/org.illumos:edonr", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/features.pool/com.delphix:device_removal", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/features.pool/com.delphix:obsolete_counts", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/features.pool/org.zfsonlinux:userobj_accounting", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/features.pool/com.datto:bookmark_v2", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/features.pool/com.datto:encryption", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/features.pool/org.zfsonlinux:project_quota", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/features.pool/org.zfsonlinux:allocation_classes", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+stat("/sys/module/zfs/features.pool/com.datto:resilver_defer", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+mmap(NULL, 266240, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xf73d2000
+ioctl(3, _IOC(_IOC_NONE, 0x5a, 0x4, 0), 0xffc28260) = 0
+munmap(0xf73d2000, 266240)              = 0
+brk(0x582a1000)                         = 0x582a1000
+ioctl(3, _IOC(_IOC_NONE, 0x5a, 0x12, 0), 0xffc28260) = 0
+ioctl(3, _IOC(_IOC_NONE, 0x5a, 0x5, 0), 0xffc24ba0) = 0
+ioctl(3, _IOC(_IOC_NONE, 0x5a, 0x14, 0), 0xffc28240) = -1 ESRCH (No such process)
+rt_sigprocmask(SIG_SETMASK, NULL, [], 8) = 0
+mmap(NULL, 8392704, PROT_NONE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_STACK, -1, 0) = 0xf6c12000
+mprotect(0xf6c13000, 8388608, PROT_READ|PROT_WRITE) = 0
+clone(child_stack=0xf74101b0, flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, parent_tid=[1855], tls=0xf7412940, child_tidptr=0xf7412bc8) = 1855
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+futex(0x582818c8, FUTEX_WAKE_PRIVATE, 1) = 1
+ioctl(3, _IOC(_IOC_NONE, 0x5a, 0x27, 0), 0xffc250c0) = 0
+futex(0x58281970, FUTEX_WAIT_PRIVATE, 0, NULL) = 0
+futex(0x582818c8, FUTEX_WAKE_PRIVATE, 1) = 0
+futex(0x58281940, FUTEX_WAKE_PRIVATE, 2147483647) = 1
+futex(0x582818c8, FUTEX_WAKE_PRIVATE, 1) = 1
+futex(0x582818c8, FUTEX_WAKE_PRIVATE, 1) = 0
+ioctl(3, _IOC(_IOC_NONE, 0x5a, 0x3f, 0), 0xffc28370) = -1 EPERM (Operation not permitted)
+close(3)                                = 0
+close(4)                                = 0
+close(5)                                = 0
+exit_group(0)                           = ?
++++ exited with 0 +++

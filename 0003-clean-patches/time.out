@@ -1,0 +1,11 @@
+x32$   time_t:    8
+x32$   long:      4
+x32$   long long: 8
+
+amd64$ time_t:    8
+amd64$ long:      8
+amd64$ long long: 8
+
+i386$  time_t:    4
+i386$  long:      4
+i386$  long long: 8
