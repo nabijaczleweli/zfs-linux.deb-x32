@@ -1,0 +1,51 @@
+From 3d2a12c6282870469429cdb15d0c4991b939384c Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?=D0=BD=D0=B0=D0=B1?= <nabijaczleweli@gmail.com>
+Date: Mon, 18 May 2020 00:00:49 +0200
+Subject: lib/libspl/include/sys/isa_defs.h
+
+dupa: warn for lib/libspl/include/sys/isa_defs.h
+dupa2: Handle x32 gracefully in isa_defs.h
+dupa3: awareify uutil
+dupa4: detect x32 in isa_defs.h
+dupa5: trans test v1
+dupa5: trans test v2
+dupa6: Revert "dupa5: trans test v[12]"
+  This reverts commit 675568be1f6137c607cec369e31dd03bc42073f0.
+  This reverts commit 3e32e8237436357737307a48e3fdbddfe4958bcb.
+dupa7: remove isa_defs include since it's transitive apparently
+dupa8: berid of more explicit warnings
+dupa9: remove _LP64-on-_ILP32 trap (gcc-9 doesn't do it, have not managed to get my hands on clang-9 or -10); mention x32 as supported architecture; reerror _LP64+_ILP32 case
+---
+ lib/libspl/include/sys/isa_defs.h | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/lib/libspl/include/sys/isa_defs.h b/lib/libspl/include/sys/isa_defs.h
+index 7a90e077..7bec3b93 100644
+--- a/lib/libspl/include/sys/isa_defs.h
++++ b/lib/libspl/include/sys/isa_defs.h
+@@ -46,9 +46,13 @@ extern "C" {
+ #define	__x86
+ #endif
+ 
++#if defined(_ILP32)
++/* x32-specific defines; careful to *not* define _LP64 here */
++#else
+ #if !defined(_LP64)
+ #define	_LP64
+ #endif
++#endif
+ 
+ #if !defined(_LITTLE_ENDIAN)
+ #define	_LITTLE_ENDIAN
+@@ -195,7 +199,7 @@ extern "C" {
+ #else
+ /*
+  * Currently supported:
+- * x86_64, i386, arm, powerpc, s390, sparc, and mips
++ * x86_64, x32, i386, arm, powerpc, s390, sparc, and mips
+  */
+ #error "Unsupported ISA type"
+ #endif
+-- 
+2.27.0.rc0
+
