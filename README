@@ -2,12 +2,14 @@ src:zfs-linux x32 port
 ======================
 
 This repository is mostly for my reference later, but:
-  * branch debian:            clone of the Salsa debian repository at 0.8.4-1 (54029be)
+  * branch debian:            clone of the Salsa zfs repository at 0.8.4-1 (54029be)
   * branch zfs-patched:       git-amed patches from debian + my working patches as commits;
                               they are not clean in a number of ways
   * branch zfs-patched-clean: my working patches as commits, squashed, clean for upstream/debian
   * branch zfsv*:             git-worktrees with (roughly) one new patch per branch; dpkg-buildpackageable
   * branch zfsv*+rollup:      like above but with -clean patches
+  * branch upstream-v1:       clone of openzfs/zfs at HEAD@{2020-05-20T19-06-09-0600} (fb822260)
+                              + -clean patches with upstream issue refs 
 
 For ease of consumption, 0001-original-patches/ contains the patches as written on a night that is (mostly) one big haze:
     $ stat -c "%n:;%y" $(realpath 0001-original-patches/*) | column -ts ';':
@@ -55,4 +57,8 @@ For ease of consumption, 0001-original-patches/ contains the patches as written 
     /usr/local/src/zfs/v12+rollup.build:  2020-05-22 13:47:21.578251615 +0200
     /usr/local/src/zfs/v13+rollup.build:  2020-05-22 14:55:36.705166048 +0200
 
-0003-clean-patches/ has the -clean patchset based on debian 0.8.4-1, alongside a tiny time_t demo program.
+0003-clean-patches/ has the -clean patchset based on debian 0.8.4-1, alongside a tiny time_t demo program;
+  these apply cleanly on top of upstream version 0.8.4 (6b18d7df3).
+
+0004-upstream-v1/ has the -clean patchset based on openzfs/zfs at HEAD@{2020-05-20T19-06-09-0600} (fb822260),
+  with added upstream issue refs.
