@@ -69,3 +69,5 @@ For ease of consumption, 0001-original-patches/ contains the patches as written 
 0006-upstream-v3/ applies the SPL ABI detection change to the linux include/ tree as well,
   and switches to an [u]longlong_t cast with "%ll[ud]" formatting instead of ZFS_CONFIG_TIME_T_FORMAT autoconf variable,
   following review from upstream.
+
+0007-upstream-v4/ uses "%lld" instead of "%llu" following a review comment
