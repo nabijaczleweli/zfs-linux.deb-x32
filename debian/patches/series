@@ -15,4 +15,4 @@ enable-zed.patch
 force-verbose-rules.patch
 #zfs-mount-container-start.patch
 x32/0001-Correctly-handle-the-x32-ABI.patch
-x32/0002-Always-use-ll-ud-for-formatting-time_ts.patch
+x32/0002-Always-use-lld-for-formatting-time_ts.patch
