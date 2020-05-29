@@ -71,3 +71,8 @@ For ease of consumption, 0001-original-patches/ contains the patches as written 
   following review from upstream.
 
 0007-upstream-v4/ uses "%lld" instead of "%llu" following a review comment
+
+0008-10357+844.mbox is a mail log of those two issues in the zfs repository.
+
+0009-final-patches/ has the final upstreamed patches ported back to 0.8.4 and functional in debian 0.8.4-1;
+  these match the ones in the zfsv16+rollup branch.

@@ -1,0 +1,3273 @@
+From noreply@github.com Thu May 28 19:32:23 2020
+Delivered-To: nabijaczleweli@gmail.com
+Received: by 2002:a4a:a581:0:0:0:0:0 with SMTP id d1csp607669oom;
+        Thu, 28 May 2020 10:32:26 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJzlNxodFtJ9KQdqGjSxm0Ys0LnjWsBr6JvLc5jKB2EK2ODdktsqwrvtlNZnr21Bt9e2hIOi
+X-Received: by 2002:ad4:57a2:: with SMTP id g2mr4217649qvx.137.1590687143388;
+        Thu, 28 May 2020 10:32:23 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1590687143; cv=none;
+        d=google.com; s=arc-20160816;
+        b=b37mYne+0KWOlzJRYq7bkpih2/Sjv3JcS01RcdJm9BoeVT8HSO7YZ0lYf47weH+0Wa
+         9SnYVlNWayvXrF+J+d/r0dbrxgZyZeIe9YNH5IDqOaE7JFLhtpMXTKpCEl336nep2eV+
+         25Ied5AxMUe8dNhVzPXKAf9tqhlPTb3yVptF859FeRR3hb/i/x6XbRBSedetCGIWwBKy
+         JSlqcDkS7/kuOKJgTomoOATWhqZ+UnAXrVfQA6rHaCetkRG/9pTrQgFLWVBd2DAsXwJV
+         Bph32CFSdLQHpxQm33hnhNhcl/bwz12lwFShrDkvTtajQac8pkUF3DmiaY9tWNjkC3j+
+         8fwQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-post:list-archive:list-id:precedence
+         :content-transfer-encoding:mime-version:subject:references
+         :in-reply-to:message-id:cc:to:reply-to:from:date:dkim-signature;
+        bh=Sl9o9jEr1EOWqwAChpvrK4r1xnck0n91yJhZ9/EpFK4=;
+        b=DeqM/M19mvEyiBecV1AqCKJVBdjAZ4YkkYy8VBM4B7yfjpVrL6BN7aqMu6arYkhNCO
+         xhp4A/w+NtzTZ+fa2bm9tnTizjeU5RXNYtwWkeA0a9w32VqpVh874M95hTx5ia07Sra9
+         08eqNzRA2fsDYE5fkNOPNYTZ6wze7M4v+ZYWQE4M/tA/85xSTeTh0tWPbEGsdu2BBNiM
+         GkfPaENG+TwfwxS4+BtGCUOQXJT09hq0mfKgM9E3iZsrwcXN8fhm5TvfdhsayfaqsAEn
+         us+8Y6gCsZixolT6o88XDNSr7pH3xWO9bbGO8hTNgKYLs3H6LaY+oWA8Tzg/qoCXPFwD
+         ltcw==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=1oKyZTuy;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.210 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
+Return-Path: <noreply@github.com>
+Received: from out-27.smtp.github.com (out-27.smtp.github.com. [192.30.252.210])
+        by mx.google.com with ESMTPS id c22si3709372qke.168.2020.05.28.10.32.23
+        for <nabijaczleweli@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Thu, 28 May 2020 10:32:23 -0700 (PDT)
+Received-SPF: pass (google.com: domain of noreply@github.com designates 192.30.252.210 as permitted sender) client-ip=192.30.252.210;
+Authentication-Results: mx.google.com;
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=1oKyZTuy;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.210 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
+Received: from github-lowworker-f62aa54.va3-iad.github.net (github-lowworker-f62aa54.va3-iad.github.net [10.48.17.68])
+	by smtp.github.com (Postfix) with ESMTP id 2763EE012C
+	for <nabijaczleweli@gmail.com>; Thu, 28 May 2020 10:32:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=github.com;
+	s=pf2014; t=1590687143;
+	bh=Sl9o9jEr1EOWqwAChpvrK4r1xnck0n91yJhZ9/EpFK4=;
+	h=Date:From:Reply-To:To:Cc:In-Reply-To:References:Subject:List-ID:
+	 List-Archive:List-Post:List-Unsubscribe:From;
+	b=1oKyZTuydUmtXpHxp0Pn5pG4UoG9hSjti5uCjEC+tlsDcPJXczAYzx8OACQvvIlAD
+	 PwNr9bv6QsI9AeMunsqVmA+eCFb+IHYXbu/a2LVqQY0Gn7kNgF6s05bGXSZhOg6gyc
+	 eip31XK6PNaTh5KjD2tiQUVIhREU2p+4jg+Z84Oo=
+Date: Thu, 28 May 2020 10:32:23 -0700
+From: Brian Behlendorf <notifications@github.com>
+Reply-To: openzfs/zfs <reply+ABTGCKH7F2FFKMASSTZP44543PLKPEVBNHHAAV3UGM@reply.github.com>
+To: openzfs/zfs <zfs@noreply.github.com>
+Cc: =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@gmail.com>, 
+ Comment <comment@noreply.github.com>
+Message-ID: <openzfs/zfs/issue/844/issue_event/3383893277@github.com>
+In-Reply-To: <openzfs/zfs/issues/844@github.com>
+References: <openzfs/zfs/issues/844@github.com>
+Subject: Re: [openzfs/zfs] zfs fails to build on x32 ABI (#844)
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="--==_mimepart_5ecff5a7170ca_7af33f8e50ecd95c118546";
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Precedence: list
+X-GitHub-Sender: behlendorf
+X-GitHub-Recipient: nabijaczleweli
+X-GitHub-Reason: comment
+List-ID: openzfs/zfs <zfs.openzfs.github.com>
+List-Archive: https://github.com/openzfs/zfs
+List-Post: <mailto:reply+ABTGCKH7F2FFKMASSTZP44543PLKPEVBNHHAAV3UGM@reply.github.com>
+List-Unsubscribe: <mailto:unsub+ABTGCKH7F2FFKMASSTZP44543PLKPEVBNHHAAV3UGM@reply.github.com>,
+ <https://github.com/notifications/unsubscribe/ABTGCKFJCGXD3W6TX4AUVLLRT2N2PANCNFSM4AATPVWQ>
+X-Auto-Response-Suppress: All
+X-GitHub-Recipient-Address: nabijaczleweli@gmail.com
+Status: RO
+Content-Length: 2200
+Lines: 40
+
+
+----==_mimepart_5ecff5a7170ca_7af33f8e50ecd95c118546
+Content-Type: text/plain;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+Closed #844 via 6059f3a1f6950bd2aa9724ab917f2bc01343a076.
+
+-- 
+You are receiving this because you commented.
+Reply to this email directly or view it on GitHub:
+https://github.com/openzfs/zfs/issues/844#event-3383893277
+----==_mimepart_5ecff5a7170ca_7af33f8e50ecd95c118546
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<p></p>
+<p>Closed <a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="5731379" data-permission-text="Title is private" data-url="https://github.com/openzfs/zfs/issues/844" data-hovercard-type="issue" data-hovercard-url="/openzfs/zfs/issues/844/hovercard" href="https://github.com/openzfs/zfs/issues/844">#844</a> via <a class="commit-link" data-hovercard-type="commit" data-hovercard-url="https://github.com/openzfs/zfs/commit/6059f3a1f6950bd2aa9724ab917f2bc01343a076/hovercard" href="https://github.com/openzfs/zfs/commit/6059f3a1f6950bd2aa9724ab917f2bc01343a076"><tt>6059f3a</tt></a>.</p>
+
+<p style="font-size:small;-webkit-text-size-adjust:none;color:#666;">&mdash;<br />You are receiving this because you commented.<br />Reply to this email directly, <a href="https://github.com/openzfs/zfs/issues/844#event-3383893277">view it on GitHub</a>, or <a href="https://github.com/notifications/unsubscribe-auth/ABTGCKAHX5V7FFTZZOYP2B3RT2N2PANCNFSM4AATPVWQ">unsubscribe</a>.<img src="https://github.com/notifications/beacon/ABTGCKGHFAGX6N6IZUFCEQDRT2N2PA5CNFSM4AATPVW2YY3PNVWWK3TUL52HS4DFWZEXG43VMVCXMZLOORHG65DJMZUWGYLUNFXW5KTDN5WW2ZLOORPWSZGOZGZB2HI.gif" height="1" width="1" alt="" /></p>
+<script type="application/ld+json">[
+{
+"@context": "http://schema.org",
+"@type": "EmailMessage",
+"potentialAction": {
+"@type": "ViewAction",
+"target": "https://github.com/openzfs/zfs/issues/844#event-3383893277",
+"url": "https://github.com/openzfs/zfs/issues/844#event-3383893277",
+"name": "View Issue"
+},
+"description": "View this Issue on GitHub",
+"publisher": {
+"@type": "Organization",
+"name": "GitHub",
+"url": "https://github.com"
+}
+}
+]</script>
+----==_mimepart_5ecff5a7170ca_7af33f8e50ecd95c118546--
+
+From noreply@github.com Mon May 18 04:18:59 2020
+Delivered-To: nabijaczleweli@gmail.com
+Received: by 2002:a4a:e419:0:0:0:0:0 with SMTP id t25csp2951423oov;
+        Sun, 17 May 2020 19:18:59 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJz+Q4TfbLPmqSv5JmzIEX5xnhFZTZvU+66Hl226K/asXR5+THNXNFXdqlsydTiULRQsdG/p
+X-Received: by 2002:a37:e4c:: with SMTP id 73mr14213887qko.66.1589768339130;
+        Sun, 17 May 2020 19:18:59 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1589768339; cv=none;
+        d=google.com; s=arc-20160816;
+        b=m5HSQJff5LnG2RRUwq2lgwm8hUTMoPK9SUiomKdUpuRkqYOg48y32E2iM6A/8wKeRs
+         3hnGbg9ugIJm82kPNGtfoPh5mGMekS/ttlJdf6cp0RfNTlbnNNmNbp/lJ9I4XrU+aAtI
+         qV8jPH5o+Ted7kg9Pk969h4CDw9jxKwjrAFlQFF6MOmqf5OTkRiV4dDG4F3C/APTVzMP
+         p3JEZ4hVRQFcLNL0BOD6hDkAI1mHx3gCNKsC0Gb5Gn+vUJltwnjnIBFc7OTqA9U95ea9
+         PtAIgKSC0j7Lc+dbFiwwl75b1oD7rHZXfGLEv73pXgLrvzzz6GA3kKq2ecYQjiiUCKHD
+         2n5Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-post:list-archive:list-id:precedence
+         :content-transfer-encoding:mime-version:subject:references
+         :in-reply-to:message-id:cc:to:reply-to:from:date:dkim-signature;
+        bh=mW6b7fjYMNek7X9yT3IE1YMOKxhhF7m3t2XTG20a8Ys=;
+        b=OB107zJRCnCaFwEBoUzEOVCSjINWFUtsKChjHqU2bbOsLpweKbVrRkzSba2sCQh1bx
+         9OpDqlWN0peTokyzbIgB1873TVNZKsLx7is5wQap/quSZ8SPSseSjA4lIfj9Tl7WFJjT
+         s0Lvyrq2FraaMJPxrYtK+Ke01xEuoI0KG6lV0qq3MTVBjU0hDqwA/tHKjpQBDhHbe1KA
+         qIaqMv/bZRyRJYWW6TKOe6CTs26MWEIpDaRSLuxdMYlFoyrNH/KlcVV7QRnBYD5Wflwf
+         6ZR3k5hBuoAib8vJ1glvtRhxu0hnKuFh5bqfkIcmhKmlp4l0k3ZcmjfhnoPsGlQZdryg
+         OLCA==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b="yDd/5N6G";
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.210 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
+Return-Path: <noreply@github.com>
+Received: from out-27.smtp.github.com (out-27.smtp.github.com. [192.30.252.210])
+        by mx.google.com with ESMTPS id t51si5217611qtj.31.2020.05.17.19.18.59
+        for <nabijaczleweli@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Sun, 17 May 2020 19:18:59 -0700 (PDT)
+Received-SPF: pass (google.com: domain of noreply@github.com designates 192.30.252.210 as permitted sender) client-ip=192.30.252.210;
+Authentication-Results: mx.google.com;
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b="yDd/5N6G";
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.210 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
+Received: from github-lowworker-1b8c660.ash1-iad.github.net (github-lowworker-1b8c660.ash1-iad.github.net [10.56.18.59])
+	by smtp.github.com (Postfix) with ESMTP id E57B2E0064
+	for <nabijaczleweli@gmail.com>; Sun, 17 May 2020 19:18:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=github.com;
+	s=pf2014; t=1589768338;
+	bh=mW6b7fjYMNek7X9yT3IE1YMOKxhhF7m3t2XTG20a8Ys=;
+	h=Date:From:Reply-To:To:Cc:In-Reply-To:References:Subject:List-ID:
+	 List-Archive:List-Post:List-Unsubscribe:From;
+	b=yDd/5N6Gcd/GeXZA3iJ6CIpPRA4R3oXsNfGzpDYX34aRXNXijENb4pTElBtJcBVw4
+	 6ASMVbOCja4fzD/CtQTaO1dHHf+3IKkfZFta5JT5/AEyVrBGzCADcNVZuiVkcmH9cr
+	 uy7tiiLq5iv1lJagHKaJNZfyz9r38R9nIn8wui8A=
+Date: Sun, 17 May 2020 19:18:58 -0700
+From: =?UTF-8?B?0L3QsNCx?= <notifications@github.com>
+Reply-To: openzfs/zfs <reply+ABTGCKEN4YCUIWA6PU5BTGN4ZXIZFEVBNHHAAV3UGM@reply.github.com>
+To: openzfs/zfs <zfs@noreply.github.com>
+Cc: =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@gmail.com>, 
+ Your activity <your_activity@noreply.github.com>
+Message-ID: <openzfs/zfs/issues/844/629909893@github.com>
+In-Reply-To: <openzfs/zfs/issues/844@github.com>
+References: <openzfs/zfs/issues/844@github.com>
+Subject: Re: [openzfs/zfs] zfs fails to build on x32 ABI (#844)
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="--==_mimepart_5ec1f092d5d78_a7b3f93d58cd9643674bb";
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Precedence: list
+X-GitHub-Sender: nabijaczleweli
+X-GitHub-Recipient: nabijaczleweli
+X-GitHub-Reason: your_activity
+List-ID: openzfs/zfs <zfs.openzfs.github.com>
+List-Archive: https://github.com/openzfs/zfs
+List-Post: <mailto:reply+ABTGCKEN4YCUIWA6PU5BTGN4ZXIZFEVBNHHAAV3UGM@reply.github.com>
+List-Unsubscribe: <mailto:unsub+ABTGCKEN4YCUIWA6PU5BTGN4ZXIZFEVBNHHAAV3UGM@reply.github.com>,
+ <https://github.com/notifications/unsubscribe/ABTGCKAFYI4FYDGC4JOEQYDRSCLJFANCNFSM4AATPVWQ>
+X-Auto-Response-Suppress: All
+X-GitHub-Recipient-Address: nabijaczleweli@gmail.com
+Status: RO
+Content-Length: 2011
+Lines: 43
+
+
+----==_mimepart_5ec1f092d5d78_a7b3f93d58cd9643674bb
+Content-Type: text/plain;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+hi 
+![DSC_0773](https://user-images.githubusercontent.com/6709544/82168221-8d4c0880-98be-11ea-9c9e-bfcf1eb95619.jpg)
+
+
+-- 
+You are receiving this because you are subscribed to this thread.
+Reply to this email directly or view it on GitHub:
+https://github.com/openzfs/zfs/issues/844#issuecomment-629909893
+----==_mimepart_5ec1f092d5d78_a7b3f93d58cd9643674bb
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<p></p>
+<p>hi<br>
+<a target="_blank" rel="noopener noreferrer" href="https://user-images.githubusercontent.com/6709544/82168221-8d4c0880-98be-11ea-9c9e-bfcf1eb95619.jpg"><img src="https://user-images.githubusercontent.com/6709544/82168221-8d4c0880-98be-11ea-9c9e-bfcf1eb95619.jpg" alt="DSC_0773" style="max-width:100%;"></a></p>
+
+<p style="font-size:small;-webkit-text-size-adjust:none;color:#666;">&mdash;<br />You are receiving this because you are subscribed to this thread.<br />Reply to this email directly, <a href="https://github.com/openzfs/zfs/issues/844#issuecomment-629909893">view it on GitHub</a>, or <a href="https://github.com/notifications/unsubscribe-auth/ABTGCKGFAFGXQUJNYD24O33RSCLJFANCNFSM4AATPVWQ">unsubscribe</a>.<img src="https://github.com/notifications/beacon/ABTGCKDEXW3QCC6QTGHDH2TRSCLJFA5CNFSM4AATPVW2YY3PNVWWK3TUL52HS4DFVREXG43VMVBW63LNMVXHJKTDN5WW2ZLOORPWSZGOEWF2TBI.gif" height="1" width="1" alt="" /></p>
+<script type="application/ld+json">[
+{
+"@context": "http://schema.org",
+"@type": "EmailMessage",
+"potentialAction": {
+"@type": "ViewAction",
+"target": "https://github.com/openzfs/zfs/issues/844#issuecomment-629909893",
+"url": "https://github.com/openzfs/zfs/issues/844#issuecomment-629909893",
+"name": "View Issue"
+},
+"description": "View this Issue on GitHub",
+"publisher": {
+"@type": "Organization",
+"name": "GitHub",
+"url": "https://github.com"
+}
+}
+]</script>
+----==_mimepart_5ec1f092d5d78_a7b3f93d58cd9643674bb--
+
+From noreply@github.com Thu May 28 19:32:23 2020
+Delivered-To: nabijaczleweli@gmail.com
+Received: by 2002:a4a:a581:0:0:0:0:0 with SMTP id d1csp607619oom;
+        Thu, 28 May 2020 10:32:23 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJz0lqds4u70k9wMBzve8dwQ6nXdlTmXPIP37+nyV1wsx0KBfWMQPPtnKWuy2AoZLHhXVVak
+X-Received: by 2002:a37:5b47:: with SMTP id p68mr4041126qkb.120.1590687143025;
+        Thu, 28 May 2020 10:32:23 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1590687143; cv=none;
+        d=google.com; s=arc-20160816;
+        b=VhrfETg58y9XOADuuiWoel4PAc7hibFSMoO2mLJ+2s+3H3hLjpq4hGAGZ/UYToKVOd
+         qlSzYqn6txn3UKg31D/V0AdgCiD52mxIuDXg+htLzRtjLDXjh+qB3InqcyOErNVG4y+4
+         WHksE2BRPOZOZovshEwgxDudf4h7THZ1JZZMa1LJndMOYj7bLO9ASFZuARY5DMDwQzEm
+         My/nzKYPq3F99EYNe1tJcXUPngT7se6YvRw4x/upGY4aaoiBvO5H76kE2exqdYMNk+HT
+         A8QCsR2ko4+fSLqhcQDvUnP42z6gc/fNgQaqPWUef4hOOytEtd4FNkz1LfFZrJ9DnmqU
+         XG2A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-post:list-archive:list-id:precedence
+         :content-transfer-encoding:mime-version:subject:references
+         :in-reply-to:message-id:cc:to:reply-to:from:date:dkim-signature;
+        bh=gjZz3rSWI75ZdMo+zZaC42/hqEiG7vUhZ91UWJONYSU=;
+        b=MRk7ZjSGsS/7dfxuC+pq0dfU0rAeTGfg8bUBlfBwHY0MX0AzTwlaVcZyITc4uUfUJd
+         d4o/5cHyU9Q2VDTn3ike8Q082V99gCFKAvKOBMUz97byLeY9VZRsIpT9Q78QxF+4bJ+7
+         qcsCwhMGIjc42rj55bqanpQoT1o2+XUNDHhT4I2oc5gsBzpv2fZd+1stxHxxfGp2gI7t
+         pjDCnu5mu95NkWH+JbaRtvcKOOonFJXKXpaPJbtQjH3LFAI5eCrnCgZv9c+AV7oZumhE
+         OnpfCkbpXqyOexVISJRrd2Bi/9emmBt5byteU4eAl8L5wANUNtM12nbOAQooENkKwEap
+         NpMA==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=A+h9zinn;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.197 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
+Return-Path: <noreply@github.com>
+Received: from out-6.smtp.github.com (out-6.smtp.github.com. [192.30.252.197])
+        by mx.google.com with ESMTPS id a18si3514805qtw.354.2020.05.28.10.32.22
+        for <nabijaczleweli@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Thu, 28 May 2020 10:32:23 -0700 (PDT)
+Received-SPF: pass (google.com: domain of noreply@github.com designates 192.30.252.197 as permitted sender) client-ip=192.30.252.197;
+Authentication-Results: mx.google.com;
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=A+h9zinn;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.197 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
+Received: from github-lowworker-f144ac1.va3-iad.github.net (github-lowworker-f144ac1.va3-iad.github.net [10.48.16.59])
+	by smtp.github.com (Postfix) with ESMTP id BF4AA1C072B
+	for <nabijaczleweli@gmail.com>; Thu, 28 May 2020 10:32:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=github.com;
+	s=pf2014; t=1590687142;
+	bh=gjZz3rSWI75ZdMo+zZaC42/hqEiG7vUhZ91UWJONYSU=;
+	h=Date:From:Reply-To:To:Cc:In-Reply-To:References:Subject:List-ID:
+	 List-Archive:List-Post:List-Unsubscribe:From;
+	b=A+h9zinnBRnXuEtM5RDKFl/l6B2IzJ8n4UNagy8kBJTHmsAg1pfbF/cqIW19aHELG
+	 6kzypMrNWtDaB8mP9eit8lY0K15YMWrwNlR4b4f3WgxgnKSj5UFO5cPcUJNj5MaTet
+	 8oDNwgn3CqvE+g02qNUmmzIWkXg/bDArY0FO0XYk=
+Date: Thu, 28 May 2020 10:32:22 -0700
+From: Brian Behlendorf <notifications@github.com>
+Reply-To: openzfs/zfs <reply+ABTGCKDHW4N7NXJDEVQFADV43PLKNEVBNHHCKJ5CNE@reply.github.com>
+To: openzfs/zfs <zfs@noreply.github.com>
+Cc: =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@gmail.com>, 
+ Mention <mention@noreply.github.com>
+Message-ID: <openzfs/zfs/pull/10357/issue_event/3383893240@github.com>
+In-Reply-To: <openzfs/zfs/pull/10357@github.com>
+References: <openzfs/zfs/pull/10357@github.com>
+Subject: Re: [openzfs/zfs] x32 builds (#10357)
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="--==_mimepart_5ecff5a6b043f_1ecd3fdbfbacd96c97345";
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Precedence: list
+X-GitHub-Sender: behlendorf
+X-GitHub-Recipient: nabijaczleweli
+X-GitHub-Reason: mention
+List-ID: openzfs/zfs <zfs.openzfs.github.com>
+List-Archive: https://github.com/openzfs/zfs
+List-Post: <mailto:reply+ABTGCKDHW4N7NXJDEVQFADV43PLKNEVBNHHCKJ5CNE@reply.github.com>
+List-Unsubscribe: <mailto:unsub+ABTGCKDHW4N7NXJDEVQFADV43PLKNEVBNHHCKJ5CNE@reply.github.com>,
+ <https://github.com/notifications/unsubscribe/ABTGCKBE77O6YTNYRVP77ATRT2N2NANCNFSM4NIADNOQ>
+X-Auto-Response-Suppress: All
+X-GitHub-Recipient-Address: nabijaczleweli@gmail.com
+Status: RO
+Content-Length: 2236
+Lines: 40
+
+
+----==_mimepart_5ecff5a6b043f_1ecd3fdbfbacd96c97345
+Content-Type: text/plain;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+Closed #10357 via 6059f3a1f6950bd2aa9724ab917f2bc01343a076.
+
+-- 
+You are receiving this because you were mentioned.
+Reply to this email directly or view it on GitHub:
+https://github.com/openzfs/zfs/pull/10357#event-3383893240
+----==_mimepart_5ecff5a6b043f_1ecd3fdbfbacd96c97345
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<p></p>
+<p>Closed <a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="623354473" data-permission-text="Title is private" data-url="https://github.com/openzfs/zfs/issues/10357" data-hovercard-type="pull_request" data-hovercard-url="/openzfs/zfs/pull/10357/hovercard" href="https://github.com/openzfs/zfs/pull/10357">#10357</a> via <a class="commit-link" data-hovercard-type="commit" data-hovercard-url="https://github.com/openzfs/zfs/commit/6059f3a1f6950bd2aa9724ab917f2bc01343a076/hovercard" href="https://github.com/openzfs/zfs/commit/6059f3a1f6950bd2aa9724ab917f2bc01343a076"><tt>6059f3a</tt></a>.</p>
+
+<p style="font-size:small;-webkit-text-size-adjust:none;color:#666;">&mdash;<br />You are receiving this because you were mentioned.<br />Reply to this email directly, <a href="https://github.com/openzfs/zfs/pull/10357#event-3383893240">view it on GitHub</a>, or <a href="https://github.com/notifications/unsubscribe-auth/ABTGCKA4WYM7DIUJF56BKUDRT2N2NANCNFSM4NIADNOQ">unsubscribe</a>.<img src="https://github.com/notifications/beacon/ABTGCKD4TP3XYAZSAKTWWV3RT2N2NA5CNFSM4NIADNO2YY3PNVWWK3TUL52HS4DFWZEXG43VMVCXMZLOORHG65DJMZUWGYLUNFXW5KTDN5WW2ZLOORPWSZGOZGZBZ6A.gif" height="1" width="1" alt="" /></p>
+<script type="application/ld+json">[
+{
+"@context": "http://schema.org",
+"@type": "EmailMessage",
+"potentialAction": {
+"@type": "ViewAction",
+"target": "https://github.com/openzfs/zfs/pull/10357#event-3383893240",
+"url": "https://github.com/openzfs/zfs/pull/10357#event-3383893240",
+"name": "View Pull Request"
+},
+"description": "View this Pull Request on GitHub",
+"publisher": {
+"@type": "Organization",
+"name": "GitHub",
+"url": "https://github.com"
+}
+}
+]</script>
+----==_mimepart_5ecff5a6b043f_1ecd3fdbfbacd96c97345--
+
+From noreply@github.com Thu May 28 02:37:06 2020
+Delivered-To: nabijaczleweli@gmail.com
+Received: by 2002:a4a:a581:0:0:0:0:0 with SMTP id d1csp14525oom;
+        Wed, 27 May 2020 17:37:06 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJyC4tafmqFemItXpPB15EtDDSaRqh86X9A5tH5voIKMHAtpAWZfVH14uq8+3PRnEk6n+9Mm
+X-Received: by 2002:a37:707:: with SMTP id 7mr455686qkh.15.1590626226397;
+        Wed, 27 May 2020 17:37:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1590626226; cv=none;
+        d=google.com; s=arc-20160816;
+        b=E5aYqxkweqeaCACrTAs5cS4SwmBPa5ry+CbgdT7WtGhat7NScZ+Xm+VD6VgnjkOcnf
+         YgYYfS++cC8TJ+Td/ATdtOgCtzG1tZSq+CAOqTwGCk7KtGJ4te0p26vOnaRoo/QCMSjg
+         RWvtDKT2i+Fi1u2YRh4h8tWOjeNTblPtEFNr6xpuatWzAFzsniyanxn/5WzOhJP1H7xy
+         Fa0nCVUBj04uytWe8dygTS6+6WbQ4NVJNvLNQlclq5LDIMeFHVXiHuBrU1xmX6OUk43r
+         agxaymPxHNiY/IgSN7qSQvCUvaJZZrsnpPnvljTWNv3VmYgf7V8GpH6lbHeK5IxxZYsE
+         aMiQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-post:list-archive:list-id:precedence
+         :content-transfer-encoding:mime-version:subject:references
+         :in-reply-to:message-id:cc:to:reply-to:from:date:dkim-signature;
+        bh=HTKXgHBPl9PWycGqnn3bSIEmjV9RnHGn9G+3OokkiMQ=;
+        b=zqqWgRjqE6JqWy7Pz6dmDSqtBuV/TA+cRpWHnh/WVzpiE/LEMxCgMkuml0FI6Te/Af
+         hBSsPxY3QlDPE2t0C5phb4p5hJL6pe+7eDlD2H6PAf+ge3sf/vO7yVBb3rtmMpIWOYic
+         P5aQWSkIipSiKVNmzHO+kPOg+kmRTvbUzZ/vG3ORt2wVvyNXcjrxZrgS8hXrsuiLBjlG
+         BuBrcaT0xBx2SLmFF3DhpSSgDLnZPKUsqHB769ko0B2Z3YZmgiPbRuMKLqeKbmMqjMYi
+         goNhNd10dh0VOk3If1/vjo7pyGnIWQDS6bpnq6zCTSxUZaf4jS2FcKe57+LS5REgVkiu
+         otsQ==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=ZkJ59+pT;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.200 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
+Return-Path: <noreply@github.com>
+Received: from out-17.smtp.github.com (out-17.smtp.github.com. [192.30.252.200])
+        by mx.google.com with ESMTPS id w5si2351610qkw.286.2020.05.27.17.37.06
+        for <nabijaczleweli@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Wed, 27 May 2020 17:37:06 -0700 (PDT)
+Received-SPF: pass (google.com: domain of noreply@github.com designates 192.30.252.200 as permitted sender) client-ip=192.30.252.200;
+Authentication-Results: mx.google.com;
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=ZkJ59+pT;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.200 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
+Received: from github-lowworker-943b171.ac4-iad.github.net (github-lowworker-943b171.ac4-iad.github.net [10.52.22.59])
+	by smtp.github.com (Postfix) with ESMTP id 30B356E0453
+	for <nabijaczleweli@gmail.com>; Wed, 27 May 2020 17:37:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=github.com;
+	s=pf2014; t=1590626226;
+	bh=HTKXgHBPl9PWycGqnn3bSIEmjV9RnHGn9G+3OokkiMQ=;
+	h=Date:From:Reply-To:To:Cc:In-Reply-To:References:Subject:List-ID:
+	 List-Archive:List-Post:List-Unsubscribe:From;
+	b=ZkJ59+pTyljKGsaFD3zSENsadgwyxEqsv4D93l5wZcrm13nV76ILG1Btk+RgUh/3U
+	 BTtdz8VAvfReh17AEOLkoFES5iVaLwDHEWijBSfJQNdnN+U/7YHuaEqUklLsZb4Ehc
+	 lgkxTOTUWjD4LsFYBYyo7XqvLGwYyHpzYGFSAIdo=
+Date: Wed, 27 May 2020 17:37:06 -0700
+From: =?UTF-8?B?0L3QsNCx?= <notifications@github.com>
+Reply-To: openzfs/zfs <reply+ABTGCKFJWZYYURV6IJ2I5JN43LULFEVBNHHCKJ5CNE@reply.github.com>
+To: openzfs/zfs <zfs@noreply.github.com>
+Cc: =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@gmail.com>, 
+ Your activity <your_activity@noreply.github.com>
+Message-ID: <openzfs/zfs/pull/10357/c635019808@github.com>
+In-Reply-To: <openzfs/zfs/pull/10357@github.com>
+References: <openzfs/zfs/pull/10357@github.com>
+Subject: Re: [openzfs/zfs] x32 builds (#10357)
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="--==_mimepart_5ecf07b21c66f_2dfc3fda5bacd9681329ab";
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Precedence: list
+X-GitHub-Sender: nabijaczleweli
+X-GitHub-Recipient: nabijaczleweli
+X-GitHub-Reason: your_activity
+List-ID: openzfs/zfs <zfs.openzfs.github.com>
+List-Archive: https://github.com/openzfs/zfs
+List-Post: <mailto:reply+ABTGCKFJWZYYURV6IJ2I5JN43LULFEVBNHHCKJ5CNE@reply.github.com>
+List-Unsubscribe: <mailto:unsub+ABTGCKFJWZYYURV6IJ2I5JN43LULFEVBNHHCKJ5CNE@reply.github.com>,
+ <https://github.com/notifications/unsubscribe/ABTGCKGDQFUFEINA2ZHHOJLRTWW3FANCNFSM4NIADNOQ>
+X-Auto-Response-Suppress: All
+X-GitHub-Recipient-Address: nabijaczleweli@gmail.com
+Status: RO
+Content-Length: 2072
+Lines: 40
+
+
+----==_mimepart_5ecf07b21c66f_2dfc3fda5bacd9681329ab
+Content-Type: text/plain;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+Oh, misread this. The kernel module matches the kernel ABI, which is x86-64, so I haven't built an ILP32 module (and, well, don't really plan on so doing, since I have no non-amd64-capable CPUs on which running ZFS makes a remote sense).
+
+-- 
+You are receiving this because you are subscribed to this thread.
+Reply to this email directly or view it on GitHub:
+https://github.com/openzfs/zfs/pull/10357#issuecomment-635019808
+----==_mimepart_5ecf07b21c66f_2dfc3fda5bacd9681329ab
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<p></p>
+<p>Oh, misread this. The kernel module matches the kernel ABI, which is x86-64, so I haven't built an ILP32 module (and, well, don't really plan on so doing, since I have no non-amd64-capable CPUs on which running ZFS makes a remote sense).</p>
+
+<p style="font-size:small;-webkit-text-size-adjust:none;color:#666;">&mdash;<br />You are receiving this because you are subscribed to this thread.<br />Reply to this email directly, <a href="https://github.com/openzfs/zfs/pull/10357#issuecomment-635019808">view it on GitHub</a>, or <a href="https://github.com/notifications/unsubscribe-auth/ABTGCKEJ65YDPGH4QECBMX3RTWW3FANCNFSM4NIADNOQ">unsubscribe</a>.<img src="https://github.com/notifications/beacon/ABTGCKFBZH5EJPOYK3K4T5DRTWW3FA5CNFSM4NIADNO2YY3PNVWWK3TUL52HS4DFVREXG43VMVBW63LNMVXHJKTDN5WW2ZLOORPWSZGOEXM2EIA.gif" height="1" width="1" alt="" /></p>
+<script type="application/ld+json">[
+{
+"@context": "http://schema.org",
+"@type": "EmailMessage",
+"potentialAction": {
+"@type": "ViewAction",
+"target": "https://github.com/openzfs/zfs/pull/10357#issuecomment-635019808",
+"url": "https://github.com/openzfs/zfs/pull/10357#issuecomment-635019808",
+"name": "View Pull Request"
+},
+"description": "View this Pull Request on GitHub",
+"publisher": {
+"@type": "Organization",
+"name": "GitHub",
+"url": "https://github.com"
+}
+}
+]</script>
+----==_mimepart_5ecf07b21c66f_2dfc3fda5bacd9681329ab--
+
+From noreply@github.com Thu May 28 02:18:06 2020
+Delivered-To: nabijaczleweli@gmail.com
+Received: by 2002:a4a:a581:0:0:0:0:0 with SMTP id d1csp4028oom;
+        Wed, 27 May 2020 17:18:06 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJxCKutCm6U4B7QwGHwkVBtSn3DWHf9/0T3ZUJnGF8ioFGLBhDoiMSVPKCaHLQQl5spdDDbV
+X-Received: by 2002:aed:2142:: with SMTP id 60mr522990qtc.177.1590625086143;
+        Wed, 27 May 2020 17:18:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1590625086; cv=none;
+        d=google.com; s=arc-20160816;
+        b=uv7zcePzQ3PPolLOoGKOTTh7Fdf1FCp+7AnbcvVN3T1ehFLbsTvMVdou1LE4P1LZem
+         eqGBS0/DfvP9xtgpbMYpH8UNKDNCsLQHTcX8BstHRs2iC/4tD3dWRPFzZUmfd+/u/7Z4
+         XI65PO11/615Cl1UGh5vbBtaGyVip9kfcXNEPUBulKfa9joucQ66VLhYTycKefiKy04t
+         ubGUTAjwjd39TxKL2PB97MGK8ug6WftjHqVsJDqXdwnSIpYj6jVRqivsZUvQiGUeKA0j
+         bjEb8ISpVX4CY+vxrQfgyWtXH+uzMI9KFzLO+bk8Q4VRYWJdRyAeTVtMfJ3GQc6JhK+R
+         bZRA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-post:list-archive:list-id:precedence
+         :content-transfer-encoding:mime-version:subject:references
+         :in-reply-to:message-id:cc:to:reply-to:from:date:dkim-signature;
+        bh=PLgbsO2pxknq+Ocnx33iIGWCvm2fGIuUCBl4GNl4q0k=;
+        b=WQDCarILkPuGLJLlarXAv/vHwA4765YADZmizBvZb6bDSzpTY2wgyQxm8Ok46yX78V
+         Sungrma8l80YPG+D7NUTBHjszw0CLQ7g2KeHuG8AdAF2O5VdKS+CHF6t1bCWo/iIUcMn
+         wwD0BHr8QSKkwIKdlO/yGS8Lt9C/KJSIc3WBzn/tcehnpyIe9W8ChN74D8Rti0B+zw/N
+         fdA+bYx/zMgWx+Z4aex51OO6rhgoyWBWTOvC+20u4IlzXbQMh4HcYT7C4pj7kL3fTQZC
+         eMBpuzVsZ4QXLNGNBQuZk9zR7Qoh0JzMgFgnHCRaSgqLIu6VI5Dx6J9RMuRlSRXmqDsM
+         ycJw==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=HMcSuPRJ;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.200 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
+Return-Path: <noreply@github.com>
+Received: from out-17.smtp.github.com (out-17.smtp.github.com. [192.30.252.200])
+        by mx.google.com with ESMTPS id g4si2661014qkd.295.2020.05.27.17.18.06
+        for <nabijaczleweli@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Wed, 27 May 2020 17:18:06 -0700 (PDT)
+Received-SPF: pass (google.com: domain of noreply@github.com designates 192.30.252.200 as permitted sender) client-ip=192.30.252.200;
+Authentication-Results: mx.google.com;
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=HMcSuPRJ;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.200 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
+Received: from github-lowworker-f62aa54.va3-iad.github.net (github-lowworker-f62aa54.va3-iad.github.net [10.48.17.68])
+	by smtp.github.com (Postfix) with ESMTP id E5E316E042B
+	for <nabijaczleweli@gmail.com>; Wed, 27 May 2020 17:18:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=github.com;
+	s=pf2014; t=1590625085;
+	bh=PLgbsO2pxknq+Ocnx33iIGWCvm2fGIuUCBl4GNl4q0k=;
+	h=Date:From:Reply-To:To:Cc:In-Reply-To:References:Subject:List-ID:
+	 List-Archive:List-Post:List-Unsubscribe:From;
+	b=HMcSuPRJemUbcMexX9Ai3sUbWv0OiJM6C7v0STvV+tQQl0FH9pWYTbC+XfxY36LV2
+	 VD8bVWIXajVXSOzNg+QdBabJ1NV5VEXBEDGX8kxd2S6Q5QjAUsbWj5nO1sICOu1ecj
+	 pDjApStDNJQ6zRajs4uyYKoaF+YttJrfEn5Zha0M=
+Date: Wed, 27 May 2020 17:18:05 -0700
+From: Ryan Moeller <notifications@github.com>
+Reply-To: openzfs/zfs <reply+ABTGCKH7O7OZKEZV645RQNF43LSD3EVBNHHCKJ5CNE@reply.github.com>
+To: openzfs/zfs <zfs@noreply.github.com>
+Cc: =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@gmail.com>, 
+ Mention <mention@noreply.github.com>
+Message-ID: <openzfs/zfs/pull/10357/c635013357@github.com>
+In-Reply-To: <openzfs/zfs/pull/10357@github.com>
+References: <openzfs/zfs/pull/10357@github.com>
+Subject: Re: [openzfs/zfs] x32 builds (#10357)
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="--==_mimepart_5ecf033dd677e_4403fb8b7ccd968267b2";
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Precedence: list
+X-GitHub-Sender: freqlabs
+X-GitHub-Recipient: nabijaczleweli
+X-GitHub-Reason: mention
+List-ID: openzfs/zfs <zfs.openzfs.github.com>
+List-Archive: https://github.com/openzfs/zfs
+List-Post: <mailto:reply+ABTGCKH7O7OZKEZV645RQNF43LSD3EVBNHHCKJ5CNE@reply.github.com>
+List-Unsubscribe: <mailto:unsub+ABTGCKH7O7OZKEZV645RQNF43LSD3EVBNHHCKJ5CNE@reply.github.com>,
+ <https://github.com/notifications/unsubscribe/ABTGCKBPVJ3QVKPFNL6O6ULRTWUT3ANCNFSM4NIADNOQ>
+X-Auto-Response-Suppress: All
+X-GitHub-Recipient-Address: nabijaczleweli@gmail.com
+Status: RO
+Content-Length: 1636
+Lines: 40
+
+
+----==_mimepart_5ecf033dd677e_4403fb8b7ccd968267b2
+Content-Type: text/plain;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+Do you build the module with -Werror?
+
+-- 
+You are receiving this because you were mentioned.
+Reply to this email directly or view it on GitHub:
+https://github.com/openzfs/zfs/pull/10357#issuecomment-635013357
+----==_mimepart_5ecf033dd677e_4403fb8b7ccd968267b2
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<p></p>
+<p>Do you build the module with -Werror?</p>
+
+<p style="font-size:small;-webkit-text-size-adjust:none;color:#666;">&mdash;<br />You are receiving this because you were mentioned.<br />Reply to this email directly, <a href="https://github.com/openzfs/zfs/pull/10357#issuecomment-635013357">view it on GitHub</a>, or <a href="https://github.com/notifications/unsubscribe-auth/ABTGCKAVEECJ5HJJHQ7R6G3RTWUT3ANCNFSM4NIADNOQ">unsubscribe</a>.<img src="https://github.com/notifications/beacon/ABTGCKGR5X233L3PIAYMHGDRTWUT3A5CNFSM4NIADNO2YY3PNVWWK3TUL52HS4DFVREXG43VMVBW63LNMVXHJKTDN5WW2ZLOORPWSZGOEXMYR3I.gif" height="1" width="1" alt="" /></p>
+<script type="application/ld+json">[
+{
+"@context": "http://schema.org",
+"@type": "EmailMessage",
+"potentialAction": {
+"@type": "ViewAction",
+"target": "https://github.com/openzfs/zfs/pull/10357#issuecomment-635013357",
+"url": "https://github.com/openzfs/zfs/pull/10357#issuecomment-635013357",
+"name": "View Pull Request"
+},
+"description": "View this Pull Request on GitHub",
+"publisher": {
+"@type": "Organization",
+"name": "GitHub",
+"url": "https://github.com"
+}
+}
+]</script>
+----==_mimepart_5ecf033dd677e_4403fb8b7ccd968267b2--
+
+From noreply@github.com Thu May 28 02:10:47 2020
+Delivered-To: nabijaczleweli@gmail.com
+Received: by 2002:a4a:a581:0:0:0:0:0 with SMTP id d1csp267oom;
+        Wed, 27 May 2020 17:10:47 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJxMCjyHXgq/rxnGDpDzlIhH9kBabav1HGAadYZF41dNLxvxaQ2YpuGmz6BVRAbV5vL5QCZI
+X-Received: by 2002:a37:8c45:: with SMTP id o66mr407214qkd.392.1590624647058;
+        Wed, 27 May 2020 17:10:47 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1590624647; cv=none;
+        d=google.com; s=arc-20160816;
+        b=jGOF+zpt9yyTZlIzzrtI/Hth2gS/1JuoaGa1wBCvD1QVUmU/d0AdCRLKfbgtMIVlb1
+         v/OFnryO7ocVtlCadgZ7pkT95lJ+ayYucXxkG22kMBcZMBcHmM9cJ9v25oeB0keSIvyA
+         B+cAveGgWOMUYjXyMYzCmZtmESX4KIxQ+z4DJKjwqNOHVfLgHZqap/ikNAf0w3iwJ1fG
+         eC5rANhZJ7vNYmHMd7rJ9n4fXXfp/EM9Lpfz7NEzfVTgLo5nxSKoX5dq0n9lB72XFpsq
+         rh4N5nDS7G2LGHg69ppMvEcq8XWkUqKKmNqZ2diYDJqPr0kPIFkOXJjIicBMSAUVkSXR
+         HScQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-post:list-archive:list-id:precedence
+         :content-transfer-encoding:mime-version:subject:references
+         :in-reply-to:message-id:cc:to:reply-to:from:date:dkim-signature;
+        bh=tNRoN++MpdsogFvYdtnpZfU1WcBy9quSDopBsYCePIo=;
+        b=hCvHapoin/vAW6TOve1WOw+aw6cBsjG9LHfkACK0+d6eUm5E4xsLMN4qZV7QCALsmd
+         xGCJQ0TStW1ndEWWWTss9nSI2WzpTB4khrc0o41fS5isa2RMViJB1fvsmnRyLkXOUTGd
+         lOVhnTKFlknbIE6cB5DDlO8T1G+4gAG/W7dlCRfXVTdj8MyemFyNn18ID0kSi35fzDzI
+         HGm7a0p5ojbOW+BP/5Si94+80ShG3V6QL7CNSN3l1xauVFru/X1wk0CpohvOCLIIdrx1
+         NdocYPlXmGnxnZL6KFgxL7X+Y/Pora9E9EYdpBiNtHkW8KQT67iqqOuDNdciSn8u0f9a
+         hpNw==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b="xsItN/lB";
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.198 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
+Return-Path: <noreply@github.com>
+Received: from out-7.smtp.github.com (out-7.smtp.github.com. [192.30.252.198])
+        by mx.google.com with ESMTPS id k4si2586403qkh.66.2020.05.27.17.10.46
+        for <nabijaczleweli@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Wed, 27 May 2020 17:10:47 -0700 (PDT)
+Received-SPF: pass (google.com: domain of noreply@github.com designates 192.30.252.198 as permitted sender) client-ip=192.30.252.198;
+Authentication-Results: mx.google.com;
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b="xsItN/lB";
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.198 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
+Received: from github-lowworker-39ac79b.ac4-iad.github.net (github-lowworker-39ac79b.ac4-iad.github.net [10.52.18.15])
+	by smtp.github.com (Postfix) with ESMTP id A721F2C0057
+	for <nabijaczleweli@gmail.com>; Wed, 27 May 2020 17:10:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=github.com;
+	s=pf2014; t=1590624646;
+	bh=tNRoN++MpdsogFvYdtnpZfU1WcBy9quSDopBsYCePIo=;
+	h=Date:From:Reply-To:To:Cc:In-Reply-To:References:Subject:List-ID:
+	 List-Archive:List-Post:List-Unsubscribe:From;
+	b=xsItN/lBFyEMrdcdpeFtE7x/pSQveM2gdaW6kXGKEKWAzk8S0W0vmI4YtQX78gBK+
+	 rzrrvII9FMVoE1B6leTIHy6GQmJJVgCyqlxtUsGPpZorbNtTTjUCu3tv+HAVcvXrXN
+	 fka5KMlYlf3JxnBGsOIvkaG08Btalyp0W4MnAe58=
+Date: Wed, 27 May 2020 17:10:46 -0700
+From: =?UTF-8?B?0L3QsNCx?= <notifications@github.com>
+Reply-To: openzfs/zfs <reply+ABTGCKBQ5GV2VM2EDIIDYSF43LRINEVBNHHCKJ5CNE@reply.github.com>
+To: openzfs/zfs <zfs@noreply.github.com>
+Cc: =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@gmail.com>, 
+ Your activity <your_activity@noreply.github.com>
+Message-ID: <openzfs/zfs/pull/10357/c635010871@github.com>
+In-Reply-To: <openzfs/zfs/pull/10357@github.com>
+References: <openzfs/zfs/pull/10357@github.com>
+Subject: Re: [openzfs/zfs] x32 builds (#10357)
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="--==_mimepart_5ecf018697892_3f583feec72cd9685055ea";
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Precedence: list
+X-GitHub-Sender: nabijaczleweli
+X-GitHub-Recipient: nabijaczleweli
+X-GitHub-Reason: your_activity
+List-ID: openzfs/zfs <zfs.openzfs.github.com>
+List-Archive: https://github.com/openzfs/zfs
+List-Post: <mailto:reply+ABTGCKBQ5GV2VM2EDIIDYSF43LRINEVBNHHCKJ5CNE@reply.github.com>
+List-Unsubscribe: <mailto:unsub+ABTGCKBQ5GV2VM2EDIIDYSF43LRINEVBNHHCKJ5CNE@reply.github.com>,
+ <https://github.com/notifications/unsubscribe/ABTGCKANBXSDEXYOEJSEXMDRTWTYNANCNFSM4NIADNOQ>
+X-Auto-Response-Suppress: All
+X-GitHub-Recipient-Address: nabijaczleweli@gmail.com
+Status: RO
+Content-Length: 1952
+Lines: 40
+
+
+----==_mimepart_5ecf018697892_3f583feec72cd9685055ea
+Content-Type: text/plain;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+I [haven't been able](https://lists.debian.org/debian-amd64/2020/05/msg00000.html) to build clang for x32, but the GCC 10 build logs of ZFS are clean on my machine.
+
+-- 
+You are receiving this because you are subscribed to this thread.
+Reply to this email directly or view it on GitHub:
+https://github.com/openzfs/zfs/pull/10357#issuecomment-635010871
+----==_mimepart_5ecf018697892_3f583feec72cd9685055ea
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<p></p>
+<p>I <a href="https://lists.debian.org/debian-amd64/2020/05/msg00000.html" rel="nofollow">haven't been able</a> to build clang for x32, but the GCC 10 build logs of ZFS are clean on my machine.</p>
+
+<p style="font-size:small;-webkit-text-size-adjust:none;color:#666;">&mdash;<br />You are receiving this because you are subscribed to this thread.<br />Reply to this email directly, <a href="https://github.com/openzfs/zfs/pull/10357#issuecomment-635010871">view it on GitHub</a>, or <a href="https://github.com/notifications/unsubscribe-auth/ABTGCKFCXJXB3CKUY5TZL2TRTWTYNANCNFSM4NIADNOQ">unsubscribe</a>.<img src="https://github.com/notifications/beacon/ABTGCKDOVRMYBEIEIP5VPLDRTWTYNA5CNFSM4NIADNO2YY3PNVWWK3TUL52HS4DFVREXG43VMVBW63LNMVXHJKTDN5WW2ZLOORPWSZGOEXMX6NY.gif" height="1" width="1" alt="" /></p>
+<script type="application/ld+json">[
+{
+"@context": "http://schema.org",
+"@type": "EmailMessage",
+"potentialAction": {
+"@type": "ViewAction",
+"target": "https://github.com/openzfs/zfs/pull/10357#issuecomment-635010871",
+"url": "https://github.com/openzfs/zfs/pull/10357#issuecomment-635010871",
+"name": "View Pull Request"
+},
+"description": "View this Pull Request on GitHub",
+"publisher": {
+"@type": "Organization",
+"name": "GitHub",
+"url": "https://github.com"
+}
+}
+]</script>
+----==_mimepart_5ecf018697892_3f583feec72cd9685055ea--
+
+From noreply@github.com Thu May 28 02:01:55 2020
+Delivered-To: nabijaczleweli@gmail.com
+Received: by 2002:a4a:a581:0:0:0:0:0 with SMTP id d1csp1404264oom;
+        Wed, 27 May 2020 17:01:55 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJwHYfkrvFSyYAYjpKKMUEW7kpmnIzw45EFfgO251amp4qxd4GKOsHTlsgmyyb58wrCCMnQH
+X-Received: by 2002:ac8:4a06:: with SMTP id x6mr465994qtq.214.1590624115194;
+        Wed, 27 May 2020 17:01:55 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1590624115; cv=none;
+        d=google.com; s=arc-20160816;
+        b=Jy9gYcHwhRe7dOGY4SMoL8RnGC9w7xkh0kplunYoLOYQT6iBkpUHdLxVHSiEqqmzR4
+         RJmqmQ/LV9bl2kPHM6yJjpoAF5LbUlhSzfzZZ9G+5k3VfgizzliiYwTuWAdFajH4tjCl
+         NbPR01ghYtM6lm4QfDC/EzskJ7oscqJfhE/s3rnTrBq7l7tg+8UPSw2qY796fBrIQZ17
+         4k0Hf7Scu0+zJEKE58Z9EoiFrwy38ju0oWGQXi/wUdZPfd3LEcrP6OC0AO82Bm+Cbj6+
+         Qn4B9aYl4YT0vpO92UcV2jFZ5L/fNi1n/+GYu5l2A/LXfjUkzYUUSp35YX9mU11JLYCA
+         /gEA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-post:list-archive:list-id:precedence
+         :content-transfer-encoding:mime-version:subject:references
+         :in-reply-to:message-id:cc:to:reply-to:from:date:dkim-signature;
+        bh=UOO41UUcIY8Xy31oEmRKJOSGEtnVnPD2w/KbSzb+uF4=;
+        b=qDYIZ5EUKMCE6dws/p30TdEJyIuYeTZTBaRPBbGRRv9zS0ySM52f0TN1mhFSH68zp2
+         7HsnqrOgzlsFgv8y8aVLucVZ0EcWHVWPdfD0ZJEm25csju8R+q2r80HmeIXF7IEDSSxv
+         Tvr9PJ7qZIuxBrd+Sln4SNNe5c982nYWoSFxM2hf/hPInBuG8mQFLMs2P38wjhv3Lc+h
+         zsigEdulf9LiXjsMiQ4Dr+8T+AuBtz9o5BU4eVa8XsBL2bYvsJEEMeLhPxqmnyR8TF1f
+         5mN5IX89dGreG5pMjxG9pHdGq54MGJiwoZTK5zHERWUO4sGUP0KtIk7ISkfTnUyYWE9b
+         9BxQ==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=yjkwSmEr;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.202 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
+Return-Path: <noreply@github.com>
+Received: from out-19.smtp.github.com (out-19.smtp.github.com. [192.30.252.202])
+        by mx.google.com with ESMTPS id q10si2132969qvo.170.2020.05.27.17.01.55
+        for <nabijaczleweli@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Wed, 27 May 2020 17:01:55 -0700 (PDT)
+Received-SPF: pass (google.com: domain of noreply@github.com designates 192.30.252.202 as permitted sender) client-ip=192.30.252.202;
+Authentication-Results: mx.google.com;
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=yjkwSmEr;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.202 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
+Received: from github-lowworker-0eea13f.ash1-iad.github.net (github-lowworker-0eea13f.ash1-iad.github.net [10.56.109.26])
+	by smtp.github.com (Postfix) with ESMTP id E42E45201F5
+	for <nabijaczleweli@gmail.com>; Wed, 27 May 2020 17:01:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=github.com;
+	s=pf2014; t=1590624114;
+	bh=UOO41UUcIY8Xy31oEmRKJOSGEtnVnPD2w/KbSzb+uF4=;
+	h=Date:From:Reply-To:To:Cc:In-Reply-To:References:Subject:List-ID:
+	 List-Archive:List-Post:List-Unsubscribe:From;
+	b=yjkwSmErPQNCW1eXdPR7pTaYESVhp9P03xeue7nBv5tVnuPhWy6sJiQuMBnj+4vUY
+	 Jtya2H0mfSwNFv/aSRHaB2GPDOyULaN65eMcJ+n/U2dh1RvXmNsYrKrIxZrxZknZrH
+	 W6Z6Nd6Aworzu/RUUOMO8mKZnHBImOgvEchrgk9A=
+Date: Wed, 27 May 2020 17:01:54 -0700
+From: Ryan Moeller <notifications@github.com>
+Reply-To: openzfs/zfs <reply+ABTGCKALF4FC64CWFDWZYK543LQHFEVBNHHCKJ5CNE@reply.github.com>
+To: openzfs/zfs <zfs@noreply.github.com>
+Cc: =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@gmail.com>, 
+ Mention <mention@noreply.github.com>
+Message-ID: <openzfs/zfs/pull/10357/c635007826@github.com>
+In-Reply-To: <openzfs/zfs/pull/10357@github.com>
+References: <openzfs/zfs/pull/10357@github.com>
+Subject: Re: [openzfs/zfs] x32 builds (#10357)
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="--==_mimepart_5eceff72d3b60_39bf3f8b386cd95c666a0";
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Precedence: list
+X-GitHub-Sender: freqlabs
+X-GitHub-Recipient: nabijaczleweli
+X-GitHub-Reason: mention
+List-ID: openzfs/zfs <zfs.openzfs.github.com>
+List-Archive: https://github.com/openzfs/zfs
+List-Post: <mailto:reply+ABTGCKALF4FC64CWFDWZYK543LQHFEVBNHHCKJ5CNE@reply.github.com>
+List-Unsubscribe: <mailto:unsub+ABTGCKALF4FC64CWFDWZYK543LQHFEVBNHHCKJ5CNE@reply.github.com>,
+ <https://github.com/notifications/unsubscribe/ABTGCKEVFFOX5WANWUFJWW3RTWSXFANCNFSM4NIADNOQ>
+X-Auto-Response-Suppress: All
+X-GitHub-Recipient-Address: nabijaczleweli@gmail.com
+Status: RO
+Content-Length: 3211
+Lines: 63
+
+
+----==_mimepart_5eceff72d3b60_39bf3f8b386cd95c666a0
+Content-Type: text/plain;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+For a little context, I have been picking away at getting i386 to build for FreeBSD.
+I wonder if this error reported by Clang also affects other 32-bit platforms such as x32:
+```
+../../module/zfs/arc.c:7380:51: error: implicit conversion from
+      'unsigned long long' to 'unsigned long' changes value from 4294967296 to 0
+      [-Werror,-Wconstant-conversion]
+                zfs_dirty_data_max_max = MIN(4ULL * 1024 * 1024 * 1024,
+                                       ~     ~~~~~~~~~~~~~~~~~~~^~~~~~
+/usr/include/sys/param.h:308:30: note: expanded from macro 'MIN'
+#define MIN(a,b) (((a)<(b))?(a):(b))
+                             ^
+```
+`zfs_dirty_data_max_max` is declared an `unsigned long`, so a value which as potentially 4GiB (1<<32) cannot fit if `unsigned long` means 32 bits.
+
+-- 
+You are receiving this because you were mentioned.
+Reply to this email directly or view it on GitHub:
+https://github.com/openzfs/zfs/pull/10357#issuecomment-635007826
+----==_mimepart_5eceff72d3b60_39bf3f8b386cd95c666a0
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<p></p>
+<p>For a little context, I have been picking away at getting i386 to build for FreeBSD.<br>
+I wonder if this error reported by Clang also affects other 32-bit platforms such as x32:</p>
+<pre><code>../../module/zfs/arc.c:7380:51: error: implicit conversion from
+      'unsigned long long' to 'unsigned long' changes value from 4294967296 to 0
+      [-Werror,-Wconstant-conversion]
+                zfs_dirty_data_max_max = MIN(4ULL * 1024 * 1024 * 1024,
+                                       ~     ~~~~~~~~~~~~~~~~~~~^~~~~~
+/usr/include/sys/param.h:308:30: note: expanded from macro 'MIN'
+#define MIN(a,b) (((a)&lt;(b))?(a):(b))
+                             ^
+</code></pre>
+<p><code>zfs_dirty_data_max_max</code> is declared an <code>unsigned long</code>, so a value which as potentially 4GiB (1&lt;&lt;32) cannot fit if <code>unsigned long</code> means 32 bits.</p>
+
+<p style="font-size:small;-webkit-text-size-adjust:none;color:#666;">&mdash;<br />You are receiving this because you were mentioned.<br />Reply to this email directly, <a href="https://github.com/openzfs/zfs/pull/10357#issuecomment-635007826">view it on GitHub</a>, or <a href="https://github.com/notifications/unsubscribe-auth/ABTGCKAFWBX5WUDEPEL3JZTRTWSXFANCNFSM4NIADNOQ">unsubscribe</a>.<img src="https://github.com/notifications/beacon/ABTGCKGOBGERUGLPMNE6N33RTWSXFA5CNFSM4NIADNO2YY3PNVWWK3TUL52HS4DFVREXG43VMVBW63LNMVXHJKTDN5WW2ZLOORPWSZGOEXMXGUQ.gif" height="1" width="1" alt="" /></p>
+<script type="application/ld+json">[
+{
+"@context": "http://schema.org",
+"@type": "EmailMessage",
+"potentialAction": {
+"@type": "ViewAction",
+"target": "https://github.com/openzfs/zfs/pull/10357#issuecomment-635007826",
+"url": "https://github.com/openzfs/zfs/pull/10357#issuecomment-635007826",
+"name": "View Pull Request"
+},
+"description": "View this Pull Request on GitHub",
+"publisher": {
+"@type": "Organization",
+"name": "GitHub",
+"url": "https://github.com"
+}
+}
+]</script>
+----==_mimepart_5eceff72d3b60_39bf3f8b386cd95c666a0--
+
+From noreply@github.com Thu May 28 01:55:15 2020
+Delivered-To: nabijaczleweli@gmail.com
+Received: by 2002:a4a:a581:0:0:0:0:0 with SMTP id d1csp1400112oom;
+        Wed, 27 May 2020 16:55:15 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJxnzmEjpcSWpcSKjIwV3hyzLCpkLllAB9Pdjnlv/lMU3y6Ns0+g9a9gNQf9WeMssQ2WwVMJ
+X-Received: by 2002:a17:902:6902:: with SMTP id j2mr874885plk.2.1590623715372;
+        Wed, 27 May 2020 16:55:15 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1590623715; cv=none;
+        d=google.com; s=arc-20160816;
+        b=jajKNsLirOSqNL/7V0SpwPVrM4M+7Wlj6CPZbq1/pfpvTaozgxOiBS1taBtUY/W4A3
+         SIVc7BQj8hqwbsHp2Xh6TWsUe2Bt1PKX1OTpY3BENlVmurnDMxebTdlXGWm7ceMksISt
+         2wIMEtYOIN1LatnA3yOBy6Qat2sbeNLEe/P6qhzC5PX2eUNdTFOHoyUGGyl41P7syOss
+         b0fZ4lWqWDnhpjQfitA+xsTKhI86F+C5CUr0Me6jjzqtWoWjKF7hRWL+a1vTLhmYiYN9
+         +1QKfB0r4GjYPWCu5oOwcH3qzWVn6UI8GQMAHW7CCYl5vLti501Iy79kDm0jOPiYhbvz
+         BlOQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-post:list-archive:list-id:precedence
+         :content-transfer-encoding:mime-version:subject:references
+         :in-reply-to:message-id:cc:to:reply-to:from:date:dkim-signature;
+        bh=hjhcwV0ZLqeeeTg7LI7vHJmhE/ynQ0bmO2/Sdm82vUk=;
+        b=WJMzcMQLJtNqispIGD6oxyVQV+SkH4jrElhQMBCwVlLJCprmpyY56+0LFP+encjHhH
+         VKynLuYyGVmDHwPy5TBT2jC2VlcfEcD6rhOX5jsKMig99pWT2jdWRcJp+MMwoxsfGB8T
+         obwr3uARCZtGBhFH0O5rEKaOaTYF5IKuBiOgFjZVXQvzHDj2xeL6xlBZeRqRlBdz71tH
+         yETNo5naLd5PNpkE5BAP0VIA+Za0GkW+D9m+7Hm9APUqS9oMgKsXT/pjHrb0hITLwbP7
+         7Q4y+YS5q1SZIhu0SLbagqRs4Jd/kzUURiM9cKBlF4RIh2LKfJ7bNv7SnJpCLFBEgPeI
+         REew==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=0ZXqt53H;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.254.195 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
+Return-Path: <noreply@github.com>
+Received: from out-12.smtp.github.com (out-12.smtp.github.com. [192.30.254.195])
+        by mx.google.com with ESMTPS id x14si3352207pfd.95.2020.05.27.16.55.15
+        for <nabijaczleweli@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Wed, 27 May 2020 16:55:15 -0700 (PDT)
+Received-SPF: pass (google.com: domain of noreply@github.com designates 192.30.254.195 as permitted sender) client-ip=192.30.254.195;
+Authentication-Results: mx.google.com;
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=0ZXqt53H;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.254.195 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
+Received: from github-lowworker-2e54e43.va3-iad.github.net (github-lowworker-2e54e43.va3-iad.github.net [10.48.17.27])
+	by smtp.github.com (Postfix) with ESMTP id 1727F1204D5
+	for <nabijaczleweli@gmail.com>; Wed, 27 May 2020 16:55:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=github.com;
+	s=pf2014; t=1590623715;
+	bh=hjhcwV0ZLqeeeTg7LI7vHJmhE/ynQ0bmO2/Sdm82vUk=;
+	h=Date:From:Reply-To:To:Cc:In-Reply-To:References:Subject:List-ID:
+	 List-Archive:List-Post:List-Unsubscribe:From;
+	b=0ZXqt53HgVESEIl8ZTD6+O4jDIY3VCZnW1E0F7x1Sc6PoVkaP3KHiqeLFT8wSJl30
+	 GT4UKLbQ/DnwfzNevMGJknP0g+jP4TkEITbU5VoaShngHRHyg4/d5uguOAVYYbPlS1
+	 zAG3EJeMiA4/BukCJ9fAPXk4YjGga5HPolrd5xfE=
+Date: Wed, 27 May 2020 16:55:14 -0700
+From: =?UTF-8?B?0L3QsNCx?= <notifications@github.com>
+Reply-To: openzfs/zfs <reply+ABTGCKH3VWMKB4A62NBYAD543LPOFEVBNHHCKJ5CNE@reply.github.com>
+To: openzfs/zfs <zfs@noreply.github.com>
+Cc: =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@gmail.com>, 
+ Your activity <your_activity@noreply.github.com>
+Message-ID: <openzfs/zfs/pull/10357/review/419688063@github.com>
+In-Reply-To: <openzfs/zfs/pull/10357@github.com>
+References: <openzfs/zfs/pull/10357@github.com>
+Subject: Re: [openzfs/zfs] x32 builds (#10357)
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="--==_mimepart_5ecefde2bfb21_41f33ff8850cd95c131579";
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Precedence: list
+X-GitHub-Sender: nabijaczleweli
+X-GitHub-Recipient: nabijaczleweli
+X-GitHub-Reason: your_activity
+List-ID: openzfs/zfs <zfs.openzfs.github.com>
+List-Archive: https://github.com/openzfs/zfs
+List-Post: <mailto:reply+ABTGCKH3VWMKB4A62NBYAD543LPOFEVBNHHCKJ5CNE@reply.github.com>
+List-Unsubscribe: <mailto:unsub+ABTGCKH3VWMKB4A62NBYAD543LPOFEVBNHHCKJ5CNE@reply.github.com>,
+ <https://github.com/notifications/unsubscribe/ABTGCKELSJHYUUQPNKMCGELRTWR6FANCNFSM4NIADNOQ>
+X-Auto-Response-Suppress: All
+X-GitHub-Recipient-Address: nabijaczleweli@gmail.com
+Status: RO
+Content-Length: 2603
+Lines: 65
+
+
+----==_mimepart_5ecefde2bfb21_41f33ff8850cd95c131579
+Content-Type: text/plain;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+@nabijaczleweli commented on this pull request.
+
+
+
+> @@ -4888,8 +4888,8 @@ zfs_receive_one(libzfs_handle_t *hdl, int infd, const char *tosnap,
+ 		zfs_nicebytes(bytes, buf1, sizeof (buf1));
+ 		zfs_nicebytes(bytes/delta, buf2, sizeof (buf1));
+ 
+-		(void) printf("received %s stream in %lu seconds (%s/sec)\n",
+-		    buf1, delta, buf2);
++		(void) printf("received %s stream in %llu seconds (%s/sec)\n",
+
+Done
+
+-- 
+You are receiving this because you are subscribed to this thread.
+Reply to this email directly or view it on GitHub:
+https://github.com/openzfs/zfs/pull/10357#discussion_r431507490
+----==_mimepart_5ecefde2bfb21_41f33ff8850cd95c131579
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<p></p>
+<p><b>@nabijaczleweli</b> commented on this pull request.</p>
+
+<hr>
+
+<p>In <a href="https://github.com/openzfs/zfs/pull/10357#discussion_r431507490">lib/libzfs/libzfs_sendrecv.c</a>:</p>
+<pre style='color:#555'>&gt; @@ -4888,8 +4888,8 @@ zfs_receive_one(libzfs_handle_t *hdl, int infd, const char *tosnap,
+ 		zfs_nicebytes(bytes, buf1, sizeof (buf1));
+ 		zfs_nicebytes(bytes/delta, buf2, sizeof (buf1));
+ 
+-		(void) printf(&quot;received %s stream in %lu seconds (%s/sec)\n&quot;,
+-		    buf1, delta, buf2);
++		(void) printf(&quot;received %s stream in %llu seconds (%s/sec)\n&quot;,
+</pre>
+<p>Done</p>
+
+<p style="font-size:small;-webkit-text-size-adjust:none;color:#666;">&mdash;<br />You are receiving this because you are subscribed to this thread.<br />Reply to this email directly, <a href="https://github.com/openzfs/zfs/pull/10357#discussion_r431507490">view it on GitHub</a>, or <a href="https://github.com/notifications/unsubscribe-auth/ABTGCKDPPKCLNY4X3SVLKWDRTWR6FANCNFSM4NIADNOQ">unsubscribe</a>.<img src="https://github.com/notifications/beacon/ABTGCKBD77L6URKOEMBONLTRTWR6FA5CNFSM4NIADNO2YY3PNVWWK3TUL52HS4DFWFIHK3DMKJSXC5LFON2FEZLWNFSXPKTDN5WW2ZLOORPWSZGODEB647Y.gif" height="1" width="1" alt="" /></p>
+<script type="application/ld+json">[
+{
+"@context": "http://schema.org",
+"@type": "EmailMessage",
+"potentialAction": {
+"@type": "ViewAction",
+"target": "https://github.com/openzfs/zfs/pull/10357#discussion_r431507490",
+"url": "https://github.com/openzfs/zfs/pull/10357#discussion_r431507490",
+"name": "View Pull Request"
+},
+"description": "View this Pull Request on GitHub",
+"publisher": {
+"@type": "Organization",
+"name": "GitHub",
+"url": "https://github.com"
+}
+}
+]</script>
+----==_mimepart_5ecefde2bfb21_41f33ff8850cd95c131579--
+
+From noreply@github.com Thu May 28 01:45:07 2020
+Delivered-To: nabijaczleweli@gmail.com
+Received: by 2002:a4a:a581:0:0:0:0:0 with SMTP id d1csp1395408oom;
+        Wed, 27 May 2020 16:45:07 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJxuxWwNwW1Rmvw/e7vnlZGofb07nZNKFhfJ/436x5mofs9+k68RxuKTjh6Af9/V+qOA/GZ6
+X-Received: by 2002:ad4:5692:: with SMTP id bc18mr448564qvb.233.1590623107655;
+        Wed, 27 May 2020 16:45:07 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1590623107; cv=none;
+        d=google.com; s=arc-20160816;
+        b=LcuzBVE9gbIOR6G6f2faWR0v1q/fiLEko9prI59moWQK1uBXWVXZFqY92bYnzxqLJw
+         gHFlpx8eBC3bEn8Tl5emDSfjj/mATfpzKKlVeVgJOOnxAYCPCQM5hV32dukYB9e/OHQB
+         kN/LHMQL+vp8fFWmifYjSw4Dao1od3Z2M182e2BUV4XKdU9fk5bxFcWe8QvogI9e0/Bw
+         dqpfKfrFK04yAbt1+xCA70il5uKBp7RESd6/0AZ8pRnn2y21l3tMioppau1YR8Jyy2tX
+         c//ryD6ERSDy1fjxIb9tgMUA5TPlHxZYtOVWyqMS1XZNyTVzCU+XlqGEAG0oxdJ098AM
+         2e5Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-post:list-archive:list-id:precedence
+         :content-transfer-encoding:mime-version:subject:references
+         :in-reply-to:message-id:cc:to:reply-to:from:date:dkim-signature;
+        bh=TFl6KWGwSaQawXiwtBAJU2ufX/sdSDTpmMQP8RWzE7s=;
+        b=RC+OWIjvvkez4HwL74o8B2v4tTvq7Yj2kLoESK24kAfl1oCDeH/kS8JOorCiGIeA1L
+         ybhHwpbN+zxzoi+tRL2DZVHGl/RhGg67VU5cEYJik3+USVMm6SIOzBwJR1FuuUJu7WHs
+         MLPS+Tv3bUFfBVfeMVHLUn5DsPxUcF8xmk1lDWrVBSoiREaCkkiOqw32xjnpjbJ59wUv
+         v1qUyPIxz4R2xy8YW4I3VPBCgYfsVcQUmm3x0YE0KADFIfd1ifYt9SE6d4eijJ4zT0kQ
+         QrCDYLaTwTXfT/lDknvZ54JQaxIzU9rjWkN6uecj61Yzq44yex6gU1p5f4iR+Tn0EmVu
+         kMbA==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=R6xqQHeQ;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.203 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
+Return-Path: <noreply@github.com>
+Received: from out-20.smtp.github.com (out-20.smtp.github.com. [192.30.252.203])
+        by mx.google.com with ESMTPS id c15si2623683qkm.211.2020.05.27.16.45.07
+        for <nabijaczleweli@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Wed, 27 May 2020 16:45:07 -0700 (PDT)
+Received-SPF: pass (google.com: domain of noreply@github.com designates 192.30.252.203 as permitted sender) client-ip=192.30.252.203;
+Authentication-Results: mx.google.com;
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=R6xqQHeQ;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.203 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
+Received: from github-lowworker-3a0df0f.ac4-iad.github.net (github-lowworker-3a0df0f.ac4-iad.github.net [10.52.25.92])
+	by smtp.github.com (Postfix) with ESMTP id 6C5FE8C0609
+	for <nabijaczleweli@gmail.com>; Wed, 27 May 2020 16:45:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=github.com;
+	s=pf2014; t=1590623107;
+	bh=TFl6KWGwSaQawXiwtBAJU2ufX/sdSDTpmMQP8RWzE7s=;
+	h=Date:From:Reply-To:To:Cc:In-Reply-To:References:Subject:List-ID:
+	 List-Archive:List-Post:List-Unsubscribe:From;
+	b=R6xqQHeQ8dgdR6APQ8KfJlR2KUqoiPqZzyVXubumFHh9h14cyTtcqo0jNK+VP5ExA
+	 1Vd6tN63JPAAI9I1SO6abx/CAPAPs3ELn+27izxGhH1QsNg3oUigHO4n8vl0D2ZZQJ
+	 C4VIVOr2pBOzRzuolRBL2I1HsSuiRMGHg+Vc9Ub8=
+Date: Wed, 27 May 2020 16:45:07 -0700
+From: =?UTF-8?B?0L3QsNCx?= <notifications@github.com>
+Reply-To: openzfs/zfs <noreply@github.com>
+To: openzfs/zfs <zfs@noreply.github.com>
+Cc: =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@gmail.com>, 
+ Push <push@noreply.github.com>
+Message-ID: <openzfs/zfs/pull/10357/push/5138809697@github.com>
+In-Reply-To: <openzfs/zfs/pull/10357@github.com>
+References: <openzfs/zfs/pull/10357@github.com>
+Subject: Re: [openzfs/zfs] x32 builds (#10357)
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="--==_mimepart_5ecefb835c903_64ad3fc5c30cd9607846e";
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Precedence: list
+X-GitHub-Sender: nabijaczleweli
+X-GitHub-Recipient: nabijaczleweli
+X-GitHub-Reason: push
+List-ID: openzfs/zfs <zfs.openzfs.github.com>
+List-Archive: https://github.com/openzfs/zfs
+List-Post: <mailto:noreply@github.com>
+List-Unsubscribe: <mailto:unsub+ABTGCKHPWPRPAVYZWH3C3F543LOIHEVBNHHCKJ5CNE@reply.github.com>,
+ <https://github.com/notifications/unsubscribe/ABTGCKEKZM5MPECLJO52CRDRTWQYHANCNFSM4NIADNOQ>
+X-Auto-Response-Suppress: All
+X-GitHub-Recipient-Address: nabijaczleweli@gmail.com
+Status: RO
+Content-Length: 2504
+Lines: 51
+
+
+----==_mimepart_5ecefb835c903_64ad3fc5c30cd9607846e
+Content-Type: text/plain;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+@nabijaczleweli pushed 2 commits.
+
+12d59c64b0724fbcf23db59faa0dc94f9b5141e6  Correctly handle the x32 ABI
+14be89824bc95237d5f504dc830ad2ae520dcfe2  Always use "%lld" for formatting time_ts
+
+
+-- 
+You are receiving this because you are subscribed to this thread.
+View it on GitHub:
+https://github.com/openzfs/zfs/pull/10357/files/45a8cff85c4bd846f39522195e9abcbb80ae57e8..14be89824bc95237d5f504dc830ad2ae520dcfe2
+
+----==_mimepart_5ecefb835c903_64ad3fc5c30cd9607846e
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<p><a href="https://github.com/nabijaczleweli" class="user-mention">@nabijaczleweli</a> pushed 2 commits.</p>
+
+<ul>
+  <li><a class="commit-link" href="https://github.com/openzfs/zfs/commit/12d59c64b0724fbcf23db59faa0dc94f9b5141e6">12d59c6</a>  Correctly handle the x32 ABI</li>
+  <li><a class="commit-link" href="https://github.com/openzfs/zfs/commit/14be89824bc95237d5f504dc830ad2ae520dcfe2">14be898</a>  Always use &quot;%lld&quot; for formatting time_ts</li>
+</ul>
+
+
+<p style="font-size:small;-webkit-text-size-adjust:none;color:#666;">&mdash;<br />You are receiving this because you are subscribed to this thread.<br /><a href="https://github.com/openzfs/zfs/pull/10357/files/45a8cff85c4bd846f39522195e9abcbb80ae57e8..14be89824bc95237d5f504dc830ad2ae520dcfe2">View it on GitHub</a> or <a href="https://github.com/notifications/unsubscribe-auth/ABTGCKCVRPCKLV3LB5O7I33RTWQYHANCNFSM4NIADNOQ">unsubscribe</a>.<img src="https://github.com/notifications/beacon/ABTGCKENQ2K2YXGX2QC2QCLRTWQYHA5CNFSM4NIADNO2YY3PNVWWK3TUL52HS4DFXNIHK3DMKJSXC5LFON2FA5LTNBHG65DJMZUWGYLUNFXW5KTDN5WW2ZLOORPWSZF5KB2WY3BDGQZDEMBUGE4DGN2QOVZWQIZVGEZTQOBQHE3DSNY.gif" height="1" width="1" alt="" /></p>
+<script type="application/ld+json">[
+{
+"@context": "http://schema.org",
+"@type": "EmailMessage",
+"potentialAction": {
+"@type": "ViewAction",
+"target": "https://github.com/openzfs/zfs/pull/10357/files/45a8cff85c4bd846f39522195e9abcbb80ae57e8..14be89824bc95237d5f504dc830ad2ae520dcfe2",
+"url": "https://github.com/openzfs/zfs/pull/10357/files/45a8cff85c4bd846f39522195e9abcbb80ae57e8..14be89824bc95237d5f504dc830ad2ae520dcfe2",
+"name": "View Pull Request"
+},
+"description": "View this Pull Request on GitHub",
+"publisher": {
+"@type": "Organization",
+"name": "GitHub",
+"url": "https://github.com"
+}
+}
+]</script>
+
+----==_mimepart_5ecefb835c903_64ad3fc5c30cd9607846e--
+
+From noreply@github.com Thu May 28 00:25:15 2020
+Delivered-To: nabijaczleweli@gmail.com
+Received: by 2002:a4a:a581:0:0:0:0:0 with SMTP id d1csp1351627oom;
+        Wed, 27 May 2020 15:25:15 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJxGD9b5vWBne5k3kCTc1E69WKjUK8UvKGY2zqEOiABjV1JbUtmG70zNYP5KZuuCItNrhw8M
+X-Received: by 2002:ac8:3036:: with SMTP id f51mr143034qte.226.1590618315760;
+        Wed, 27 May 2020 15:25:15 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1590618315; cv=none;
+        d=google.com; s=arc-20160816;
+        b=FOw68Kh9DE/Lul2uXY84+uuB2CfI9kF8lk8WfhJxIUBrnvR6TOx2ca6tEABOHpLZhK
+         BbnLUiPAQKEUt1ePlw8rtX7FTx0jkTJz2sPlZvc1408j2Ylfcm9xgwy7CnvGXEPlzKVp
+         uBOlFDv2PX500I72Pqg0EPxTXyCFS6E/sE5yytr0oPf8A5WQpDxe1yS3Qz8IhTee8tN0
+         1KymCkFVN8/bweFcKqIx8GbeSyhrZfpbgf5+dnIuSK5DQtpCzVzIhvKOL591RnOTC26Y
+         IpFn4EzPNdOWHKeKt/L43eO/+ugM3jHmR7hvax330QriDc8P6ylUN2DX2f1YFXNScfFj
+         ph+w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-post:list-archive:list-id:precedence
+         :content-transfer-encoding:mime-version:subject:references
+         :in-reply-to:message-id:cc:to:reply-to:from:date:dkim-signature;
+        bh=AQZe5axqxSSIpywBOnhxxXCIXAEW6R4sca43qdfjngA=;
+        b=ZFlIsr9OLunor8N+UfrpthV9D1ilp68wvWw547QmLV6CHdrDslMLlnTFtCdYmoM0wV
+         ARyoxn9wPG3rva44isVvdmMhXuz8VFVlYSVFgs8rwvSI1Vh98DbaQks4OE7n/UcFrXiC
+         bqCjtmLlx1V2Z4Rlu5+BlVn33h7z8ZROPRnCQh946sRRKcb5ebUgzBdcOGFScY2HXcSQ
+         UTrul3uDSwWMzGsg8LPMALJu2lV+mz8iX/tvIrJf258YfiB4NLgVs2YQXWzgSbMpxhEc
+         AUfc/h7okw41VxYY0h7dtSyw3ezMDCtELVD/cFwaihYOGbk9TTgbs9QFYOD5Fe8gYd19
+         7jyA==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=ScIgEP5M;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.201 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
+Return-Path: <noreply@github.com>
+Received: from out-18.smtp.github.com (out-18.smtp.github.com. [192.30.252.201])
+        by mx.google.com with ESMTPS id i13si2357087qtm.193.2020.05.27.15.25.15
+        for <nabijaczleweli@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Wed, 27 May 2020 15:25:15 -0700 (PDT)
+Received-SPF: pass (google.com: domain of noreply@github.com designates 192.30.252.201 as permitted sender) client-ip=192.30.252.201;
+Authentication-Results: mx.google.com;
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=ScIgEP5M;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.201 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
+Received: from github-lowworker-1dbcc59.ash1-iad.github.net (github-lowworker-1dbcc59.ash1-iad.github.net [10.56.105.54])
+	by smtp.github.com (Postfix) with ESMTP id 8757B6E10F8
+	for <nabijaczleweli@gmail.com>; Wed, 27 May 2020 15:25:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=github.com;
+	s=pf2014; t=1590618315;
+	bh=AQZe5axqxSSIpywBOnhxxXCIXAEW6R4sca43qdfjngA=;
+	h=Date:From:Reply-To:To:Cc:In-Reply-To:References:Subject:List-ID:
+	 List-Archive:List-Post:List-Unsubscribe:From;
+	b=ScIgEP5MsInULioe5yu6k75Pco/cqW+Q2NE03OmmzH8HrxqH2GLaW61lRKA1N+et2
+	 iLaP2lZi1H8grDLAEkMt+GHrJsGQzFV3BJ98sZbLRzM+Ii01xfiJRkj52sX37T33xJ
+	 lOJqa5vIb1rklnJ5RnmuLu6yBaIh7a/1a6b9ojoE=
+Date: Wed, 27 May 2020 15:25:15 -0700
+From: Ryan Moeller <notifications@github.com>
+Reply-To: openzfs/zfs <reply+ABTGCKD7MHHHQF2JTEQ5DFF43LE4XEVBNHHCKJ5CNE@reply.github.com>
+To: openzfs/zfs <zfs@noreply.github.com>
+Cc: =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@gmail.com>, 
+ Mention <mention@noreply.github.com>
+Message-ID: <openzfs/zfs/pull/10357/review/419651993@github.com>
+In-Reply-To: <openzfs/zfs/pull/10357@github.com>
+References: <openzfs/zfs/pull/10357@github.com>
+Subject: Re: [openzfs/zfs] x32 builds (#10357)
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="--==_mimepart_5ecee8cb76d18_347d3fedd10cd95c608793";
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Precedence: list
+X-GitHub-Sender: freqlabs
+X-GitHub-Recipient: nabijaczleweli
+X-GitHub-Reason: mention
+List-ID: openzfs/zfs <zfs.openzfs.github.com>
+List-Archive: https://github.com/openzfs/zfs
+List-Post: <mailto:reply+ABTGCKD7MHHHQF2JTEQ5DFF43LE4XEVBNHHCKJ5CNE@reply.github.com>
+List-Unsubscribe: <mailto:unsub+ABTGCKD7MHHHQF2JTEQ5DFF43LE4XEVBNHHCKJ5CNE@reply.github.com>,
+ <https://github.com/notifications/unsubscribe/ABTGCKC3RTHO3NENNJRFEN3RTWHMXANCNFSM4NIADNOQ>
+X-Auto-Response-Suppress: All
+X-GitHub-Recipient-Address: nabijaczleweli@gmail.com
+Status: RO
+Content-Length: 3267
+Lines: 65
+
+
+----==_mimepart_5ecee8cb76d18_347d3fedd10cd95c608793
+Content-Type: text/plain;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+@freqlabs commented on this pull request.
+
+
+
+> @@ -4888,8 +4888,8 @@ zfs_receive_one(libzfs_handle_t *hdl, int infd, const char *tosnap,
+ 		zfs_nicebytes(bytes, buf1, sizeof (buf1));
+ 		zfs_nicebytes(bytes/delta, buf2, sizeof (buf1));
+ 
+-		(void) printf("received %s stream in %lu seconds (%s/sec)\n",
+-		    buf1, delta, buf2);
++		(void) printf("received %s stream in %llu seconds (%s/sec)\n",
+
+I would take this opportunity to make this signed rather than unsigned. At least on FreeBSD, time_t is a signed type. Conceivably the system clock may be set back during the receive and result in a negative delta, which while might be slightly more intuitive to recognize as a negative number (though not necessarily a useful number either way).
+
+-- 
+You are receiving this because you were mentioned.
+Reply to this email directly or view it on GitHub:
+https://github.com/openzfs/zfs/pull/10357#pullrequestreview-419651993
+----==_mimepart_5ecee8cb76d18_347d3fedd10cd95c608793
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<p></p>
+<p><b>@freqlabs</b> commented on this pull request.</p>
+
+<hr>
+
+<p>In <a href="https://github.com/openzfs/zfs/pull/10357#discussion_r431477332">lib/libzfs/libzfs_sendrecv.c</a>:</p>
+<pre style='color:#555'>&gt; @@ -4888,8 +4888,8 @@ zfs_receive_one(libzfs_handle_t *hdl, int infd, const char *tosnap,
+ 		zfs_nicebytes(bytes, buf1, sizeof (buf1));
+ 		zfs_nicebytes(bytes/delta, buf2, sizeof (buf1));
+ 
+-		(void) printf(&quot;received %s stream in %lu seconds (%s/sec)\n&quot;,
+-		    buf1, delta, buf2);
++		(void) printf(&quot;received %s stream in %llu seconds (%s/sec)\n&quot;,
+</pre>
+<p>I would take this opportunity to make this signed rather than unsigned. At least on FreeBSD, time_t is a signed type. Conceivably the system clock may be set back during the receive and result in a negative delta, which while might be slightly more intuitive to recognize as a negative number (though not necessarily a useful number either way).</p>
+
+<p style="font-size:small;-webkit-text-size-adjust:none;color:#666;">&mdash;<br />You are receiving this because you were mentioned.<br />Reply to this email directly, <a href="https://github.com/openzfs/zfs/pull/10357#pullrequestreview-419651993">view it on GitHub</a>, or <a href="https://github.com/notifications/unsubscribe-auth/ABTGCKAOT3TJP2EOQ55RNJDRTWHMXANCNFSM4NIADNOQ">unsubscribe</a>.<img src="https://github.com/notifications/beacon/ABTGCKEZJCFCZFAZLQNPESDRTWHMXA5CNFSM4NIADNO2YY3PNVWWK3TUL52HS4DFWFIHK3DMKJSXC5LFON2FEZLWNFSXPKTDN5WW2ZLOORPWSZGODEBWDGI.gif" height="1" width="1" alt="" /></p>
+<script type="application/ld+json">[
+{
+"@context": "http://schema.org",
+"@type": "EmailMessage",
+"potentialAction": {
+"@type": "ViewAction",
+"target": "https://github.com/openzfs/zfs/pull/10357#pullrequestreview-419651993",
+"url": "https://github.com/openzfs/zfs/pull/10357#pullrequestreview-419651993",
+"name": "View Pull Request"
+},
+"description": "View this Pull Request on GitHub",
+"publisher": {
+"@type": "Organization",
+"name": "GitHub",
+"url": "https://github.com"
+}
+}
+]</script>
+----==_mimepart_5ecee8cb76d18_347d3fedd10cd95c608793--
+
+From noreply@github.com Wed May 27 21:11:22 2020
+Delivered-To: nabijaczleweli@gmail.com
+Received: by 2002:a4a:a581:0:0:0:0:0 with SMTP id d1csp1240031oom;
+        Wed, 27 May 2020 12:11:23 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJwVEjASQ9zvFVynnX74u+3rRQYX0ROblp4WNET7+4lo2jHPDIbWGR3VR5z2P6MrHxWimRsA
+X-Received: by 2002:aed:2341:: with SMTP id i1mr5987911qtc.358.1590606682076;
+        Wed, 27 May 2020 12:11:22 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1590606682; cv=none;
+        d=google.com; s=arc-20160816;
+        b=Rx7twxpWlri31aHbsB0wZC8GRwxqnTsFSHW6zuQE54O5pKAA/UjykqeyjmlE1UvPyt
+         ni/mk5CFkoyfL6nRm+hNmwe1gDYCCuDalIYTayKIe0C9PIpCXWFzY56GKWn+9hMXiJWG
+         DIgyKv9qFyAJ5NCl6/BFYXOrQ7nCXviNj5T8CB8+jpTjKls4WU8DE63smMgZz2xnl9Qq
+         H4eiHMgY4KOql0+2fxwZaDV4OfeWCwlNt7bFCJbmWkwjXNR8hKEeWyEPqGJ3IQiidn3g
+         4/t/+keGlQZ5JWb3VdkaB5dEd0Z04KbORMPK02NHZg/o2P9gjwlQvG4PgI8dYBGhE9nt
+         wiQg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-post:list-archive:list-id:precedence
+         :content-transfer-encoding:mime-version:subject:references
+         :in-reply-to:message-id:cc:to:reply-to:from:date:dkim-signature;
+        bh=igHJysh9Q4DAmdmt3kL91PsXlrYnBpbO0BpMQ8LqnWA=;
+        b=wciRH1K0Dd8IPHaN0RXhgj72eH/bYw9N4BOtcnDzzpV2kLFCtCsEfiieluNdZAO7Ux
+         qfZTAsM/42UAFYg0ANQRF79pn8nZIOM1VMiCIzM45TslTBrYHLmxhohp/2biNg/uZQYT
+         /5wzzwVaV4CWMH45lPO2phHVMTYY+HLG13fNDUkvOvbjwhn020o3XbMi6avoiQJ+XYz7
+         KTSifONHSgI8QANT8rMFeSl6Iz31I+mtF9qsyFX0Za+bYSGTVTNYEPi6edTPRhbyTX2r
+         PRDEHdR8skP+eDFXjcViNaz8wb/H5GsBM8ns8OpiEJYTprNmyEPZHrv13T+0zbnPpnAV
+         CLvg==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=AOVcYCn9;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.203 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
+Return-Path: <noreply@github.com>
+Received: from out-20.smtp.github.com (out-20.smtp.github.com. [192.30.252.203])
+        by mx.google.com with ESMTPS id e21si2472311qtw.331.2020.05.27.12.11.22
+        for <nabijaczleweli@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Wed, 27 May 2020 12:11:22 -0700 (PDT)
+Received-SPF: pass (google.com: domain of noreply@github.com designates 192.30.252.203 as permitted sender) client-ip=192.30.252.203;
+Authentication-Results: mx.google.com;
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=AOVcYCn9;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.203 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
+Received: from github-lowworker-1b8c660.ash1-iad.github.net (github-lowworker-1b8c660.ash1-iad.github.net [10.56.18.59])
+	by smtp.github.com (Postfix) with ESMTP id D7E5F8C0507
+	for <nabijaczleweli@gmail.com>; Wed, 27 May 2020 12:11:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=github.com;
+	s=pf2014; t=1590606681;
+	bh=igHJysh9Q4DAmdmt3kL91PsXlrYnBpbO0BpMQ8LqnWA=;
+	h=Date:From:Reply-To:To:Cc:In-Reply-To:References:Subject:List-ID:
+	 List-Archive:List-Post:List-Unsubscribe:From;
+	b=AOVcYCn9rOeVZ77eaoBCKc3uxkzD7JS4CmoGeOr4iwyu2K/Tyrg19AvlI4KL2Alwb
+	 xnpCIc/EL2gk/FqXEtflgBAtTnyMqpPfVKbupMGhR6sHI1pZPU+/I6uCEWiCyBuCFn
+	 gxobmn9hdDD8vWTekX5XKDhPBunGzqVR1A2pDZxo=
+Date: Wed, 27 May 2020 12:11:21 -0700
+From: =?UTF-8?B?0L3QsNCx?= <notifications@github.com>
+Reply-To: openzfs/zfs <reply+ABTGCKBYSM6PNHAD5RBT4WN43KOFTEVBNHHCKJ5CNE@reply.github.com>
+To: openzfs/zfs <zfs@noreply.github.com>
+Cc: =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@gmail.com>, 
+ Your activity <your_activity@noreply.github.com>
+Message-ID: <openzfs/zfs/pull/10357/c634880178@github.com>
+In-Reply-To: <openzfs/zfs/pull/10357@github.com>
+References: <openzfs/zfs/pull/10357@github.com>
+Subject: Re: [openzfs/zfs] x32 builds (#10357)
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="--==_mimepart_5ecebb59c8e53_4fac3feeb2ecd96c56016";
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Precedence: list
+X-GitHub-Sender: nabijaczleweli
+X-GitHub-Recipient: nabijaczleweli
+X-GitHub-Reason: your_activity
+List-ID: openzfs/zfs <zfs.openzfs.github.com>
+List-Archive: https://github.com/openzfs/zfs
+List-Post: <mailto:reply+ABTGCKBYSM6PNHAD5RBT4WN43KOFTEVBNHHCKJ5CNE@reply.github.com>
+List-Unsubscribe: <mailto:unsub+ABTGCKBYSM6PNHAD5RBT4WN43KOFTEVBNHHCKJ5CNE@reply.github.com>,
+ <https://github.com/notifications/unsubscribe/ABTGCKAR3XZ3FLOQOE2G5U3RTVQVTANCNFSM4NIADNOQ>
+X-Auto-Response-Suppress: All
+X-GitHub-Recipient-Address: nabijaczleweli@gmail.com
+Status: RO
+Content-Length: 1603
+Lines: 40
+
+
+----==_mimepart_5ecebb59c8e53_4fac3feeb2ecd96c56016
+Content-Type: text/plain;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+Done
+
+-- 
+You are receiving this because you are subscribed to this thread.
+Reply to this email directly or view it on GitHub:
+https://github.com/openzfs/zfs/pull/10357#issuecomment-634880178
+----==_mimepart_5ecebb59c8e53_4fac3feeb2ecd96c56016
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<p></p>
+<p>Done</p>
+
+<p style="font-size:small;-webkit-text-size-adjust:none;color:#666;">&mdash;<br />You are receiving this because you are subscribed to this thread.<br />Reply to this email directly, <a href="https://github.com/openzfs/zfs/pull/10357#issuecomment-634880178">view it on GitHub</a>, or <a href="https://github.com/notifications/unsubscribe-auth/ABTGCKELHHKYTFEEKHCZDHTRTVQVTANCNFSM4NIADNOQ">unsubscribe</a>.<img src="https://github.com/notifications/beacon/ABTGCKEQGAFNJAMRRPSHR4DRTVQVTA5CNFSM4NIADNO2YY3PNVWWK3TUL52HS4DFVREXG43VMVBW63LNMVXHJKTDN5WW2ZLOORPWSZGOEXLYBMQ.gif" height="1" width="1" alt="" /></p>
+<script type="application/ld+json">[
+{
+"@context": "http://schema.org",
+"@type": "EmailMessage",
+"potentialAction": {
+"@type": "ViewAction",
+"target": "https://github.com/openzfs/zfs/pull/10357#issuecomment-634880178",
+"url": "https://github.com/openzfs/zfs/pull/10357#issuecomment-634880178",
+"name": "View Pull Request"
+},
+"description": "View this Pull Request on GitHub",
+"publisher": {
+"@type": "Organization",
+"name": "GitHub",
+"url": "https://github.com"
+}
+}
+]</script>
+----==_mimepart_5ecebb59c8e53_4fac3feeb2ecd96c56016--
+
+From noreply@github.com Wed May 27 18:53:04 2020
+Delivered-To: nabijaczleweli@gmail.com
+Received: by 2002:a4a:a581:0:0:0:0:0 with SMTP id d1csp1150675oom;
+        Wed, 27 May 2020 09:53:04 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJz1WGuQpJx5pdyRMt82d+pgXpkC790IhY6KChyfGAYKCz6rEEulCrSOjQquR+JYvau7hrf5
+X-Received: by 2002:ac8:535a:: with SMTP id d26mr5249180qto.152.1590598384170;
+        Wed, 27 May 2020 09:53:04 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1590598384; cv=none;
+        d=google.com; s=arc-20160816;
+        b=aMvrLhyMsLXfCEj+yJtALLtQbNp/pLkm7FU2HPKmT6UlAEQAgYkQ+R/Tqx2BWiY9EU
+         Ui85BhIgSSAC+K1bdNRfZNfQH3YjbZP8/IFaFv09WD4BYNwcFtEPcz0weaHSXyzwSREs
+         uP9f7EQ2LBPlZBWLmUX+S5ZD4Al3+HyZ4M8kNUMoUh565u4pGuFiIW+kgnv+x2GxNbII
+         JUT/M/TtdWKWCzCUjuBisN5jhLeebb7VQqEWQQGTqj+7f2bQV7oPIJpyvMIYGibMvs67
+         FiggAdqKuCqqqkS9Bn1QAcaTMYIM3jkhZ/basOFkcvxR86vZnrdHuGrS0ENHZ3hMMNMH
+         /QSg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-post:list-archive:list-id:precedence
+         :content-transfer-encoding:mime-version:subject:references
+         :in-reply-to:message-id:cc:to:reply-to:from:date:dkim-signature;
+        bh=kzUnFt0hbM7U0zRPZ1s4zjKw1ipJLl5O4eyHflRXV/A=;
+        b=lBmHIt+J9jO+yl8A3rufL5SsWsgcUcYtNLTGn+PmsnRO5XeM7Czxo4J+uvu4k/JorD
+         ASZehzC5TDIoCfZ018TTHUzM4GQwEPAkzpGvVeukksCmpQYRuLek42modokxPamlIEV6
+         cLd4RJ2WfRasfjLOaL/L4jjLIspPbtYuDevRcW/eja/wyIR65NhXHzgduAa9/1Rn3FC7
+         O6oVNUxxK10Rn77S5mFRjium3GoQuxFrTylaGcD4hjso6nhYQTJYkWsRybzHaBLa4BGV
+         zcm2Bk8fCoNvWQvm2WVIWRos3zuLqqiI5vmisCflqPnTWqBKSrer2bnYrX9qL2qJRwSb
+         sz6A==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=1M+7VaHn;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.200 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
+Return-Path: <noreply@github.com>
+Received: from out-17.smtp.github.com (out-17.smtp.github.com. [192.30.252.200])
+        by mx.google.com with ESMTPS id n12si1901698qtf.166.2020.05.27.09.53.04
+        for <nabijaczleweli@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Wed, 27 May 2020 09:53:04 -0700 (PDT)
+Received-SPF: pass (google.com: domain of noreply@github.com designates 192.30.252.200 as permitted sender) client-ip=192.30.252.200;
+Authentication-Results: mx.google.com;
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=1M+7VaHn;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.200 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
+Received: from github-lowworker-943b171.ac4-iad.github.net (github-lowworker-943b171.ac4-iad.github.net [10.52.22.59])
+	by smtp.github.com (Postfix) with ESMTP id E98396E04D6
+	for <nabijaczleweli@gmail.com>; Wed, 27 May 2020 09:53:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=github.com;
+	s=pf2014; t=1590598383;
+	bh=kzUnFt0hbM7U0zRPZ1s4zjKw1ipJLl5O4eyHflRXV/A=;
+	h=Date:From:Reply-To:To:Cc:In-Reply-To:References:Subject:List-ID:
+	 List-Archive:List-Post:List-Unsubscribe:From;
+	b=1M+7VaHnN03QYAcP+ErYBKVEfm7q+F2KiC9oTg9Wn1oAvcOsPmpnAZFE4DYU/DEgC
+	 mPvgNarUV1p5kMd7cK8xAG2QkvQecirDUiQTbT1Yk7NNDxOwKvjs8ZoAsquD/XWC7y
+	 pF6wet69zBpPTs2UKifUqmXHZsHKHX7kxdQW4M88=
+Date: Wed, 27 May 2020 09:53:03 -0700
+From: Brian Behlendorf <notifications@github.com>
+Reply-To: openzfs/zfs <reply+ABTGCKG4KX3O3PQXWTOZG7F43J567EVBNHHCKJ5CNE@reply.github.com>
+To: openzfs/zfs <zfs@noreply.github.com>
+Cc: =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@gmail.com>, 
+ Mention <mention@noreply.github.com>
+Message-ID: <openzfs/zfs/pull/10357/c634797968@github.com>
+In-Reply-To: <openzfs/zfs/pull/10357@github.com>
+References: <openzfs/zfs/pull/10357@github.com>
+Subject: Re: [openzfs/zfs] x32 builds (#10357)
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="--==_mimepart_5ece9aefd93a6_3b303fdd33ccd96815087e";
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Precedence: list
+X-GitHub-Sender: behlendorf
+X-GitHub-Recipient: nabijaczleweli
+X-GitHub-Reason: mention
+List-ID: openzfs/zfs <zfs.openzfs.github.com>
+List-Archive: https://github.com/openzfs/zfs
+List-Post: <mailto:reply+ABTGCKG4KX3O3PQXWTOZG7F43J567EVBNHHCKJ5CNE@reply.github.com>
+List-Unsubscribe: <mailto:unsub+ABTGCKG4KX3O3PQXWTOZG7F43J567EVBNHHCKJ5CNE@reply.github.com>,
+ <https://github.com/notifications/unsubscribe/ABTGCKFX2G6F3V3SNUUOJLTRTVAO7ANCNFSM4NIADNOQ>
+X-Auto-Response-Suppress: All
+X-GitHub-Recipient-Address: nabijaczleweli@gmail.com
+Status: RO
+Content-Length: 2207
+Lines: 40
+
+
+----==_mimepart_5ece9aefd93a6_3b303fdd33ccd96815087e
+Content-Type: text/plain;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+@nabijaczleweli can update these commits to include your [signed-off-by](https://github.com/openzfs/zfs/blob/master/.github/CONTRIBUTING.md#signed-off-by).  Then I can go ahead and merge them.  Thanks.
+
+-- 
+You are receiving this because you were mentioned.
+Reply to this email directly or view it on GitHub:
+https://github.com/openzfs/zfs/pull/10357#issuecomment-634797968
+----==_mimepart_5ece9aefd93a6_3b303fdd33ccd96815087e
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<p></p>
+<p><a class="user-mention" data-hovercard-type="user" data-hovercard-url="/users/nabijaczleweli/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/nabijaczleweli">@nabijaczleweli</a> can update these commits to include your <a href="https://github.com/openzfs/zfs/blob/master/.github/CONTRIBUTING.md#signed-off-by">signed-off-by</a>.  Then I can go ahead and merge them.  Thanks.</p>
+
+<p style="font-size:small;-webkit-text-size-adjust:none;color:#666;">&mdash;<br />You are receiving this because you were mentioned.<br />Reply to this email directly, <a href="https://github.com/openzfs/zfs/pull/10357#issuecomment-634797968">view it on GitHub</a>, or <a href="https://github.com/notifications/unsubscribe-auth/ABTGCKBYSS77LITETI4DW6DRTVAO7ANCNFSM4NIADNOQ">unsubscribe</a>.<img src="https://github.com/notifications/beacon/ABTGCKCWFYBMI6T5YNN5O63RTVAO7A5CNFSM4NIADNO2YY3PNVWWK3TUL52HS4DFVREXG43VMVBW63LNMVXHJKTDN5WW2ZLOORPWSZGOEXLD7EA.gif" height="1" width="1" alt="" /></p>
+<script type="application/ld+json">[
+{
+"@context": "http://schema.org",
+"@type": "EmailMessage",
+"potentialAction": {
+"@type": "ViewAction",
+"target": "https://github.com/openzfs/zfs/pull/10357#issuecomment-634797968",
+"url": "https://github.com/openzfs/zfs/pull/10357#issuecomment-634797968",
+"name": "View Pull Request"
+},
+"description": "View this Pull Request on GitHub",
+"publisher": {
+"@type": "Organization",
+"name": "GitHub",
+"url": "https://github.com"
+}
+}
+]</script>
+----==_mimepart_5ece9aefd93a6_3b303fdd33ccd96815087e--
+
+From noreply@github.com Sun May 24 02:15:16 2020
+Delivered-To: nabijaczleweli@gmail.com
+Received: by 2002:a4a:a581:0:0:0:0:0 with SMTP id d1csp3544912oom;
+        Sat, 23 May 2020 17:15:16 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJzEN9vWHIJvo5kpa5GqYKZPoTkdpe14plW7NMixSA+490moxcunghrURxC5TOBJuFGd/qad
+X-Received: by 2002:a17:90b:245:: with SMTP id fz5mr12882428pjb.232.1590279316417;
+        Sat, 23 May 2020 17:15:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1590279316; cv=none;
+        d=google.com; s=arc-20160816;
+        b=XzI0dX+LZNdd44iGPNxPfIdki9WZ/Sl09Y/2yp3R41HIqpawXu1CY+u10MJw5/IDbR
+         sLT9VWskQJMURpv7PE8kD9hJfmJ8Bcj7xmNsJPFXbbXtFxZ9gcm2mjEibQ4urn/2i6qm
+         Ynrx8eU0xnDZZCtFJVXOChK6OQPx2CXl1uB0Ohr+5CgObqpAS3wCzPv4Y1zlSfBdHE+6
+         3CJze0y4aryCd9JDF46yPrqt6HsAOoydNFv0/wRDMPxUsWGLYXU0h9r4dcsbeO+bzgnW
+         0urgVXDE5k0Noadt9OzdzQOhe1hJuJbTpl73HYfj7pbDmF33RctTYLr8sqOvlFC3e4Q8
+         fTqw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-post:list-archive:list-id:precedence
+         :content-transfer-encoding:mime-version:subject:references
+         :in-reply-to:message-id:cc:to:reply-to:from:date:dkim-signature;
+        bh=4xIPbewEt3iS3eKaOgPrRMeXAVzxLimxDtUU73+o+RQ=;
+        b=bMUX9IDw1D/JqivU2MKy1mVVPXmhcyVqBbmLDbGXExD9SB4J/mkCMgMzZwyfc+E+vM
+         oNpJxARbM3qSQyU25xfxCgGKMYApQv4Vfmzq7kne0sX2IcZLn/6Oh+bw2J1eAHJCBTpj
+         ebzcUZYQR/o58ZPpyj0O4WqlDcJncALm4/vyJMmEn91XYe3e4Teyrjoex7eWl6BddHG/
+         V8TPoUFKygf3TfeoPSEDIa5sCe/oUSCLwfIyj32PPh6WqeFEwLZx1SMtcwhl25g3vyC5
+         kNPBoucqeUz5R8YXBEmfSJc/qwCYbBXY+SSwiKJQKeKawaFvNivrapmHdtmAmni7qQQs
+         76OA==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=OnGX72yX;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.254.193 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
+Return-Path: <noreply@github.com>
+Received: from out-10.smtp.github.com (out-10.smtp.github.com. [192.30.254.193])
+        by mx.google.com with ESMTPS id z2si10389453pgh.281.2020.05.23.17.15.16
+        for <nabijaczleweli@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Sat, 23 May 2020 17:15:16 -0700 (PDT)
+Received-SPF: pass (google.com: domain of noreply@github.com designates 192.30.254.193 as permitted sender) client-ip=192.30.254.193;
+Authentication-Results: mx.google.com;
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=OnGX72yX;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.254.193 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
+Received: from github-lowworker-fa7043e.ash1-iad.github.net (github-lowworker-fa7043e.ash1-iad.github.net [10.56.109.45])
+	by smtp.github.com (Postfix) with ESMTP id 263E21210A8
+	for <nabijaczleweli@gmail.com>; Sat, 23 May 2020 17:15:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=github.com;
+	s=pf2014; t=1590279316;
+	bh=4xIPbewEt3iS3eKaOgPrRMeXAVzxLimxDtUU73+o+RQ=;
+	h=Date:From:Reply-To:To:Cc:In-Reply-To:References:Subject:List-ID:
+	 List-Archive:List-Post:List-Unsubscribe:From;
+	b=OnGX72yXPxRlpGT7NjNvP7Bh8wmHopv1PlgkMPdC3PF/NKFOOL5IjI9/7noamHjb6
+	 Z0ClExJQnWKOlnA6HszizxGZc+vizZSE9hb387ogJ/ZbwRFD2Iyozv4FcYcQ/jtpUg
+	 2uaw7Z5K2UN5cZo3mZUyFDRYLeEo97MkCad9ivA4=
+Date: Sat, 23 May 2020 17:15:15 -0700
+From: Brian Behlendorf <notifications@github.com>
+Reply-To: openzfs/zfs <reply+ABTGCKE673HLSOUWN6NXWF542WOZHEVBNHHCKJ5CNE@reply.github.com>
+To: openzfs/zfs <zfs@noreply.github.com>
+Cc: =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@gmail.com>, 
+ Author <author@noreply.github.com>
+Message-ID: <openzfs/zfs/pull/10357/review/417317393@github.com>
+In-Reply-To: <openzfs/zfs/pull/10357@github.com>
+References: <openzfs/zfs/pull/10357@github.com>
+Subject: Re: [openzfs/zfs] x32 builds (#10357)
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="--==_mimepart_5ec9bc93cef45_20d3fc16d8cd96c747830";
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Precedence: list
+X-GitHub-Sender: behlendorf
+X-GitHub-Recipient: nabijaczleweli
+X-GitHub-Reason: author
+List-ID: openzfs/zfs <zfs.openzfs.github.com>
+List-Archive: https://github.com/openzfs/zfs
+List-Post: <mailto:reply+ABTGCKE673HLSOUWN6NXWF542WOZHEVBNHHCKJ5CNE@reply.github.com>
+List-Unsubscribe: <mailto:unsub+ABTGCKE673HLSOUWN6NXWF542WOZHEVBNHHCKJ5CNE@reply.github.com>,
+ <https://github.com/notifications/unsubscribe/ABTGCKBCAK34B322UOTJMVTRTBRJHANCNFSM4NIADNOQ>
+X-Auto-Response-Suppress: All
+X-GitHub-Recipient-Address: nabijaczleweli@gmail.com
+Status: RO
+Content-Length: 1694
+Lines: 46
+
+
+----==_mimepart_5ec9bc93cef45_20d3fc16d8cd96c747830
+Content-Type: text/plain;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+@behlendorf approved this pull request.
+
+
+
+
+
+-- 
+You are receiving this because you authored the thread.
+Reply to this email directly or view it on GitHub:
+https://github.com/openzfs/zfs/pull/10357#pullrequestreview-417317393
+----==_mimepart_5ec9bc93cef45_20d3fc16d8cd96c747830
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<p></p>
+<p><b>@behlendorf</b> approved this pull request.</p>
+
+
+
+<p style="font-size:small;-webkit-text-size-adjust:none;color:#666;">&mdash;<br />You are receiving this because you authored the thread.<br />Reply to this email directly, <a href="https://github.com/openzfs/zfs/pull/10357#pullrequestreview-417317393">view it on GitHub</a>, or <a href="https://github.com/notifications/unsubscribe-auth/ABTGCKAMKJQAC7PSBUVPPYTRTBRJHANCNFSM4NIADNOQ">unsubscribe</a>.<img src="https://github.com/notifications/beacon/ABTGCKALMRKC7SCQGHKBYNDRTBRJHA5CNFSM4NIADNO2YY3PNVWWK3TUL52HS4DFWFIHK3DMKJSXC5LFON2FEZLWNFSXPKTDN5WW2ZLOORPWSZGODDP4EEI.gif" height="1" width="1" alt="" /></p>
+<script type="application/ld+json">[
+{
+"@context": "http://schema.org",
+"@type": "EmailMessage",
+"potentialAction": {
+"@type": "ViewAction",
+"target": "https://github.com/openzfs/zfs/pull/10357#pullrequestreview-417317393",
+"url": "https://github.com/openzfs/zfs/pull/10357#pullrequestreview-417317393",
+"name": "View Pull Request"
+},
+"description": "View this Pull Request on GitHub",
+"publisher": {
+"@type": "Organization",
+"name": "GitHub",
+"url": "https://github.com"
+}
+}
+]</script>
+----==_mimepart_5ec9bc93cef45_20d3fc16d8cd96c747830--
+
+From noreply@github.com Sat May 23 15:14:14 2020
+Delivered-To: nabijaczleweli@gmail.com
+Received: by 2002:a4a:a581:0:0:0:0:0 with SMTP id d1csp3199683oom;
+        Sat, 23 May 2020 06:14:14 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJzn5PbPUNAZpCK7tarx11v0YtBUInELD2IPbplyRy9B5PvVizNqDkouccCQTjdSSt/qvsyP
+X-Received: by 2002:a17:902:c194:: with SMTP id d20mr20663145pld.213.1590239654461;
+        Sat, 23 May 2020 06:14:14 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1590239654; cv=none;
+        d=google.com; s=arc-20160816;
+        b=bPRi8NIyXRZlE5Dl2Lv6L2OJTnAc78Yw9Q/C2bz18mbxS6wUclPPXzs3k3OeSkXweZ
+         0BrdWKiZEgEWpkYC/dHhs09fXhC7UNj6oqMSzKm/mkVcSG9OTXqyfe3Ry5JC2ty9mEMg
+         y3MrWPdnySwS/01xSGPE87GX2E7zEPfYu4ctH7vOxYfI88rKv5rBTgLH2J+slRyOMZU2
+         uobHHsVy7SFAWvbqR4XHrZlgpaCEDvJPhzgiECpmixvJSZqXCRPnNpTTmTB6d0Sagyhw
+         VNw8JUJDbzqS8h/PoscD2ib0uUXxaEWly9K1M2vPhoFLsOpDMk6qcDJopwrll4jOQoO+
+         fXvQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-post:list-archive:list-id:precedence
+         :content-transfer-encoding:mime-version:subject:references
+         :in-reply-to:message-id:cc:to:reply-to:from:date:dkim-signature;
+        bh=/DQxunlFtFjgRudgQD7Tkn4OUsb0uoG2CiIckK1P+6k=;
+        b=Hz42XzFKbVe+pN28zYOni+0jxehWxXb2uXWpFH+mgKjta5w6v8YbEuD8ssK2WmaJNh
+         GBFNrMIXyR7praclEJjBK1w5hYlm/pCphAGiRD4t4ClSmb/gxtGNovlHbQqZI5WnOrn2
+         tAyCUI7NqR4ehW6BzlgoVvEO+v0WIWBe5ixlX+xN2BkBf24VQZI3zql38VowTvH3Hgc2
+         j9jgsruJYQz+QsMtMP3iwedRU1UMrlZVLAqvXyx9Lm6yZJB3cFqx8/AJUOB03bTnzeLW
+         ednJGxidhhpsLe5LpkhOaD20dwoNIDLeac35M0GOxGJ2rF3xfVKCV4ixzpWVokuWZ8fu
+         G8DA==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=Piqb23MW;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.254.193 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
+Return-Path: <noreply@github.com>
+Received: from out-10.smtp.github.com (out-10.smtp.github.com. [192.30.254.193])
+        by mx.google.com with ESMTPS id i61si9838657pje.157.2020.05.23.06.14.14
+        for <nabijaczleweli@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Sat, 23 May 2020 06:14:14 -0700 (PDT)
+Received-SPF: pass (google.com: domain of noreply@github.com designates 192.30.254.193 as permitted sender) client-ip=192.30.254.193;
+Authentication-Results: mx.google.com;
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=Piqb23MW;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.254.193 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
+Received: from github-lowworker-1b8c660.ash1-iad.github.net (github-lowworker-1b8c660.ash1-iad.github.net [10.56.18.59])
+	by smtp.github.com (Postfix) with ESMTP id 32CB91210E1
+	for <nabijaczleweli@gmail.com>; Sat, 23 May 2020 06:14:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=github.com;
+	s=pf2014; t=1590239654;
+	bh=/DQxunlFtFjgRudgQD7Tkn4OUsb0uoG2CiIckK1P+6k=;
+	h=Date:From:Reply-To:To:Cc:In-Reply-To:References:Subject:List-ID:
+	 List-Archive:List-Post:List-Unsubscribe:From;
+	b=Piqb23MWYu4st7AIwdaZnsIiTEfgmyNMxo0QbnZCZwxdnK9Ywqm24QZ154G3GqvGB
+	 CkCwKSI8TwcBxTSQE+AF3kg4B5eNct/Qi3WMnxNfMBY7/LLsdhmr4lzyzxYSmwqXbm
+	 eBRdKhtmmFww8BJBeu31bipqpWu59yNtL5dfrwTo=
+Date: Sat, 23 May 2020 06:14:13 -0700
+From: =?UTF-8?B?0L3QsNCx?= <notifications@github.com>
+Reply-To: openzfs/zfs <reply+ABTGCKEMJFNTNLGZO4VZ2W542UBKLEVBNHHCKJ5CNE@reply.github.com>
+To: openzfs/zfs <zfs@noreply.github.com>
+Cc: =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@gmail.com>, 
+ Your activity <your_activity@noreply.github.com>
+Message-ID: <openzfs/zfs/pull/10357/c633051115@github.com>
+In-Reply-To: <openzfs/zfs/pull/10357@github.com>
+References: <openzfs/zfs/pull/10357@github.com>
+Subject: Re: [openzfs/zfs] x32 builds (#10357)
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="--==_mimepart_5ec921a5e069d_64d03fda752cd9605875cb";
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Precedence: list
+X-GitHub-Sender: nabijaczleweli
+X-GitHub-Recipient: nabijaczleweli
+X-GitHub-Reason: your_activity
+List-ID: openzfs/zfs <zfs.openzfs.github.com>
+List-Archive: https://github.com/openzfs/zfs
+List-Post: <mailto:reply+ABTGCKEMJFNTNLGZO4VZ2W542UBKLEVBNHHCKJ5CNE@reply.github.com>
+List-Unsubscribe: <mailto:unsub+ABTGCKEMJFNTNLGZO4VZ2W542UBKLEVBNHHCKJ5CNE@reply.github.com>,
+ <https://github.com/notifications/unsubscribe/ABTGCKEHJFKHB3IHCWWDMPDRS7D2LANCNFSM4NIADNOQ>
+X-Auto-Response-Suppress: All
+X-GitHub-Recipient-Address: nabijaczleweli@gmail.com
+Status: RO
+Content-Length: 1802
+Lines: 40
+
+
+----==_mimepart_5ec921a5e069d_64d03fda752cd9605875cb
+Content-Type: text/plain;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+It does in fact appear an issue with my test environment rather than zfs itself. Should be good to go.
+
+-- 
+You are receiving this because you are subscribed to this thread.
+Reply to this email directly or view it on GitHub:
+https://github.com/openzfs/zfs/pull/10357#issuecomment-633051115
+----==_mimepart_5ec921a5e069d_64d03fda752cd9605875cb
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<p></p>
+<p>It does in fact appear an issue with my test environment rather than zfs itself. Should be good to go.</p>
+
+<p style="font-size:small;-webkit-text-size-adjust:none;color:#666;">&mdash;<br />You are receiving this because you are subscribed to this thread.<br />Reply to this email directly, <a href="https://github.com/openzfs/zfs/pull/10357#issuecomment-633051115">view it on GitHub</a>, or <a href="https://github.com/notifications/unsubscribe-auth/ABTGCKB6KUMWYDPYGT5YFQTRS7D2LANCNFSM4NIADNOQ">unsubscribe</a>.<img src="https://github.com/notifications/beacon/ABTGCKGIBDCERORSMTAWRE3RS7D2LA5CNFSM4NIADNO2YY3PNVWWK3TUL52HS4DFVREXG43VMVBW63LNMVXHJKTDN5WW2ZLOORPWSZGOEW5ZP2Y.gif" height="1" width="1" alt="" /></p>
+<script type="application/ld+json">[
+{
+"@context": "http://schema.org",
+"@type": "EmailMessage",
+"potentialAction": {
+"@type": "ViewAction",
+"target": "https://github.com/openzfs/zfs/pull/10357#issuecomment-633051115",
+"url": "https://github.com/openzfs/zfs/pull/10357#issuecomment-633051115",
+"name": "View Pull Request"
+},
+"description": "View this Pull Request on GitHub",
+"publisher": {
+"@type": "Organization",
+"name": "GitHub",
+"url": "https://github.com"
+}
+}
+]</script>
+----==_mimepart_5ec921a5e069d_64d03fda752cd9605875cb--
+
+From noreply@github.com Sat May 23 04:08:45 2020
+Delivered-To: nabijaczleweli@gmail.com
+Received: by 2002:a4a:a581:0:0:0:0:0 with SMTP id d1csp2870097oom;
+        Fri, 22 May 2020 19:08:45 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJzXsZPhlTRwQpyGQpOoYIqLcBYgqdMK9JoWNXC4cOsz3ifnOhVsD9i3UBtR+/XpYYYyNBr7
+X-Received: by 2002:a05:620a:136b:: with SMTP id d11mr17794085qkl.411.1590199725346;
+        Fri, 22 May 2020 19:08:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1590199725; cv=none;
+        d=google.com; s=arc-20160816;
+        b=u5TxJqDJ0D5LztZzhvIXMPVbkoxbMX/8wRTFWaYvqxW1tPqsJf17BXK8NdHupmuMxb
+         n3DBnWjfFbAOtZAsyG/to1hXvx9d7rpnCS2Dpgj6jLHFyY/Fjh2znbVasPUF7FMHDfai
+         /03OiH56Jyg36WZ3KBE4uoO3yDYll0BlMw1TsLjtHjh+qvpwmLAEba2ushZrKAU3E7Na
+         JQIMuvboXcZU+wNsX9k8SRIGnlLlYJcWHFHu7iRfLwp3TO6aoSsIubS220KhprSYKYdC
+         dERU9aZnX2NL122Z9W3y/wS+wnHnocaY+ZCP2d53D3c6Nn9qJxKmxL9xV9KN/AjhpkfG
+         u5Mw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-post:list-archive:list-id:precedence
+         :content-transfer-encoding:mime-version:subject:references
+         :in-reply-to:message-id:cc:to:reply-to:from:date:dkim-signature;
+        bh=ycFqppYXVV/uv/K00AhJ7iOcc/8Bm6CeHLNDpIwb8n8=;
+        b=G8PZaWVVsxupMqZSZjqDfOMRUfOFH/gR6qn3mEfT/vYX7JZYLxLKOhzm5zThREqTi+
+         eQHK0Q+dqZFv/gj40OU0S26o4TqefUVvBjn9iTdjmPuRi00KiC/n0d3lgCehzTsTfCRG
+         U1phNkqeYabww7o10/+fG5hqrMRUhvqFACG0Mqso4KDxYVVqjgLWiuvINHInAvb/Ihqs
+         F25pI5PRzOnBjnYlkDCHmQIPyhM1Yty/76UxaaCyHEZmlYnS/vQEO05lBMkQZH0ajmli
+         PLWxYMJ4w7b1O2i7PR5vbcxW+PWORD9kaPuVFkizX5svMgayQmvyizOh0GB9NG5vgZxu
+         Wdhw==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=w3UMUhXg;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.203 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
+Return-Path: <noreply@github.com>
+Received: from out-20.smtp.github.com (out-20.smtp.github.com. [192.30.252.203])
+        by mx.google.com with ESMTPS id n12si6122811qtk.166.2020.05.22.19.08.45
+        for <nabijaczleweli@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Fri, 22 May 2020 19:08:45 -0700 (PDT)
+Received-SPF: pass (google.com: domain of noreply@github.com designates 192.30.252.203 as permitted sender) client-ip=192.30.252.203;
+Authentication-Results: mx.google.com;
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=w3UMUhXg;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.203 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
+Received: from github-lowworker-e8b54ca.ac4-iad.github.net (github-lowworker-e8b54ca.ac4-iad.github.net [10.52.23.39])
+	by smtp.github.com (Postfix) with ESMTP id 254528C00E2
+	for <nabijaczleweli@gmail.com>; Fri, 22 May 2020 19:08:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=github.com;
+	s=pf2014; t=1590199725;
+	bh=ycFqppYXVV/uv/K00AhJ7iOcc/8Bm6CeHLNDpIwb8n8=;
+	h=Date:From:Reply-To:To:Cc:In-Reply-To:References:Subject:List-ID:
+	 List-Archive:List-Post:List-Unsubscribe:From;
+	b=w3UMUhXgbb2zQM5XKGLojWmOdrM02oNRlMnMoODg26Ky/7V0ve0w1iLqHfeLdJsbT
+	 dnal9/2ik8MOQnSW74QEfYKX3zJloTG/NyDEaeqh7aemG/61r5p98FYjoEQqVNc6hv
+	 NqpKWqJrgY970WUDkDAlCKHHdo7YUC936EzYygus=
+Date: Fri, 22 May 2020 19:08:45 -0700
+From: =?UTF-8?B?0L3QsNCx?= <notifications@github.com>
+Reply-To: openzfs/zfs <reply+ABTGCKFNOAW5RRJB7WWSFWF42RTK3EVBNHHCKJ5CNE@reply.github.com>
+To: openzfs/zfs <zfs@noreply.github.com>
+Cc: =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@gmail.com>, 
+ Your activity <your_activity@noreply.github.com>
+Message-ID: <openzfs/zfs/pull/10357/c632969834@github.com>
+In-Reply-To: <openzfs/zfs/pull/10357@github.com>
+References: <openzfs/zfs/pull/10357@github.com>
+Subject: Re: [openzfs/zfs] x32 builds (#10357)
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="--==_mimepart_5ec885ad14868_38953ff6e96cd96c1651191";
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Precedence: list
+X-GitHub-Sender: nabijaczleweli
+X-GitHub-Recipient: nabijaczleweli
+X-GitHub-Reason: your_activity
+List-ID: openzfs/zfs <zfs.openzfs.github.com>
+List-Archive: https://github.com/openzfs/zfs
+List-Post: <mailto:reply+ABTGCKFNOAW5RRJB7WWSFWF42RTK3EVBNHHCKJ5CNE@reply.github.com>
+List-Unsubscribe: <mailto:unsub+ABTGCKFNOAW5RRJB7WWSFWF42RTK3EVBNHHCKJ5CNE@reply.github.com>,
+ <https://github.com/notifications/unsubscribe/ABTGCKAF3K4C7P5OXPGH45LRS4V23ANCNFSM4NIADNOQ>
+X-Auto-Response-Suppress: All
+X-GitHub-Recipient-Address: nabijaczleweli@gmail.com
+Status: RO
+Content-Length: 1741
+Lines: 40
+
+
+----==_mimepart_5ec885ad14868_38953ff6e96cd96c1651191
+Content-Type: text/plain;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+Converting to draft as i investigate an issue I'm not sure is related.
+
+-- 
+You are receiving this because you are subscribed to this thread.
+Reply to this email directly or view it on GitHub:
+https://github.com/openzfs/zfs/pull/10357#issuecomment-632969834
+----==_mimepart_5ec885ad14868_38953ff6e96cd96c1651191
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<p></p>
+<p>Converting to draft as i investigate an issue I'm not sure is related.</p>
+
+<p style="font-size:small;-webkit-text-size-adjust:none;color:#666;">&mdash;<br />You are receiving this because you are subscribed to this thread.<br />Reply to this email directly, <a href="https://github.com/openzfs/zfs/pull/10357#issuecomment-632969834">view it on GitHub</a>, or <a href="https://github.com/notifications/unsubscribe-auth/ABTGCKFEPNJEPUXCTAJUVKLRS4V23ANCNFSM4NIADNOQ">unsubscribe</a>.<img src="https://github.com/notifications/beacon/ABTGCKFK7OY3IKSBCJKQTDLRS4V23A5CNFSM4NIADNO2YY3PNVWWK3TUL52HS4DFVREXG43VMVBW63LNMVXHJKTDN5WW2ZLOORPWSZGOEW5FU2Q.gif" height="1" width="1" alt="" /></p>
+<script type="application/ld+json">[
+{
+"@context": "http://schema.org",
+"@type": "EmailMessage",
+"potentialAction": {
+"@type": "ViewAction",
+"target": "https://github.com/openzfs/zfs/pull/10357#issuecomment-632969834",
+"url": "https://github.com/openzfs/zfs/pull/10357#issuecomment-632969834",
+"name": "View Pull Request"
+},
+"description": "View this Pull Request on GitHub",
+"publisher": {
+"@type": "Organization",
+"name": "GitHub",
+"url": "https://github.com"
+}
+}
+]</script>
+----==_mimepart_5ec885ad14868_38953ff6e96cd96c1651191--
+
+From noreply@github.com Sat May 23 02:51:01 2020
+Delivered-To: nabijaczleweli@gmail.com
+Received: by 2002:a4a:a581:0:0:0:0:0 with SMTP id d1csp2832828oom;
+        Fri, 22 May 2020 17:51:02 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJy0TPxtf1riebYqlAjptO9s9V0YIDw9Sv08v79Y7juqDd9nluOailbSPQx1Y9gjBgdSkw9A
+X-Received: by 2002:ac8:38f2:: with SMTP id g47mr18577753qtc.118.1590195061996;
+        Fri, 22 May 2020 17:51:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1590195061; cv=none;
+        d=google.com; s=arc-20160816;
+        b=pQiMGf6Ty5qIZqTf1fvdPShlyG08NMepFgBxMNX2wMKDKs3tXPsYicWjKaNs3UvbV+
+         FIedGdQPtRHdTgjzkHvTUI/8H19z8ZqLGWac7WodHNteRuCTUX2QcfAZSmXHQGDmklIb
+         LxLd0uq7rE4nTPSSDCu75QroKvonHI9eZi8B1d5/N/B2tQ+7wIqz3qKf+60kcUf8xWkp
+         YMXo+sbcKbIwUWN4coBXJ3TpsHLMJfLC++7zq1sPZABym6CIv/TNd8DhwJZTba3SYmmp
+         OY0K5u5WJNzDWeaQ4gDnmvgVTsGQiEbXEX5HvK1Vd2/xR5PYIEFjEzPHjZOBCrM6xPoz
+         5fKQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-post:list-archive:list-id:precedence
+         :content-transfer-encoding:mime-version:subject:references
+         :in-reply-to:message-id:cc:to:reply-to:from:date:dkim-signature;
+        bh=eso4xxVM+LVCDdpeseWaYM6kP6u98ehGsks3QZEOhII=;
+        b=LtZWix6VEDpwjzKXKLzs2a2lr5nHHcWcua6n+zEtQI8cYtI4iUt7QQllza0YyvJ3UX
+         Fcy02DG/Xr00xLbgAOneGc2mGg3cReKTKJ6eRMX1NlkgTGgu0LYLc9TN+jY4CpMGJq6g
+         v2oZTVPJpvesW+jotqpoQ3Ic0bkZ70+uWD9gJ/BNn3JiROc6kQHD1xaHGitSn511YPsK
+         KT3sUD+x11CgQqJPyxXTQ9S2J4uhriLoy9yKWHW9O0rCbihY35SXPizWuyeEL1uGlRWr
+         6zRvZlK6hQzGDWRYUZHoOzORQH9Kep5LRNqGM3JMh6tCVgql1Ely9/cA8/oiLODiBPLx
+         XOLA==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=zWhRPj4z;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.209 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
+Return-Path: <noreply@github.com>
+Received: from out-26.smtp.github.com (out-26.smtp.github.com. [192.30.252.209])
+        by mx.google.com with ESMTPS id w12si6292821qvb.159.2020.05.22.17.51.01
+        for <nabijaczleweli@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Fri, 22 May 2020 17:51:01 -0700 (PDT)
+Received-SPF: pass (google.com: domain of noreply@github.com designates 192.30.252.209 as permitted sender) client-ip=192.30.252.209;
+Authentication-Results: mx.google.com;
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=zWhRPj4z;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.209 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
+Received: from github-lowworker-f1f7af9.ash1-iad.github.net (github-lowworker-f1f7af9.ash1-iad.github.net [10.56.111.13])
+	by smtp.github.com (Postfix) with ESMTP id C35472829E7
+	for <nabijaczleweli@gmail.com>; Fri, 22 May 2020 17:51:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=github.com;
+	s=pf2014; t=1590195061;
+	bh=eso4xxVM+LVCDdpeseWaYM6kP6u98ehGsks3QZEOhII=;
+	h=Date:From:Reply-To:To:Cc:In-Reply-To:References:Subject:List-ID:
+	 List-Archive:List-Post:List-Unsubscribe:From;
+	b=zWhRPj4z/D2fB0rZ7Y7Pe5Wdl+Fn6YyCWEnEFhWM3ycFnTKwdxTgTQC6LGyW++3qa
+	 Xj+mJMjNi0ht0VpQsByCnF1GgHHtTT/uevUgbUbRExfXjIQ2JP/bDib8LKYv1ayO9u
+	 YYX66yi5hW5HvYp+mZoa7AHfQtxK0Mhin6mqrIyQ=
+Date: Fri, 22 May 2020 17:51:01 -0700
+From: =?UTF-8?B?0L3QsNCx?= <notifications@github.com>
+Reply-To: openzfs/zfs <reply+ABTGCKG7I7QRX6NQKU3QJRN42RKHLEVBNHHCKJ5CNE@reply.github.com>
+To: openzfs/zfs <zfs@noreply.github.com>
+Cc: =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@gmail.com>, 
+ Your activity <your_activity@noreply.github.com>
+Message-ID: <openzfs/zfs/pull/10357/review/417235348@github.com>
+In-Reply-To: <openzfs/zfs/pull/10357@github.com>
+References: <openzfs/zfs/pull/10357@github.com>
+Subject: Re: [openzfs/zfs] x32 builds (#10357)
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="--==_mimepart_5ec87375b2765_1cd43fb33a4cd95c20818db";
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Precedence: list
+X-GitHub-Sender: nabijaczleweli
+X-GitHub-Recipient: nabijaczleweli
+X-GitHub-Reason: your_activity
+List-ID: openzfs/zfs <zfs.openzfs.github.com>
+List-Archive: https://github.com/openzfs/zfs
+List-Post: <mailto:reply+ABTGCKG7I7QRX6NQKU3QJRN42RKHLEVBNHHCKJ5CNE@reply.github.com>
+List-Unsubscribe: <mailto:unsub+ABTGCKG7I7QRX6NQKU3QJRN42RKHLEVBNHHCKJ5CNE@reply.github.com>,
+ <https://github.com/notifications/unsubscribe/ABTGCKF4XOWYSQ6OPR2P57LRS4MXLANCNFSM4NIADNOQ>
+X-Auto-Response-Suppress: All
+X-GitHub-Recipient-Address: nabijaczleweli@gmail.com
+Status: RO
+Content-Length: 2149
+Lines: 62
+
+
+----==_mimepart_5ec87375b2765_1cd43fb33a4cd95c20818db
+Content-Type: text/plain;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+@nabijaczleweli commented on this pull request.
+
+
+
+>  #if !defined(_LP64)
+ #define	_LP64
+ #endif
++#endif
+
+Oh neat, I didn't know you could build an x32 kernel, should try that!
+
+Done
+
+-- 
+You are receiving this because you are subscribed to this thread.
+Reply to this email directly or view it on GitHub:
+https://github.com/openzfs/zfs/pull/10357#discussion_r429498645
+----==_mimepart_5ec87375b2765_1cd43fb33a4cd95c20818db
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<p></p>
+<p><b>@nabijaczleweli</b> commented on this pull request.</p>
+
+<hr>
+
+<p>In <a href="https://github.com/openzfs/zfs/pull/10357#discussion_r429498645">lib/libspl/include/sys/isa_defs.h</a>:</p>
+<pre style='color:#555'>&gt;  #if !defined(_LP64)
+ #define	_LP64
+ #endif
++#endif
+</pre>
+<p>Oh neat, I didn't know you could build an x32 kernel, should try that!</p>
+<p>Done</p>
+
+<p style="font-size:small;-webkit-text-size-adjust:none;color:#666;">&mdash;<br />You are receiving this because you are subscribed to this thread.<br />Reply to this email directly, <a href="https://github.com/openzfs/zfs/pull/10357#discussion_r429498645">view it on GitHub</a>, or <a href="https://github.com/notifications/unsubscribe-auth/ABTGCKAWOE7KM3GOJB3X5P3RS4MXLANCNFSM4NIADNOQ">unsubscribe</a>.<img src="https://github.com/notifications/beacon/ABTGCKFOOBM2VBUMZ23OJ5DRS4MXLA5CNFSM4NIADNO2YY3PNVWWK3TUL52HS4DFWFIHK3DMKJSXC5LFON2FEZLWNFSXPKTDN5WW2ZLOORPWSZGODDPIDFA.gif" height="1" width="1" alt="" /></p>
+<script type="application/ld+json">[
+{
+"@context": "http://schema.org",
+"@type": "EmailMessage",
+"potentialAction": {
+"@type": "ViewAction",
+"target": "https://github.com/openzfs/zfs/pull/10357#discussion_r429498645",
+"url": "https://github.com/openzfs/zfs/pull/10357#discussion_r429498645",
+"name": "View Pull Request"
+},
+"description": "View this Pull Request on GitHub",
+"publisher": {
+"@type": "Organization",
+"name": "GitHub",
+"url": "https://github.com"
+}
+}
+]</script>
+----==_mimepart_5ec87375b2765_1cd43fb33a4cd95c20818db--
+
+From noreply@github.com Sat May 23 02:49:07 2020
+Delivered-To: nabijaczleweli@gmail.com
+Received: by 2002:a4a:a581:0:0:0:0:0 with SMTP id d1csp2831931oom;
+        Fri, 22 May 2020 17:49:07 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJzM4iUhNk1Mr9hyk47+uDWmiU3sPz9B8TfvdDHNrUgmoz6XRh4hmnt56afcWQ/Ok5xU6NsP
+X-Received: by 2002:aed:3323:: with SMTP id u32mr19031623qtd.258.1590194947120;
+        Fri, 22 May 2020 17:49:07 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1590194947; cv=none;
+        d=google.com; s=arc-20160816;
+        b=KFpxPQm75qE3sHCtQy1VPnJTXQG+7jXFVF4Bpfeq5F8Ra8WXi/4XE192Pz0TQKaIoe
+         XXNrYp0VHjK0d1uxQ32OK35y05jIWHsDImmeNu4Pfvx5ybxwW7bxrGpTNoVfHqfVPyGd
+         Qxx7m2LW8Jumm9L2SrCTI/HfHT4WlwCPgmpDZC8Q/SV9WuqhXF+ExGIGLmxLGC/HUwL4
+         XcqtWquWpI0nkTxl8HuyE+7kTHD/3eYGdoXpxPyRNccngTgBsBXEQYNmtZy4lYkp5mrh
+         SeY5eH7HQIZBtI3f5CvlH0hR0R1bkI4sRPTh4JdD70ENze6eZ5K2PO+RUYozUOuwMjqc
+         TLYw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-post:list-archive:list-id:precedence
+         :content-transfer-encoding:mime-version:subject:references
+         :in-reply-to:message-id:cc:to:reply-to:from:date:dkim-signature;
+        bh=QAG/DkFmNev8BCHm4f6WoPmehcBuG45QBt+aiDCipoQ=;
+        b=WAm2wRIhzfIWKJF6lk49rD0KlZ2Gw61d0iLtKymq/RqaKHuojanl97/spMmeQ37VEd
+         Dyyi+OhdyQtH80uKhOF47fo+4eyPI0CI/6F5NIsX+2KBza1boaZjrM2gj7fELxRzY4UE
+         e0kw+1RBrHgsiY6UBE3qbkO3MNGXvHAYqCMmRqr2NjQmJ9SdnQu8aEEeVR9fN10U1teC
+         kd5u7uAU6Js5c8RpTbbBCOsDCiIl3rkt5SboYIRMWl90S/ok2AAk9ZSMCY4xpLO1gkhO
+         W+g7TkafxYEkMLHMDCN6nkyDkdNMDiExsYt7ZXUH595BCw61d3WnLrbO20B+cqIK45Md
+         U+aA==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=fbQ0NrLH;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.206 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
+Return-Path: <noreply@github.com>
+Received: from out-23.smtp.github.com (out-23.smtp.github.com. [192.30.252.206])
+        by mx.google.com with ESMTPS id o4si4292250qtm.0.2020.05.22.17.49.07
+        for <nabijaczleweli@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Fri, 22 May 2020 17:49:07 -0700 (PDT)
+Received-SPF: pass (google.com: domain of noreply@github.com designates 192.30.252.206 as permitted sender) client-ip=192.30.252.206;
+Authentication-Results: mx.google.com;
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=fbQ0NrLH;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.206 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
+Received: from github-lowworker-d1d6e31.ash1-iad.github.net (github-lowworker-d1d6e31.ash1-iad.github.net [10.56.105.50])
+	by smtp.github.com (Postfix) with ESMTP id DD5E6661199
+	for <nabijaczleweli@gmail.com>; Fri, 22 May 2020 17:49:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=github.com;
+	s=pf2014; t=1590194946;
+	bh=QAG/DkFmNev8BCHm4f6WoPmehcBuG45QBt+aiDCipoQ=;
+	h=Date:From:Reply-To:To:Cc:In-Reply-To:References:Subject:List-ID:
+	 List-Archive:List-Post:List-Unsubscribe:From;
+	b=fbQ0NrLHxU0UWel/calnyOLFnRfmspriDD86adrCCPkatEOHkESDwwdSiqYyD3Pa/
+	 tcUzUM8U4xUSKmtTRcVRDzQPj9R59rX+We9XE/W0u1I9yam3XuurL/fOg2QbxWsnk7
+	 EHqTTMXVCB1NbJFJfo2XcKcip5YCSLyNo2DSM6aY=
+Date: Fri, 22 May 2020 17:49:06 -0700
+From: =?UTF-8?B?0L3QsNCx?= <notifications@github.com>
+Reply-To: openzfs/zfs <reply+ABTGCKE6SW6ZSVEC6WHODQF42RKAFEVBNHHCKJ5CNE@reply.github.com>
+To: openzfs/zfs <zfs@noreply.github.com>
+Cc: =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@gmail.com>, 
+ Your activity <your_activity@noreply.github.com>
+Message-ID: <openzfs/zfs/pull/10357/review/417235158@github.com>
+In-Reply-To: <openzfs/zfs/pull/10357@github.com>
+References: <openzfs/zfs/pull/10357@github.com>
+Subject: Re: [openzfs/zfs] x32 builds (#10357)
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="--==_mimepart_5ec87302c787b_59633fddebccd964167062c";
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Precedence: list
+X-GitHub-Sender: nabijaczleweli
+X-GitHub-Recipient: nabijaczleweli
+X-GitHub-Reason: your_activity
+List-ID: openzfs/zfs <zfs.openzfs.github.com>
+List-Archive: https://github.com/openzfs/zfs
+List-Post: <mailto:reply+ABTGCKE6SW6ZSVEC6WHODQF42RKAFEVBNHHCKJ5CNE@reply.github.com>
+List-Unsubscribe: <mailto:unsub+ABTGCKE6SW6ZSVEC6WHODQF42RKAFEVBNHHCKJ5CNE@reply.github.com>,
+ <https://github.com/notifications/unsubscribe/ABTGCKDGNTTWQV5IRS7Q4YTRS4MQFANCNFSM4NIADNOQ>
+X-Auto-Response-Suppress: All
+X-GitHub-Recipient-Address: nabijaczleweli@gmail.com
+Status: RO
+Content-Length: 2320
+Lines: 63
+
+
+----==_mimepart_5ec87302c787b_59633fddebccd964167062c
+Content-Type: text/plain;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+@nabijaczleweli commented on this pull request.
+
+
+
+> @@ -51,7 +51,7 @@ print_timestamp(uint_t timestamp_fmt)
+ 		fmt = nl_langinfo(_DATE_FMT);
+ 
+ 	if (timestamp_fmt == UDATE) {
+-		(void) printf("%ld\n", t);
++		(void) printf("%" ZFS_TIME_T_FORMAT "d\n", t);
+
+Done
+
+-- 
+You are receiving this because you are subscribed to this thread.
+Reply to this email directly or view it on GitHub:
+https://github.com/openzfs/zfs/pull/10357#discussion_r429498461
+----==_mimepart_5ec87302c787b_59633fddebccd964167062c
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<p></p>
+<p><b>@nabijaczleweli</b> commented on this pull request.</p>
+
+<hr>
+
+<p>In <a href="https://github.com/openzfs/zfs/pull/10357#discussion_r429498461">lib/libspl/timestamp.c</a>:</p>
+<pre style='color:#555'>&gt; @@ -51,7 +51,7 @@ print_timestamp(uint_t timestamp_fmt)
+ 		fmt = nl_langinfo(_DATE_FMT);
+ 
+ 	if (timestamp_fmt == UDATE) {
+-		(void) printf(&quot;%ld\n&quot;, t);
++		(void) printf(&quot;%&quot; ZFS_TIME_T_FORMAT &quot;d\n&quot;, t);
+</pre>
+<p>Done</p>
+
+<p style="font-size:small;-webkit-text-size-adjust:none;color:#666;">&mdash;<br />You are receiving this because you are subscribed to this thread.<br />Reply to this email directly, <a href="https://github.com/openzfs/zfs/pull/10357#discussion_r429498461">view it on GitHub</a>, or <a href="https://github.com/notifications/unsubscribe-auth/ABTGCKCB4YPBQ7ZOGT6L7J3RS4MQFANCNFSM4NIADNOQ">unsubscribe</a>.<img src="https://github.com/notifications/beacon/ABTGCKH267CKJM4EKGMPNYDRS4MQFA5CNFSM4NIADNO2YY3PNVWWK3TUL52HS4DFWFIHK3DMKJSXC5LFON2FEZLWNFSXPKTDN5WW2ZLOORPWSZGODDPIBVQ.gif" height="1" width="1" alt="" /></p>
+<script type="application/ld+json">[
+{
+"@context": "http://schema.org",
+"@type": "EmailMessage",
+"potentialAction": {
+"@type": "ViewAction",
+"target": "https://github.com/openzfs/zfs/pull/10357#discussion_r429498461",
+"url": "https://github.com/openzfs/zfs/pull/10357#discussion_r429498461",
+"name": "View Pull Request"
+},
+"description": "View this Pull Request on GitHub",
+"publisher": {
+"@type": "Organization",
+"name": "GitHub",
+"url": "https://github.com"
+}
+}
+]</script>
+----==_mimepart_5ec87302c787b_59633fddebccd964167062c--
+
+From noreply@github.com Sat May 23 01:40:18 2020
+Delivered-To: nabijaczleweli@gmail.com
+Received: by 2002:a4a:a581:0:0:0:0:0 with SMTP id d1csp2796940oom;
+        Fri, 22 May 2020 16:40:18 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJxXYSWCc1kaZbXpiLN0HYHNYvHq7gNNr7Mh9PgiylkHNHZ6VJSBNrRGEMbUxtKdQMftPHlR
+X-Received: by 2002:a05:620a:990:: with SMTP id x16mr17059368qkx.256.1590190818828;
+        Fri, 22 May 2020 16:40:18 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1590190818; cv=none;
+        d=google.com; s=arc-20160816;
+        b=qhVAKqHGK8+VaiSklSYweJt1V89V6s6klb6NEleDRiHINEx6MgN0kvCLQreKeY9XKh
+         PZGn3l/otLyvTHwXXjvutcAHdctZEZkkpZCXAL5ovV57HfJif8yG7jBiRc44+1r1UoNY
+         lVwyNNpTkuF/STCTpoS7ClyuiSMWTNW/yBKDbFjRIPNGMBex+PZU21T2Yhe1mPaGGWsP
+         /R5wTebcYjvdG0bu63n0qXiL8Z9Z7etW2DcINf00i9s22yjWrXET884Ir/mgD/G5vCw0
+         g0/98KJu+C2pFqeZ5VX2kC5QU0ryb/mbg88NymFEDw4Nh6V4Cm1BnDAmDthyV0xpaVYS
+         jdKA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-post:list-archive:list-id:precedence
+         :content-transfer-encoding:mime-version:subject:references
+         :in-reply-to:message-id:cc:to:reply-to:from:date:dkim-signature;
+        bh=p5hEg/bke4BR6tqgWhdAs8Iij95BkxAkVHzjdf1G3k8=;
+        b=pSvdf1HxL1k6FhttWXpJQjpJiFv/WJ3L9EC1UxfgdT0lfWeIjN82WVQgvqDps3ovex
+         Img2VUzlyjetgm66LxXky0mZfhX2o/BhMbd029jFqDuyjsvoAi2P3aNLyqXu+DEFgTEs
+         KjiKPh6cL2DjsdgpDJN7WX6relfQHDxLYGiPgJah4OwZUJFuwA3/cNNwpjAoE4I6Y7mj
+         dos9DIDZp7xOTpjPehWAtjFR2TKIgt16/ywYz13K9dsM3CeNAkrZ5kNct+P3RWTmmK0N
+         y1O9K12JqN9wDCbdSnw4yXU9XpTI07CwWrERW3LHOiJiBPSW/s8JDQydORNUkvkQmV9u
+         9Auw==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=Fx9MfQcb;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.211 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
+Return-Path: <noreply@github.com>
+Received: from out-28.smtp.github.com (out-28.smtp.github.com. [192.30.252.211])
+        by mx.google.com with ESMTPS id u33si5948867qtk.261.2020.05.22.16.40.18
+        for <nabijaczleweli@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Fri, 22 May 2020 16:40:18 -0700 (PDT)
+Received-SPF: pass (google.com: domain of noreply@github.com designates 192.30.252.211 as permitted sender) client-ip=192.30.252.211;
+Authentication-Results: mx.google.com;
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=Fx9MfQcb;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.211 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
+Received: from github-lowworker-6b40fdd.va3-iad.github.net (github-lowworker-6b40fdd.va3-iad.github.net [10.48.16.64])
+	by smtp.github.com (Postfix) with ESMTP id 9762A8C0E21
+	for <nabijaczleweli@gmail.com>; Fri, 22 May 2020 16:40:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=github.com;
+	s=pf2014; t=1590190818;
+	bh=p5hEg/bke4BR6tqgWhdAs8Iij95BkxAkVHzjdf1G3k8=;
+	h=Date:From:Reply-To:To:Cc:In-Reply-To:References:Subject:List-ID:
+	 List-Archive:List-Post:List-Unsubscribe:From;
+	b=Fx9MfQcb94lAf74EJUkwsxv4y2FEto2kqUzYQRl/78qxDkagYdzXhxqB1ejlSOT2j
+	 LwrsXr6kXvEeriW7UrOovx0gnYPzrz3w9QO+XZA8KyJULmw+B3j9wXE4vY4lHHnZZL
+	 MhOC5USCDePmWSi+PK+zSkI7qAyBBQjv8bo6AwZw=
+Date: Fri, 22 May 2020 16:40:18 -0700
+From: Codecov Comments Bot <notifications@github.com>
+Reply-To: openzfs/zfs <reply+ABTGCKCPLR3RI25EQH2KYCF42RB6FEVBNHHCKJ5CNE@reply.github.com>
+To: openzfs/zfs <zfs@noreply.github.com>
+Cc: =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@gmail.com>, 
+ Author <author@noreply.github.com>
+Message-ID: <openzfs/zfs/pull/10357/c632944690@github.com>
+In-Reply-To: <openzfs/zfs/pull/10357@github.com>
+References: <openzfs/zfs/pull/10357@github.com>
+Subject: Re: [openzfs/zfs] x32 builds (#10357)
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="--==_mimepart_5ec862e2878fd_35083fe1cc4cd964195469f";
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Precedence: list
+X-GitHub-Sender: codecov-commenter
+X-GitHub-Recipient: nabijaczleweli
+X-GitHub-Reason: author
+List-ID: openzfs/zfs <zfs.openzfs.github.com>
+List-Archive: https://github.com/openzfs/zfs
+List-Post: <mailto:reply+ABTGCKCPLR3RI25EQH2KYCF42RB6FEVBNHHCKJ5CNE@reply.github.com>
+List-Unsubscribe: <mailto:unsub+ABTGCKCPLR3RI25EQH2KYCF42RB6FEVBNHHCKJ5CNE@reply.github.com>,
+ <https://github.com/notifications/unsubscribe/ABTGCKG35DDJGMMCE3S7VCTRS4EOFANCNFSM4NIADNOQ>
+X-Auto-Response-Suppress: All
+X-GitHub-Recipient-Address: nabijaczleweli@gmail.com
+Status: RO
+Content-Length: 14031
+Lines: 312
+
+
+----==_mimepart_5ec862e2878fd_35083fe1cc4cd964195469f
+Content-Type: text/plain;
+ charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+# [Codecov](https://codecov.io/gh/openzfs/zfs/pull/10357?src=3Dpr&el=3Dh1=
+) Report=0D
+> Merging [#10357](https://codecov.io/gh/openzfs/zfs/pull/10357?src=3Dpr&=
+el=3Ddesc) into [master](https://codecov.io/gh/openzfs/zfs/commit/fb82226=
+0b19921985a5312f7306b0ee0e30eb3b0&el=3Ddesc) will **decrease** coverage b=
+y `13.56%`.=0D
+> The diff coverage is `50.00%`.=0D
+=0D
+[![Impacted file tree graph](https://codecov.io/gh/openzfs/zfs/pull/10357=
+/graphs/tree.svg?width=3D650&height=3D150&src=3Dpr&token=3DNGfxvvG2io)](h=
+ttps://codecov.io/gh/openzfs/zfs/pull/10357?src=3Dpr&el=3Dtree)=0D
+=0D
+```diff=0D
+@@             Coverage Diff             @@=0D
+##           master   #10357       +/-   ##=0D
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=0D
+- Coverage   79.38%   65.82%   -13.57%     =0D
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=0D
+  Files         391      308       -83     =0D
+  Lines      123590   106289    -17301     =0D
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=0D
+- Hits        98114    69963    -28151     =0D
+- Misses      25476    36326    +10850     =0D
+```=0D
+=0D
+| Flag | Coverage =CE=94 | |=0D
+|---|---|---|=0D
+| #kernel | `?` | |=0D
+| #user | `65.82% <50.00%> (+1.03%)` | :arrow_up: |=0D
+=0D
+| [Impacted Files](https://codecov.io/gh/openzfs/zfs/pull/10357?src=3Dpr&=
+el=3Dtree) | Coverage =CE=94 | |=0D
+|---|---|---|=0D
+| [lib/libspl/timestamp.c](https://codecov.io/gh/openzfs/zfs/pull/10357/d=
+iff?src=3Dpr&el=3Dtree#diff-bGliL2xpYnNwbC90aW1lc3RhbXAuYw=3D=3D) | `0.00=
+% <0.00%> (=C3=B8)` | |=0D
+| [lib/libzfs/libzfs\_sendrecv.c](https://codecov.io/gh/openzfs/zfs/pull/=
+10357/diff?src=3Dpr&el=3Dtree#diff-bGliL2xpYnpmcy9saWJ6ZnNfc2VuZHJlY3YuYw=
+=3D=3D) | `76.48% <100.00%> (=C3=B8)` | |=0D
+| [module/zfs/objlist.c](https://codecov.io/gh/openzfs/zfs/pull/10357/dif=
+f?src=3Dpr&el=3Dtree#diff-bW9kdWxlL3pmcy9vYmpsaXN0LmM=3D) | `0.00% <0.00%=
+> (-100.00%)` | :arrow_down: |=0D
+| [module/zfs/pathname.c](https://codecov.io/gh/openzfs/zfs/pull/10357/di=
+ff?src=3Dpr&el=3Dtree#diff-bW9kdWxlL3pmcy9wYXRobmFtZS5j) | `0.00% <0.00%>=
+ (-100.00%)` | :arrow_down: |=0D
+| [include/sys/dmu\_redact.h](https://codecov.io/gh/openzfs/zfs/pull/1035=
+7/diff?src=3Dpr&el=3Dtree#diff-aW5jbHVkZS9zeXMvZG11X3JlZGFjdC5o) | `0.00%=
+ <0.00%> (-100.00%)` | :arrow_down: |=0D
+| [include/sys/dmu\_traverse.h](https://codecov.io/gh/openzfs/zfs/pull/10=
+357/diff?src=3Dpr&el=3Dtree#diff-aW5jbHVkZS9zeXMvZG11X3RyYXZlcnNlLmg=3D) =
+| `0.00% <0.00%> (-100.00%)` | :arrow_down: |=0D
+| [module/zfs/zfs\_rlock.c](https://codecov.io/gh/openzfs/zfs/pull/10357/=
+diff?src=3Dpr&el=3Dtree#diff-bW9kdWxlL3pmcy96ZnNfcmxvY2suYw=3D=3D) | `0.0=
+0% <0.00%> (-95.96%)` | :arrow_down: |=0D
+| [module/lua/ltablib.c](https://codecov.io/gh/openzfs/zfs/pull/10357/dif=
+f?src=3Dpr&el=3Dtree#diff-bW9kdWxlL2x1YS9sdGFibGliLmM=3D) | `2.34% <0.00%=
+> (-95.32%)` | :arrow_down: |=0D
+| [module/zfs/bqueue.c](https://codecov.io/gh/openzfs/zfs/pull/10357/diff=
+?src=3Dpr&el=3Dtree#diff-bW9kdWxlL3pmcy9icXVldWUuYw=3D=3D) | `0.00% <0.00=
+%> (-94.45%)` | :arrow_down: |=0D
+| [module/zcommon/zfs\_deleg.c](https://codecov.io/gh/openzfs/zfs/pull/10=
+357/diff?src=3Dpr&el=3Dtree#diff-bW9kdWxlL3pjb21tb24vemZzX2RlbGVnLmM=3D) =
+| `0.00% <0.00%> (-92.46%)` | :arrow_down: |=0D
+| ... and [237 more](https://codecov.io/gh/openzfs/zfs/pull/10357/diff?sr=
+c=3Dpr&el=3Dtree-more) | |=0D
+=0D
+------=0D
+=0D
+[Continue to review full report at Codecov](https://codecov.io/gh/openzfs=
+/zfs/pull/10357?src=3Dpr&el=3Dcontinue).=0D
+> **Legend** - [Click here to learn more](https://docs.codecov.io/docs/co=
+decov-delta)=0D
+> `=CE=94 =3D absolute <relative> (impact)`, `=C3=B8 =3D not affected`, `=
+? =3D missing data`=0D
+> Powered by [Codecov](https://codecov.io/gh/openzfs/zfs/pull/10357?src=3D=
+pr&el=3Dfooter). Last update [fb82226...46b400e](https://codecov.io/gh/op=
+enzfs/zfs/pull/10357?src=3Dpr&el=3Dlastupdated). Read the [comment docs](=
+https://docs.codecov.io/docs/pull-request-comments).=0D
+=0D
+=0D
+-- =0D
+You are receiving this because you authored the thread.=0D
+Reply to this email directly or view it on GitHub:=0D
+https://github.com/openzfs/zfs/pull/10357#issuecomment-632944690=
+
+----==_mimepart_5ec862e2878fd_35083fe1cc4cd964195469f
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<p></p>=0D
+<h1><a href=3D"https://codecov.io/gh/openzfs/zfs/pull/10357?src=3Dpr&amp;=
+el=3Dh1" rel=3D"nofollow">Codecov</a> Report</h1>=0D
+<blockquote>=0D
+<p>Merging <a href=3D"https://codecov.io/gh/openzfs/zfs/pull/10357?src=3D=
+pr&amp;el=3Ddesc" rel=3D"nofollow">#10357</a> into <a href=3D"https://cod=
+ecov.io/gh/openzfs/zfs/commit/fb822260b19921985a5312f7306b0ee0e30eb3b0&am=
+p;el=3Ddesc" rel=3D"nofollow">master</a> will <strong>decrease</strong> c=
+overage by <code>13.56%</code>.<br>=0D
+The diff coverage is <code>50.00%</code>.</p>=0D
+</blockquote>=0D
+<p><a href=3D"https://codecov.io/gh/openzfs/zfs/pull/10357?src=3Dpr&amp;e=
+l=3Dtree" rel=3D"nofollow"><img src=3D"https://camo.githubusercontent.com=
+/453452998cc51c73e1ab8a4258a34886c4c56358/68747470733a2f2f636f6465636f762=
+e696f2f67682f6f70656e7a66732f7a66732f70756c6c2f31303335372f6772617068732f=
+747265652e7376673f77696474683d363530266865696768743d313530267372633d70722=
+6746f6b656e3d4e47667876764732696f" alt=3D"Impacted file tree graph" data-=
+canonical-src=3D"https://codecov.io/gh/openzfs/zfs/pull/10357/graphs/tree=
+.svg?width=3D650&amp;height=3D150&amp;src=3Dpr&amp;token=3DNGfxvvG2io" st=
+yle=3D"max-width:100%;"></a></p>=0D
+<div class=3D"highlight highlight-source-diff"><pre><span class=3D"pl-mdr=
+">@@             Coverage Diff             @@</span>=0D
+<span class=3D"pl-c"><span class=3D"pl-c">#</span>#           master   #1=
+0357       +/-   ##</span>=0D
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=0D
+<span class=3D"pl-md"><span class=3D"pl-md">-</span> Coverage   79.38%   =
+65.82%   -13.57%     </span>=0D
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=0D
+  Files         391      308       -83     =0D
+  Lines      123590   106289    -17301     =0D
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=0D
+<span class=3D"pl-md"><span class=3D"pl-md">-</span> Hits        98114   =
+ 69963    -28151     </span>=0D
+<span class=3D"pl-md"><span class=3D"pl-md">-</span> Misses      25476   =
+ 36326    +10850     </span></pre></div>=0D
+<table role=3D"table">=0D
+<thead>=0D
+<tr>=0D
+<th>Flag</th>=0D
+<th>Coverage =CE=94</th>=0D
+<th></th>=0D
+</tr>=0D
+</thead>=0D
+<tbody>=0D
+<tr>=0D
+<td>#kernel</td>=0D
+<td><code>?</code></td>=0D
+<td></td>=0D
+</tr>=0D
+<tr>=0D
+<td>#user</td>=0D
+<td><code>65.82% &lt;50.00%&gt; (+1.03%)</code></td>=0D
+<td><g-emoji class=3D"g-emoji" alias=3D"arrow_up" fallback-src=3D"https:/=
+/github.githubassets.com/images/icons/emoji/unicode/2b06.png">=E2=AC=86=EF=
+=B8=8F</g-emoji></td>=0D
+</tr>=0D
+</tbody>=0D
+</table>=0D
+<table role=3D"table">=0D
+<thead>=0D
+<tr>=0D
+<th><a href=3D"https://codecov.io/gh/openzfs/zfs/pull/10357?src=3Dpr&amp;=
+el=3Dtree" rel=3D"nofollow">Impacted Files</a></th>=0D
+<th>Coverage =CE=94</th>=0D
+<th></th>=0D
+</tr>=0D
+</thead>=0D
+<tbody>=0D
+<tr>=0D
+<td><a href=3D"https://codecov.io/gh/openzfs/zfs/pull/10357/diff?src=3Dpr=
+&amp;el=3Dtree#diff-bGliL2xpYnNwbC90aW1lc3RhbXAuYw=3D=3D" rel=3D"nofollow=
+">lib/libspl/timestamp.c</a></td>=0D
+<td><code>0.00% &lt;0.00%&gt; (=C3=B8)</code></td>=0D
+<td></td>=0D
+</tr>=0D
+<tr>=0D
+<td><a href=3D"https://codecov.io/gh/openzfs/zfs/pull/10357/diff?src=3Dpr=
+&amp;el=3Dtree#diff-bGliL2xpYnpmcy9saWJ6ZnNfc2VuZHJlY3YuYw=3D=3D" rel=3D"=
+nofollow">lib/libzfs/libzfs_sendrecv.c</a></td>=0D
+<td><code>76.48% &lt;100.00%&gt; (=C3=B8)</code></td>=0D
+<td></td>=0D
+</tr>=0D
+<tr>=0D
+<td><a href=3D"https://codecov.io/gh/openzfs/zfs/pull/10357/diff?src=3Dpr=
+&amp;el=3Dtree#diff-bW9kdWxlL3pmcy9vYmpsaXN0LmM=3D" rel=3D"nofollow">modu=
+le/zfs/objlist.c</a></td>=0D
+<td><code>0.00% &lt;0.00%&gt; (-100.00%)</code></td>=0D
+<td><g-emoji class=3D"g-emoji" alias=3D"arrow_down" fallback-src=3D"https=
+://github.githubassets.com/images/icons/emoji/unicode/2b07.png">=E2=AC=87=
+=EF=B8=8F</g-emoji></td>=0D
+</tr>=0D
+<tr>=0D
+<td><a href=3D"https://codecov.io/gh/openzfs/zfs/pull/10357/diff?src=3Dpr=
+&amp;el=3Dtree#diff-bW9kdWxlL3pmcy9wYXRobmFtZS5j" rel=3D"nofollow">module=
+/zfs/pathname.c</a></td>=0D
+<td><code>0.00% &lt;0.00%&gt; (-100.00%)</code></td>=0D
+<td><g-emoji class=3D"g-emoji" alias=3D"arrow_down" fallback-src=3D"https=
+://github.githubassets.com/images/icons/emoji/unicode/2b07.png">=E2=AC=87=
+=EF=B8=8F</g-emoji></td>=0D
+</tr>=0D
+<tr>=0D
+<td><a href=3D"https://codecov.io/gh/openzfs/zfs/pull/10357/diff?src=3Dpr=
+&amp;el=3Dtree#diff-aW5jbHVkZS9zeXMvZG11X3JlZGFjdC5o" rel=3D"nofollow">in=
+clude/sys/dmu_redact.h</a></td>=0D
+<td><code>0.00% &lt;0.00%&gt; (-100.00%)</code></td>=0D
+<td><g-emoji class=3D"g-emoji" alias=3D"arrow_down" fallback-src=3D"https=
+://github.githubassets.com/images/icons/emoji/unicode/2b07.png">=E2=AC=87=
+=EF=B8=8F</g-emoji></td>=0D
+</tr>=0D
+<tr>=0D
+<td><a href=3D"https://codecov.io/gh/openzfs/zfs/pull/10357/diff?src=3Dpr=
+&amp;el=3Dtree#diff-aW5jbHVkZS9zeXMvZG11X3RyYXZlcnNlLmg=3D" rel=3D"nofoll=
+ow">include/sys/dmu_traverse.h</a></td>=0D
+<td><code>0.00% &lt;0.00%&gt; (-100.00%)</code></td>=0D
+<td><g-emoji class=3D"g-emoji" alias=3D"arrow_down" fallback-src=3D"https=
+://github.githubassets.com/images/icons/emoji/unicode/2b07.png">=E2=AC=87=
+=EF=B8=8F</g-emoji></td>=0D
+</tr>=0D
+<tr>=0D
+<td><a href=3D"https://codecov.io/gh/openzfs/zfs/pull/10357/diff?src=3Dpr=
+&amp;el=3Dtree#diff-bW9kdWxlL3pmcy96ZnNfcmxvY2suYw=3D=3D" rel=3D"nofollow=
+">module/zfs/zfs_rlock.c</a></td>=0D
+<td><code>0.00% &lt;0.00%&gt; (-95.96%)</code></td>=0D
+<td><g-emoji class=3D"g-emoji" alias=3D"arrow_down" fallback-src=3D"https=
+://github.githubassets.com/images/icons/emoji/unicode/2b07.png">=E2=AC=87=
+=EF=B8=8F</g-emoji></td>=0D
+</tr>=0D
+<tr>=0D
+<td><a href=3D"https://codecov.io/gh/openzfs/zfs/pull/10357/diff?src=3Dpr=
+&amp;el=3Dtree#diff-bW9kdWxlL2x1YS9sdGFibGliLmM=3D" rel=3D"nofollow">modu=
+le/lua/ltablib.c</a></td>=0D
+<td><code>2.34% &lt;0.00%&gt; (-95.32%)</code></td>=0D
+<td><g-emoji class=3D"g-emoji" alias=3D"arrow_down" fallback-src=3D"https=
+://github.githubassets.com/images/icons/emoji/unicode/2b07.png">=E2=AC=87=
+=EF=B8=8F</g-emoji></td>=0D
+</tr>=0D
+<tr>=0D
+<td><a href=3D"https://codecov.io/gh/openzfs/zfs/pull/10357/diff?src=3Dpr=
+&amp;el=3Dtree#diff-bW9kdWxlL3pmcy9icXVldWUuYw=3D=3D" rel=3D"nofollow">mo=
+dule/zfs/bqueue.c</a></td>=0D
+<td><code>0.00% &lt;0.00%&gt; (-94.45%)</code></td>=0D
+<td><g-emoji class=3D"g-emoji" alias=3D"arrow_down" fallback-src=3D"https=
+://github.githubassets.com/images/icons/emoji/unicode/2b07.png">=E2=AC=87=
+=EF=B8=8F</g-emoji></td>=0D
+</tr>=0D
+<tr>=0D
+<td><a href=3D"https://codecov.io/gh/openzfs/zfs/pull/10357/diff?src=3Dpr=
+&amp;el=3Dtree#diff-bW9kdWxlL3pjb21tb24vemZzX2RlbGVnLmM=3D" rel=3D"nofoll=
+ow">module/zcommon/zfs_deleg.c</a></td>=0D
+<td><code>0.00% &lt;0.00%&gt; (-92.46%)</code></td>=0D
+<td><g-emoji class=3D"g-emoji" alias=3D"arrow_down" fallback-src=3D"https=
+://github.githubassets.com/images/icons/emoji/unicode/2b07.png">=E2=AC=87=
+=EF=B8=8F</g-emoji></td>=0D
+</tr>=0D
+<tr>=0D
+<td>... and <a href=3D"https://codecov.io/gh/openzfs/zfs/pull/10357/diff?=
+src=3Dpr&amp;el=3Dtree-more" rel=3D"nofollow">237 more</a></td>=0D
+<td></td>=0D
+<td></td>=0D
+</tr>=0D
+</tbody>=0D
+</table>=0D
+<hr>=0D
+<p><a href=3D"https://codecov.io/gh/openzfs/zfs/pull/10357?src=3Dpr&amp;e=
+l=3Dcontinue" rel=3D"nofollow">Continue to review full report at Codecov<=
+/a>.</p>=0D
+<blockquote>=0D
+<p><strong>Legend</strong> - <a href=3D"https://docs.codecov.io/docs/code=
+cov-delta" rel=3D"nofollow">Click here to learn more</a><br>=0D
+<code>=CE=94 =3D absolute &lt;relative&gt; (impact)</code>, <code>=C3=B8 =
+=3D not affected</code>, <code>? =3D missing data</code><br>=0D
+Powered by <a href=3D"https://codecov.io/gh/openzfs/zfs/pull/10357?src=3D=
+pr&amp;el=3Dfooter" rel=3D"nofollow">Codecov</a>. Last update <a href=3D"=
+https://codecov.io/gh/openzfs/zfs/pull/10357?src=3Dpr&amp;el=3Dlastupdate=
+d" rel=3D"nofollow">fb82226...46b400e</a>. Read the <a href=3D"https://do=
+cs.codecov.io/docs/pull-request-comments" rel=3D"nofollow">comment docs</=
+a>.</p>=0D
+</blockquote>=0D
+=0D
+<p style=3D"font-size:small;-webkit-text-size-adjust:none;color:#666;">&m=
+dash;<br />You are receiving this because you authored the thread.<br />R=
+eply to this email directly, <a href=3D"https://github.com/openzfs/zfs/pu=
+ll/10357#issuecomment-632944690">view it on GitHub</a>, or <a href=3D"htt=
+ps://github.com/notifications/unsubscribe-auth/ABTGCKHSHIFUCRD2G5S6Y3TRS4=
+EOFANCNFSM4NIADNOQ">unsubscribe</a>.<img src=3D"https://github.com/notifi=
+cations/beacon/ABTGCKEEWF77BF2HZTUE7TLRS4EOFA5CNFSM4NIADNO2YY3PNVWWK3TUL5=
+2HS4DFVREXG43VMVBW63LNMVXHJKTDN5WW2ZLOORPWSZGOEW47QMQ.gif" height=3D"1" w=
+idth=3D"1" alt=3D"" /></p>=0D
+<script type=3D"application/ld+json">[=0D
+{=0D
+"@context": "http://schema.org",=0D
+"@type": "EmailMessage",=0D
+"potentialAction": {=0D
+"@type": "ViewAction",=0D
+"target": "https://github.com/openzfs/zfs/pull/10357#issuecomment-6329446=
+90",=0D
+"url": "https://github.com/openzfs/zfs/pull/10357#issuecomment-632944690"=
+,=0D
+"name": "View Pull Request"=0D
+},=0D
+"description": "View this Pull Request on GitHub",=0D
+"publisher": {=0D
+"@type": "Organization",=0D
+"name": "GitHub",=0D
+"url": "https://github.com"=0D
+}=0D
+}=0D
+]</script>=
+
+----==_mimepart_5ec862e2878fd_35083fe1cc4cd964195469f--
+
+From noreply@github.com Fri May 22 19:52:35 2020
+Delivered-To: nabijaczleweli@gmail.com
+Received: by 2002:a4a:a581:0:0:0:0:0 with SMTP id d1csp2576750oom;
+        Fri, 22 May 2020 10:52:35 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJzvfa5ETdQW584RRBl76bzzpSmjQ5TEpf98enIaD2Q6sB2xs1QFDRSu+UIO18Q8XppeLNtX
+X-Received: by 2002:a37:5ac2:: with SMTP id o185mr15639556qkb.461.1590169955084;
+        Fri, 22 May 2020 10:52:35 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1590169955; cv=none;
+        d=google.com; s=arc-20160816;
+        b=i6AFUltdxEelN11ityrZSxea48Ys/11w5LgobeBvOdJwzmaA3xkGxxTGc//n91O9tB
+         UNUWr5lr9BDV+Zq0p/muMHZU6d+WNr1RR3l4YgF6XIy5pLIB7cqz9RCdjEtJcAoPESDT
+         Ju3pjghMMPGqdVc5dEHFHR3rTZbghrGf4QsmXYreBwp+qqgijJXXMwQ5poUID+TnTp65
+         +P2YYHVszYTMJyklKur91sQ+SkV7TLDP5fsZ3T3UPcaX+bDnpyRmjImaaB62G7n7wCdV
+         Z499klePhmDiKsGT/ZLmem41pRZEEfeDNMYxuqFr65oFSRccQB+Y8OMzJzUI3n6DRHrM
+         MA4A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-post:list-archive:list-id:precedence
+         :content-transfer-encoding:mime-version:subject:references
+         :in-reply-to:message-id:cc:to:reply-to:from:date:dkim-signature;
+        bh=0DHpaGkx5xvi35kr0QKsKGD5yW75ZLzzwCaVY0DAETs=;
+        b=agRve2s9cTfTd+qEy4+3FxAz1oddiQKcCcKaG48pg0prILOucULQ3r08h4rZ/RHDIE
+         TFFRBJk+DIzir6A0KfLwKPRVR2X07i1Nr1z69qsm+vj8Ckd0hYp1YVsx08MofTYVBUoA
+         JovNSVx+OSKmoOD9M4fdqDgKxZ3vuMNRz0c7mv4Q+so+fWs6igsdmmAgwkF5FxH3sz6m
+         9oq1bXIsPTj952CiWmd37YtNP+bdjcKfcW+goE/L2kgxRfpaf9FnJsNyFJyH1nYsibBb
+         fkWPsMvT7fqoyWZXUvYq6m3fVNHGuVO+D+Py486RNKRAEsOVcYjX+tjYH14qbwl1xZP3
+         QQoA==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=irZnbCnw;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.210 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
+Return-Path: <noreply@github.com>
+Received: from out-27.smtp.github.com (out-27.smtp.github.com. [192.30.252.210])
+        by mx.google.com with ESMTPS id b20si2175581qka.126.2020.05.22.10.52.34
+        for <nabijaczleweli@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Fri, 22 May 2020 10:52:35 -0700 (PDT)
+Received-SPF: pass (google.com: domain of noreply@github.com designates 192.30.252.210 as permitted sender) client-ip=192.30.252.210;
+Authentication-Results: mx.google.com;
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=irZnbCnw;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.210 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
+Received: from github-lowworker-b19c547.va3-iad.github.net (github-lowworker-b19c547.va3-iad.github.net [10.48.17.66])
+	by smtp.github.com (Postfix) with ESMTP id 92265E111F
+	for <nabijaczleweli@gmail.com>; Fri, 22 May 2020 10:52:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=github.com;
+	s=pf2014; t=1590169954;
+	bh=0DHpaGkx5xvi35kr0QKsKGD5yW75ZLzzwCaVY0DAETs=;
+	h=Date:From:Reply-To:To:Cc:In-Reply-To:References:Subject:List-ID:
+	 List-Archive:List-Post:List-Unsubscribe:From;
+	b=irZnbCnwnHxZn1sDb2Znuta4HaRCFg30cgobeJIq9u/KzaQid5MmIT6U/KrkMVPO6
+	 nl/vCkVfp6rejpPEpu++7z7nCKgBEE2q1YJM/znpy+HIWUf/HGMTr7wLd7ir1IwnKp
+	 lC/OoNGgrtl94GKY+tW1urPZAJs9wnC3rlGw+xvI=
+Date: Fri, 22 May 2020 10:52:34 -0700
+From: Brian Behlendorf <notifications@github.com>
+Reply-To: openzfs/zfs <reply+ABTGCKAQVJT732YTCY4QECN42PZGFEVBNHHCKJ5CNE@reply.github.com>
+To: openzfs/zfs <zfs@noreply.github.com>
+Cc: =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@gmail.com>, 
+ Author <author@noreply.github.com>
+Message-ID: <openzfs/zfs/pull/10357/review/417080636@github.com>
+In-Reply-To: <openzfs/zfs/pull/10357@github.com>
+References: <openzfs/zfs/pull/10357@github.com>
+Subject: Re: [openzfs/zfs] x32 builds (#10357)
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="--==_mimepart_5ec8116283448_6f93f9685ccd96c622373";
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Precedence: list
+X-GitHub-Sender: behlendorf
+X-GitHub-Recipient: nabijaczleweli
+X-GitHub-Reason: author
+List-ID: openzfs/zfs <zfs.openzfs.github.com>
+List-Archive: https://github.com/openzfs/zfs
+List-Post: <mailto:reply+ABTGCKAQVJT732YTCY4QECN42PZGFEVBNHHCKJ5CNE@reply.github.com>
+List-Unsubscribe: <mailto:unsub+ABTGCKAQVJT732YTCY4QECN42PZGFEVBNHHCKJ5CNE@reply.github.com>,
+ <https://github.com/notifications/unsubscribe/ABTGCKGX4Q4LLQ756YMTCJLRS23WFANCNFSM4NIADNOQ>
+X-Auto-Response-Suppress: All
+X-GitHub-Recipient-Address: nabijaczleweli@gmail.com
+Status: RO
+Content-Length: 3721
+Lines: 108
+
+
+----==_mimepart_5ec8116283448_6f93f9685ccd96c622373
+Content-Type: text/plain;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+@behlendorf requested changes on this pull request.
+
+
+
+> @@ -51,7 +51,7 @@ print_timestamp(uint_t timestamp_fmt)
+ 		fmt = nl_langinfo(_DATE_FMT);
+ 
+ 	if (timestamp_fmt == UDATE) {
+-		(void) printf("%ld\n", t);
++		(void) printf("%" ZFS_TIME_T_FORMAT "d\n", t);
+
+The way we've handled this elsewhere in the code is by simply casting it as you suggested.  Let's do that here and in `libzfs_sendrecv` as well.
+
+```suggestion
+		(void) printf("%lld\n", (longlong_t)t);
+```
+
+>  #if !defined(_LP64)
+ #define	_LP64
+ #endif
++#endif
+
+Even though x32 built kernels are rare, they do exist so let's make sure to add this same check to the `isa_defs.h` we use in the kernel `include/os/linux/spl/sys/isa_defs.h`.
+
+-- 
+You are receiving this because you authored the thread.
+Reply to this email directly or view it on GitHub:
+https://github.com/openzfs/zfs/pull/10357#pullrequestreview-417080636
+----==_mimepart_5ec8116283448_6f93f9685ccd96c622373
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<p></p>=0D
+<p><b>@behlendorf</b> requested changes on this pull request.</p>=0D
+=0D
+<hr>=0D
+=0D
+<p>In <a href=3D"https://github.com/openzfs/zfs/pull/10357#discussion_r42=
+9374057">lib/libspl/timestamp.c</a>:</p>=0D
+<pre style=3D'color:#555'>&gt; @@ -51,7 +51,7 @@ print_timestamp(uint_t t=
+imestamp_fmt)=0D
+ 		fmt =3D nl_langinfo(_DATE_FMT);=0D
+ =0D
+ 	if (timestamp_fmt =3D=3D UDATE) {=0D
+-		(void) printf(&quot;%ld\n&quot;, t);=0D
++		(void) printf(&quot;%&quot; ZFS_TIME_T_FORMAT &quot;d\n&quot;, t);=0D
+</pre>=0D
+<p>The way we've handled this elsewhere in the code is by simply casting =
+it as you suggested.  Let's do that here and in <code>libzfs_sendrecv</co=
+de> as well.</p>=0D
+=E2=AC=87=EF=B8=8F Suggested change=0D
+<pre style=3D"color: #555">-		(void) printf("%" ZFS_TIME_T_FORMAT "d\n", =
+t);=0D
++		(void) printf("%lld\n", (longlong_t)t);=0D
+</pre>=0D
+=0D
+=0D
+<hr>=0D
+=0D
+<p>In <a href=3D"https://github.com/openzfs/zfs/pull/10357#discussion_r42=
+9379997">lib/libspl/include/sys/isa_defs.h</a>:</p>=0D
+<pre style=3D'color:#555'>&gt;  #if !defined(_LP64)=0D
+ #define	_LP64=0D
+ #endif=0D
++#endif=0D
+</pre>=0D
+<p>Even though x32 built kernels are rare, they do exist so let's make su=
+re to add this same check to the <code>isa_defs.h</code> we use in the ke=
+rnel <code>include/os/linux/spl/sys/isa_defs.h</code>.</p>=0D
+=0D
+<p style=3D"font-size:small;-webkit-text-size-adjust:none;color:#666;">&m=
+dash;<br />You are receiving this because you authored the thread.<br />R=
+eply to this email directly, <a href=3D"https://github.com/openzfs/zfs/pu=
+ll/10357#pullrequestreview-417080636">view it on GitHub</a>, or <a href=3D=
+"https://github.com/notifications/unsubscribe-auth/ABTGCKHPVHVZUED25FLZMD=
+LRS23WFANCNFSM4NIADNOQ">unsubscribe</a>.<img src=3D"https://github.com/no=
+tifications/beacon/ABTGCKAOBDHLTEWY4FGBPCDRS23WFA5CNFSM4NIADNO2YY3PNVWWK3=
+TUL52HS4DFWFIHK3DMKJSXC5LFON2FEZLWNFSXPKTDN5WW2ZLOORPWSZGODDOCKPA.gif" he=
+ight=3D"1" width=3D"1" alt=3D"" /></p>=0D
+<script type=3D"application/ld+json">[=0D
+{=0D
+"@context": "http://schema.org",=0D
+"@type": "EmailMessage",=0D
+"potentialAction": {=0D
+"@type": "ViewAction",=0D
+"target": "https://github.com/openzfs/zfs/pull/10357#pullrequestreview-41=
+7080636",=0D
+"url": "https://github.com/openzfs/zfs/pull/10357#pullrequestreview-41708=
+0636",=0D
+"name": "View Pull Request"=0D
+},=0D
+"description": "View this Pull Request on GitHub",=0D
+"publisher": {=0D
+"@type": "Organization",=0D
+"name": "GitHub",=0D
+"url": "https://github.com"=0D
+}=0D
+}=0D
+]</script>=
+
+----==_mimepart_5ec8116283448_6f93f9685ccd96c622373--
+
+From noreply@github.com Fri May 22 19:21:56 2020
+Delivered-To: nabijaczleweli@gmail.com
+Received: by 2002:a4a:a581:0:0:0:0:0 with SMTP id d1csp2556082oom;
+        Fri, 22 May 2020 10:21:56 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJxhiKugjBqF2MPWe/9xeguMEeMiFU1x2RkjMpVgIqESTBuKaIjq0XZF8psQ3vcyKASdFNlX
+X-Received: by 2002:a17:90a:8c09:: with SMTP id a9mr5792734pjo.172.1590168116118;
+        Fri, 22 May 2020 10:21:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1590168116; cv=none;
+        d=google.com; s=arc-20160816;
+        b=iGOiWjPB2SENd5KuTeb+D0f4dPYcHXqclbdGS7Kfc51o+vgVIXWzAmBfovr5a9fbla
+         O0lu28HGKCoLyiaiPhOnR55uV/yvGsy91avhmA9EyXTx5ySSomx0hFYUaDp1ji+732MU
+         N3kl2uIWlFYYZEE+63BuRlQKSvlcLPuujixTajJk9EAY1+I6sJZc8Pr4GTZuVULBpqqh
+         TSfXlk6ak2tJa6umxDdifXbzeFazzUOZZJaalpg5r+34EVkbl6FbU+x+QPwS7twzDHnk
+         Jk3B18a+71GNntPruMq4efVvSNxklgd84DWW1PKL9lDPd07UMhf7vHFQPWl5Q2Dd2OXd
+         hM1w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-post:list-archive:list-id:precedence
+         :content-transfer-encoding:mime-version:subject:references
+         :in-reply-to:message-id:cc:to:reply-to:from:date:dkim-signature;
+        bh=/cGszvuKumSBXAzNLh3Z8giIio6urMqAuaE+KeVfbp4=;
+        b=Zumfl41IFWSpEm+CRWSUmYmAtCvbyVAA8mwrvnXAXbCe0bZDtfAzvE9p2COW/LQl02
+         PbF6ZmOFaPj9BTDe57RDuPiFOAEyAm/7d2onT44uMIne+kfvIRaJSK+v34Kx6N2t52yW
+         aGRJ7EZp5qOe+WPPJSBOYPNoAOBg0Z4MTjMB6f6pMCg4q/YMmdeS2b9+ZcWCUW2EwRwa
+         MMdKzvz6fOHOsqbyOuOZxDbpzbiojtm25+WsbZ63LXMchlyAVvhSehZfbD4FPwP4GHE5
+         PpdnH3xsTfhZ5qDcVAoyyIwbR/WixFD+ZBUbL67638V2tm28yXdFAZxwQ8VrWW+m5k+z
+         bCOw==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=iAGErU8X;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.254.195 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
+Return-Path: <noreply@github.com>
+Received: from out-12.smtp.github.com (out-12.smtp.github.com. [192.30.254.195])
+        by mx.google.com with ESMTPS id f10si7236550plr.355.2020.05.22.10.21.56
+        for <nabijaczleweli@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Fri, 22 May 2020 10:21:56 -0700 (PDT)
+Received-SPF: pass (google.com: domain of noreply@github.com designates 192.30.254.195 as permitted sender) client-ip=192.30.254.195;
+Authentication-Results: mx.google.com;
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=iAGErU8X;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.254.195 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
+Received: from github-lowworker-edec459.ac4-iad.github.net (github-lowworker-edec459.ac4-iad.github.net [10.52.18.32])
+	by smtp.github.com (Postfix) with ESMTP id CF800120431
+	for <nabijaczleweli@gmail.com>; Fri, 22 May 2020 10:21:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=github.com;
+	s=pf2014; t=1590168115;
+	bh=/cGszvuKumSBXAzNLh3Z8giIio6urMqAuaE+KeVfbp4=;
+	h=Date:From:Reply-To:To:Cc:In-Reply-To:References:Subject:List-ID:
+	 List-Archive:List-Post:List-Unsubscribe:From;
+	b=iAGErU8XL4iB2hVYlfr2NQ1rBhYfD7U+HNbX7SDSDJpYKePWe4DH2UKrr4Zzzv1Bm
+	 rmXOZvs+ODeIsW+D/mT0mptc6jxiMewdm0vtuTmhS61jpQq3uPjPElAf2kZTxnUBJs
+	 NHmckoKbQlg+zY+lCnerT7RiTeTccy9DQcFYsH9Y=
+Date: Fri, 22 May 2020 10:21:55 -0700
+From: =?UTF-8?B?0L3QsNCx?= <notifications@github.com>
+Reply-To: openzfs/zfs <noreply@github.com>
+To: openzfs/zfs <zfs@noreply.github.com>
+Cc: =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@gmail.com>, 
+ Push <push@noreply.github.com>
+Message-ID: <openzfs/zfs/pull/10357/push/5115120758@github.com>
+In-Reply-To: <openzfs/zfs/pull/10357@github.com>
+References: <openzfs/zfs/pull/10357@github.com>
+Subject: Re: [openzfs/zfs] x32 builds (#10357)
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="--==_mimepart_5ec80a3386454_17b23fdb62acd9604500af";
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Precedence: list
+X-GitHub-Sender: nabijaczleweli
+X-GitHub-Recipient: nabijaczleweli
+X-GitHub-Reason: push
+List-ID: openzfs/zfs <zfs.openzfs.github.com>
+List-Archive: https://github.com/openzfs/zfs
+List-Post: <mailto:noreply@github.com>
+List-Unsubscribe: <mailto:unsub+ABTGCKH3JZDGO6NT7T3BGLN42PVTHEVBNHHCKJ5CNE@reply.github.com>,
+ <https://github.com/notifications/unsubscribe/ABTGCKBQXVGV7QFCWXBC4S3RS2YDHANCNFSM4NIADNOQ>
+X-Auto-Response-Suppress: All
+X-GitHub-Recipient-Address: nabijaczleweli@gmail.com
+Status: RO
+Content-Length: 2314
+Lines: 49
+
+
+----==_mimepart_5ec80a3386454_17b23fdb62acd9604500af
+Content-Type: text/plain;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+@nabijaczleweli pushed 1 commit.
+
+46b400e3bdb8bad8cb1df2801f60bf95b94c07f1  Add TIME_T_FORMAT config, matching l or ll on respective platforms
+
+
+-- 
+You are receiving this because you are subscribed to this thread.
+View it on GitHub:
+https://github.com/openzfs/zfs/pull/10357/files/e39230330d8062706b1349cef5e924a4e4cff4d1..46b400e3bdb8bad8cb1df2801f60bf95b94c07f1
+
+----==_mimepart_5ec80a3386454_17b23fdb62acd9604500af
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<p><a href="https://github.com/nabijaczleweli" class="user-mention">@nabijaczleweli</a> pushed 1 commit.</p>
+
+<ul>
+  <li><a class="commit-link" href="https://github.com/openzfs/zfs/commit/46b400e3bdb8bad8cb1df2801f60bf95b94c07f1">46b400e</a>  Add TIME_T_FORMAT config, matching l or ll on respective platforms</li>
+</ul>
+
+
+<p style="font-size:small;-webkit-text-size-adjust:none;color:#666;">&mdash;<br />You are receiving this because you are subscribed to this thread.<br /><a href="https://github.com/openzfs/zfs/pull/10357/files/e39230330d8062706b1349cef5e924a4e4cff4d1..46b400e3bdb8bad8cb1df2801f60bf95b94c07f1">View it on GitHub</a> or <a href="https://github.com/notifications/unsubscribe-auth/ABTGCKCX7WNKXO7ZZN2F7X3RS2YDHANCNFSM4NIADNOQ">unsubscribe</a>.<img src="https://github.com/notifications/beacon/ABTGCKAFIUT3WKC3EMNGB4LRS2YDHA5CNFSM4NIADNO2YY3PNVWWK3TUL52HS4DFXNIHK3DMKJSXC5LFON2FA5LTNBHG65DJMZUWGYLUNFXW5KTDN5WW2ZLOORPWSZF5KB2WY3BDGQZDEMBUGE4DGN2QOVZWQIZVGEYTKMJSGA3TKOA.gif" height="1" width="1" alt="" /></p>
+<script type="application/ld+json">[
+{
+"@context": "http://schema.org",
+"@type": "EmailMessage",
+"potentialAction": {
+"@type": "ViewAction",
+"target": "https://github.com/openzfs/zfs/pull/10357/files/e39230330d8062706b1349cef5e924a4e4cff4d1..46b400e3bdb8bad8cb1df2801f60bf95b94c07f1",
+"url": "https://github.com/openzfs/zfs/pull/10357/files/e39230330d8062706b1349cef5e924a4e4cff4d1..46b400e3bdb8bad8cb1df2801f60bf95b94c07f1",
+"name": "View Pull Request"
+},
+"description": "View this Pull Request on GitHub",
+"publisher": {
+"@type": "Organization",
+"name": "GitHub",
+"url": "https://github.com"
+}
+}
+]</script>
+
+----==_mimepart_5ec80a3386454_17b23fdb62acd9604500af--
+
+From noreply@github.com Fri May 22 18:54:41 2020
+Delivered-To: nabijaczleweli@gmail.com
+Received: by 2002:a4a:a581:0:0:0:0:0 with SMTP id d1csp2535737oom;
+        Fri, 22 May 2020 09:54:41 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJyKeyrET4SvQi2ap1Nzr3djfH1wd8VWegwYYKeDsomdGnbzKLmPuRek2Rg1s8Cpj2/IU3X1
+X-Received: by 2002:a37:b14:: with SMTP id 20mr10458626qkl.401.1590166481266;
+        Fri, 22 May 2020 09:54:41 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1590166481; cv=none;
+        d=google.com; s=arc-20160816;
+        b=trVlMXPR+Apssb53ZcPsNZtPPUdp3w3pZc/rokCMHgobZFLd0MnmzvjnziCMc+51dK
+         0/kVoO9v+5hPrj15JJteCujLQL3znMOo0Zf35fkSXan51kHNyDNKXuGaf8Hrw2L1ZgnH
+         2rCm2gjTG8pOqtqZCGlZ8P4ujGCzvhLeKAi/FeR9NB3zfpOG0atzwzd1nxn56pcWiRYx
+         yeP9xAzkpJYMSpCGl9GW5bWUuldFsasFkTTo+ceC86ggVLrka3hupTE+UEkMCK1WUFUt
+         VOkwlZ/tZs3ZSw9XZWbzIUYwneSE1s4q6ppJ1CDa+jHWS9Kv0acvOz4Sb1JzcHHOrYXb
+         sKAQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-post:list-archive:list-id:precedence
+         :content-transfer-encoding:mime-version:subject:message-id:cc:to
+         :reply-to:from:date:dkim-signature;
+        bh=b+UuhhXGdXVMJDtiNZeJNeYcTKSNfvMejMYciiB9jxw=;
+        b=rYVfemXeI/nczJAtOG1ANPcUdCQiAfeQczFiNzZvxMNiUP0sGPpep/lgYw9f1v5fvc
+         geHltZmzf4yj4ZcdjcJqsHxVbK5eY/K8vq0EJALnjHI+jQ6Ss4KqtgD2XudOAfLXidzS
+         cJQI5c8a+81RmBnYdXu4BOdDPy9EogAdyFVBIpEHiloBvvRTxG5+7gsNhT8suiWOOlvl
+         GJXdN3y32AhPReGuAl45bg8zqBqPn7sSgLKZE97tW1ZsZK9INK1aQuVLfCLqrxXd3FyQ
+         IHq1P/nkp0FdWnKSixu57+xTfWfWHg0oGcGeA5Gmehyd9qog75fI0YO6hNk5L2hXF0Yp
+         1ksQ==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=NqAJZMeE;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.210 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
+Return-Path: <noreply@github.com>
+Received: from out-27.smtp.github.com (out-27.smtp.github.com. [192.30.252.210])
+        by mx.google.com with ESMTPS id 201si5784410qkm.301.2020.05.22.09.54.41
+        for <nabijaczleweli@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Fri, 22 May 2020 09:54:41 -0700 (PDT)
+Received-SPF: pass (google.com: domain of noreply@github.com designates 192.30.252.210 as permitted sender) client-ip=192.30.252.210;
+Authentication-Results: mx.google.com;
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=NqAJZMeE;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.210 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
+Received: from github-lowworker-c5134a3.ac4-iad.github.net (github-lowworker-c5134a3.ac4-iad.github.net [10.52.23.55])
+	by smtp.github.com (Postfix) with ESMTP id 0E8EFE0539
+	for <nabijaczleweli@gmail.com>; Fri, 22 May 2020 09:54:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=github.com;
+	s=pf2014; t=1590166481;
+	bh=b+UuhhXGdXVMJDtiNZeJNeYcTKSNfvMejMYciiB9jxw=;
+	h=Date:From:Reply-To:To:Cc:Subject:List-ID:List-Archive:List-Post:
+	 List-Unsubscribe:From;
+	b=NqAJZMeEeqCXjDMoCCPj13nbCg1qnS6+wsF61/Viamjlf9KvtWe4OzSiKo/0Payex
+	 IM2/OqTVFMj9P1HCRLzB0ALWUeiwCR+oRPC7hsRE3LBMELz0Pg8GmyrUPkCGdLZ3B5
+	 lRYALNCxCX5uYdUUR98dsAFQLHqJ1olpWhFbAfnE=
+Date: Fri, 22 May 2020 09:54:40 -0700
+From: =?UTF-8?B?0L3QsNCx?= <notifications@github.com>
+Reply-To: openzfs/zfs <reply+ABTGCKEP7QITIWP7LT6GQYV42PSNBEVBNHHCKJ5CNE@reply.github.com>
+To: openzfs/zfs <zfs@noreply.github.com>
+Cc: =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@gmail.com>, 
+ Your activity <your_activity@noreply.github.com>
+Message-ID: <openzfs/zfs/pull/10357@github.com>
+Subject: [openzfs/zfs] X32 (#10357)
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="--==_mimepart_5ec803d0f2ca3_69e93fa22bccd96014085d";
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Precedence: list
+X-GitHub-Sender: nabijaczleweli
+X-GitHub-Recipient: nabijaczleweli
+X-GitHub-Reason: your_activity
+List-ID: openzfs/zfs <zfs.openzfs.github.com>
+List-Archive: https://github.com/openzfs/zfs
+List-Post: <mailto:reply+ABTGCKEP7QITIWP7LT6GQYV42PSNBEVBNHHCKJ5CNE@reply.github.com>
+List-Unsubscribe: <mailto:unsub+ABTGCKEP7QITIWP7LT6GQYV42PSNBEVBNHHCKJ5CNE@reply.github.com>,
+ <https://github.com/notifications/unsubscribe/ABTGCKD2GSIKUOQWQKQ7W5LRS2U5BANCNFSM4NIADNOQ>
+X-Auto-Response-Suppress: All
+X-GitHub-Recipient-Address: nabijaczleweli@gmail.com
+Status: RO
+Content-Length: 10685
+Lines: 245
+
+
+----==_mimepart_5ec803d0f2ca3_69e93fa22bccd96014085d
+Content-Type: text/plain;
+ charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+### Motivation and Context=0D
+I use the debian x32 port on one of my machines, but #844 prevented build=
+ing the userspace tools: no longer.=0D
+=0D
+### Description=0D
+Patch 1 adds proper x32 handling to the SPL ISA (well, ABI) detection hea=
+der =E2=80=93 if both `__x86_64__` *and* `_ILP32` are defined, `_LP64` is=
+ *not*, whereas previously it *was*, which yielded [an error](https://git=
+hub.com/openzfs/zfs/issues/844#issuecomment-260155030) later in the heade=
+r (and, if that error was circumvented, segfaults in libuutil as it picke=
+d the wrong pointer/long types for its bit-twiddling magic).=0D
+=0D
+Patch 2 adds a new `ZFS_TIME_T_FORMAT` config entry, which evaluates to `=
+&quot;l&quot;` when `sizeof(time_t) =3D=3D sizeof(long)` and `&quot;ll&qu=
+ot;` otherwise and uses it in the two places using just `&quot;l&quot;` y=
+ielded warnings on x32.=0D
+=0D
+This approach is heavy-handed and could be replaced by casting it to `[un=
+signed] long long` and formatting with `&quot;ll&quot;` in both of those =
+places. Thoughts?=0D
+=0D
+### How Has This Been Tested?=0D
+I&#39;ve used the userspace tools for the better part of a week now, with=
+ all the usual create/destroy/send/receive/scrub operations working. `zfs=
+-tests.sh` passes as well.=0D
+=0D
+### Types of changes=0D
+- [x] Bug fix (non-breaking change which fixes an issue)=0D
+- [ ] New feature (non-breaking change which adds functionality)=0D
+- [ ] Performance enhancement (non-breaking change which improves efficie=
+ncy)=0D
+- [ ] Code cleanup (non-breaking change which makes code smaller or more =
+readable)=0D
+- [ ] Breaking change (fix or feature that would cause existing functiona=
+lity to change)=0D
+- [ ] Documentation (a change to man pages or other documentation)=0D
+=0D
+### Checklist:=0D
+- [x] My code follows the ZFS on Linux [code style requirements](https://=
+github.com/zfsonlinux/zfs/blob/master/.github/CONTRIBUTING.md#coding-conv=
+entions).=0D
+- [ ] I have updated the documentation accordingly =E2=80=93 AFAICT no do=
+cumentation needs updating?=0D
+- [x] I have read the [**contributing** document](https://github.com/zfso=
+nlinux/zfs/blob/master/.github/CONTRIBUTING.md).=0D
+- [ ] I have added [tests](https://github.com/zfsonlinux/zfs/tree/master/=
+tests) to cover my changes =E2=80=93 none needed.=0D
+- [x] I have run the ZFS Test Suite with this change applied.=0D
+You can view, comment on, or merge this pull request online at:=0D
+=0D
+  https://github.com/openzfs/zfs/pull/10357=0D
+=0D
+-- Commit Summary --=0D
+=0D
+  * Correctly handle the x32 ABI=0D
+  * Add TIME_T_FORMAT config, matching l or ll on respective platforms=0D=
+
+=0D
+-- File Changes --=0D
+=0D
+    A config/always-time_t.m4 (22)=0D
+    M config/zfs-build.m4 (1)=0D
+    M lib/libspl/include/sys/isa_defs.h (6)=0D
+    M lib/libspl/timestamp.c (2)=0D
+    M lib/libzfs/libzfs_sendrecv.c (2)=0D
+=0D
+-- Patch Links --=0D
+=0D
+https://github.com/openzfs/zfs/pull/10357.patch=0D
+https://github.com/openzfs/zfs/pull/10357.diff=0D
+=0D
+-- =0D
+You are receiving this because you are subscribed to this thread.=0D
+Reply to this email directly or view it on GitHub:=0D
+https://github.com/openzfs/zfs/pull/10357=0D
+
+----==_mimepart_5ec803d0f2ca3_69e93fa22bccd96014085d
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<h3>Motivation and Context</h3>=0D
+<p>I use the debian x32 port on one of my machines, but <a class=3D"issue=
+-link js-issue-link" data-error-text=3D"Failed to load title" data-id=3D"=
+5731379" data-permission-text=3D"Title is private" data-url=3D"https://gi=
+thub.com/openzfs/zfs/issues/844" data-hovercard-type=3D"issue" data-hover=
+card-url=3D"/openzfs/zfs/issues/844/hovercard" href=3D"https://github.com=
+/openzfs/zfs/issues/844">#844</a> prevented building the userspace tools:=
+ no longer.</p>=0D
+<h3>Description</h3>=0D
+<p>Patch 1 adds proper x32 handling to the SPL ISA (well, ABI) detection =
+header =E2=80=93 if both <code>__x86_64__</code> <em>and</em> <code>_ILP3=
+2</code> are defined, <code>_LP64</code> is <em>not</em>, whereas previou=
+sly it <em>was</em>, which yielded <a href=3D"https://github.com/openzfs/=
+zfs/issues/844#issuecomment-260155030" data-hovercard-type=3D"issue" data=
+-hovercard-url=3D"/openzfs/zfs/issues/844/hovercard">an error</a> later i=
+n the header (and, if that error was circumvented, segfaults in libuutil =
+as it picked the wrong pointer/long types for its bit-twiddling magic).</=
+p>=0D
+<p>Patch 2 adds a new <code>ZFS_TIME_T_FORMAT</code> config entry, which =
+evaluates to <code>"l"</code> when <code>sizeof(time_t) =3D=3D sizeof(lon=
+g)</code> and <code>"ll"</code> otherwise and uses it in the two places u=
+sing just <code>"l"</code> yielded warnings on x32.</p>=0D
+<p>This approach is heavy-handed and could be replaced by casting it to <=
+code>[unsigned] long long</code> and formatting with <code>"ll"</code> in=
+ both of those places. Thoughts?</p>=0D
+<h3>How Has This Been Tested?</h3>=0D
+<p>I've used the userspace tools for the better part of a week now, with =
+all the usual create/destroy/send/receive/scrub operations working. <code=
+>zfs-tests.sh</code> passes as well.</p>=0D
+<h3>Types of changes</h3>=0D
+<ul class=3D"contains-task-list">=0D
+<li class=3D"task-list-item"><input type=3D"checkbox" id=3D"" disabled=3D=
+"" class=3D"task-list-item-checkbox" checked=3D""> Bug fix (non-breaking =
+change which fixes an issue)</li>=0D
+<li class=3D"task-list-item"><input type=3D"checkbox" id=3D"" disabled=3D=
+"" class=3D"task-list-item-checkbox"> New feature (non-breaking change wh=
+ich adds functionality)</li>=0D
+<li class=3D"task-list-item"><input type=3D"checkbox" id=3D"" disabled=3D=
+"" class=3D"task-list-item-checkbox"> Performance enhancement (non-breaki=
+ng change which improves efficiency)</li>=0D
+<li class=3D"task-list-item"><input type=3D"checkbox" id=3D"" disabled=3D=
+"" class=3D"task-list-item-checkbox"> Code cleanup (non-breaking change w=
+hich makes code smaller or more readable)</li>=0D
+<li class=3D"task-list-item"><input type=3D"checkbox" id=3D"" disabled=3D=
+"" class=3D"task-list-item-checkbox"> Breaking change (fix or feature tha=
+t would cause existing functionality to change)</li>=0D
+<li class=3D"task-list-item"><input type=3D"checkbox" id=3D"" disabled=3D=
+"" class=3D"task-list-item-checkbox"> Documentation (a change to man page=
+s or other documentation)</li>=0D
+</ul>=0D
+<h3>Checklist:</h3>=0D
+<ul class=3D"contains-task-list">=0D
+<li class=3D"task-list-item"><input type=3D"checkbox" id=3D"" disabled=3D=
+"" class=3D"task-list-item-checkbox" checked=3D""> My code follows the ZF=
+S on Linux <a href=3D"https://github.com/zfsonlinux/zfs/blob/master/.gith=
+ub/CONTRIBUTING.md#coding-conventions">code style requirements</a>.</li>=0D=
+
+<li class=3D"task-list-item"><input type=3D"checkbox" id=3D"" disabled=3D=
+"" class=3D"task-list-item-checkbox"> I have updated the documentation ac=
+cordingly =E2=80=93 AFAICT no documentation needs updating?</li>=0D
+<li class=3D"task-list-item"><input type=3D"checkbox" id=3D"" disabled=3D=
+"" class=3D"task-list-item-checkbox" checked=3D""> I have read the <a hre=
+f=3D"https://github.com/zfsonlinux/zfs/blob/master/.github/CONTRIBUTING.m=
+d"><strong>contributing</strong> document</a>.</li>=0D
+<li class=3D"task-list-item"><input type=3D"checkbox" id=3D"" disabled=3D=
+"" class=3D"task-list-item-checkbox"> I have added <a href=3D"https://git=
+hub.com/zfsonlinux/zfs/tree/master/tests">tests</a> to cover my changes =E2=
+=80=93 none needed.</li>=0D
+<li class=3D"task-list-item"><input type=3D"checkbox" id=3D"" disabled=3D=
+"" class=3D"task-list-item-checkbox" checked=3D""> I have run the ZFS Tes=
+t Suite with this change applied.</li>=0D
+</ul>=0D
+=0D
+<hr>=0D
+=0D
+<h4>You can view, comment on, or merge this pull request online at:</h4>=0D=
+
+<p>&nbsp;&nbsp;<a href=3D'https://github.com/openzfs/zfs/pull/10357'>http=
+s://github.com/openzfs/zfs/pull/10357</a></p>=0D
+=0D
+<h4>Commit Summary</h4>=0D
+<ul>=0D
+  <li>Correctly handle the x32 ABI</li>=0D
+  <li>Add TIME_T_FORMAT config, matching l or ll on respective platforms<=
+/li>=0D
+</ul>=0D
+=0D
+<h4>File Changes</h4>=0D
+<ul>=0D
+  <li>=0D
+    <strong>A</strong>=0D
+    <a href=3D"https://github.com/openzfs/zfs/pull/10357/files#diff-1776f=
+91fe541088c0ab4e474e8dcfa9c">config/always-time_t.m4</a>=0D
+    (22)=0D
+  </li>=0D
+  <li>=0D
+    <strong>M</strong>=0D
+    <a href=3D"https://github.com/openzfs/zfs/pull/10357/files#diff-15a9d=
+9635d4bd523e3b144726cb31e2c">config/zfs-build.m4</a>=0D
+    (1)=0D
+  </li>=0D
+  <li>=0D
+    <strong>M</strong>=0D
+    <a href=3D"https://github.com/openzfs/zfs/pull/10357/files#diff-03a77=
+a7f3127a81993bc6a42a3efd9fe">lib/libspl/include/sys/isa_defs.h</a>=0D
+    (6)=0D
+  </li>=0D
+  <li>=0D
+    <strong>M</strong>=0D
+    <a href=3D"https://github.com/openzfs/zfs/pull/10357/files#diff-69821=
+ec6d7b112d7df494a5b810405de">lib/libspl/timestamp.c</a>=0D
+    (2)=0D
+  </li>=0D
+  <li>=0D
+    <strong>M</strong>=0D
+    <a href=3D"https://github.com/openzfs/zfs/pull/10357/files#diff-66bd5=
+24398bcd2ac70d90925ab6d8073">lib/libzfs/libzfs_sendrecv.c</a>=0D
+    (2)=0D
+  </li>=0D
+</ul>=0D
+=0D
+<h4>Patch Links:</h4>=0D
+<ul>=0D
+  <li><a href=3D'https://github.com/openzfs/zfs/pull/10357.patch'>https:/=
+/github.com/openzfs/zfs/pull/10357.patch</a></li>=0D
+  <li><a href=3D'https://github.com/openzfs/zfs/pull/10357.diff'>https://=
+github.com/openzfs/zfs/pull/10357.diff</a></li>=0D
+</ul>=0D
+=0D
+<p style=3D"font-size:small;-webkit-text-size-adjust:none;color:#666;">&m=
+dash;<br />You are receiving this because you are subscribed to this thre=
+ad.<br />Reply to this email directly, <a href=3D"https://github.com/open=
+zfs/zfs/pull/10357">view it on GitHub</a>, or <a href=3D"https://github.c=
+om/notifications/unsubscribe-auth/ABTGCKGCXKLNVKATYXDBFPTRS2U5BANCNFSM4NI=
+ADNOQ">unsubscribe</a>.<img src=3D"https://github.com/notifications/beaco=
+n/ABTGCKDXNXBW7W7WZPWTUNDRS2U5BA5CNFSM4NIADNO2YY3PNVWWK3TUL52HS4DFUVEXG43=
+VMWVGG33NNVSW45C7NFSM4JJHUJUQ.gif" height=3D"1" width=3D"1" alt=3D"" /></=
+p>=0D
+<script type=3D"application/ld+json">[=0D
+{=0D
+"@context": "http://schema.org",=0D
+"@type": "EmailMessage",=0D
+"potentialAction": {=0D
+"@type": "ViewAction",=0D
+"target": "https://github.com/openzfs/zfs/pull/10357",=0D
+"url": "https://github.com/openzfs/zfs/pull/10357",=0D
+"name": "View Pull Request"=0D
+},=0D
+"description": "View this Pull Request on GitHub",=0D
+"publisher": {=0D
+"@type": "Organization",=0D
+"name": "GitHub",=0D
+"url": "https://github.com"=0D
+}=0D
+}=0D
+]</script>=0D
+
+----==_mimepart_5ec803d0f2ca3_69e93fa22bccd96014085d--
+
