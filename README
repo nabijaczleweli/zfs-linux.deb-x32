@@ -30,7 +30,7 @@ For ease of consumption, 0001-original-patches/ contains the patches as written 
   some straces from when the userspace tools (here: zfs mount -a) crashed,
   and comparative logs from and amd64 machine to verify that the time warnings were x32-specfic (*-tarta.build),
   alongside diffnote, which notes where they occured in some logs.
-    $ stat -c "%Y %n:;%y" $(realpath 0002-logs/*) | column -ts ';'
+    $ stat -c "%n:;%y" $(realpath 0002-logs/*) | column -ts ';'
     /usr/local/src/zfs/diffnote:          2020-05-21 23:31:41.617427568 +0200
     /usr/local/src/zfs/v2.build:          2020-05-17 20:37:39.181293916 +0200
     /usr/local/src/zfs/v2.strace:         2020-05-17 21:11:11.900035592 +0200
@@ -56,6 +56,9 @@ For ease of consumption, 0001-original-patches/ contains the patches as written 
     /usr/local/src/zfs/v11-tarta.build:   2020-05-22 01:27:23.377345443 +0200
     /usr/local/src/zfs/v12+rollup.build:  2020-05-22 13:47:21.578251615 +0200
     /usr/local/src/zfs/v13+rollup.build:  2020-05-22 14:55:36.705166048 +0200
+    /usr/local/src/zfs/v14+rollup.build:  2020-05-22 19:32:01.867023724 +0200
+    /usr/local/src/zfs/v15+rollup.build:  2020-05-22 21:27:59.921228235 +0200
+    /usr/local/src/zfs/v16+rollup.build:  2020-05-28 02:00:28.106175503 +0200
 
 0003-clean-patches/ has the -clean patchset based on debian 0.8.4-1, alongside a tiny time_t demo program;
   these apply cleanly on top of upstream version 0.8.4 (6b18d7df3).
@@ -72,7 +75,10 @@ For ease of consumption, 0001-original-patches/ contains the patches as written 
 
 0007-upstream-v4/ uses "%lld" instead of "%llu" following a review comment
 
-0008-10357+844.mbox is a mail log of those two issues in the zfs repository.
+0008-10357+844.mbox is a mail log of those two issues in the zfs repository,
+  after the PR got merged on 2020-05-28 10:28:20 2020 -0700:
+  https://github.com/openzfs/zfs/commit/6059f3a1f6950bd2aa9724ab917f2bc01343a076
+  https://github.com/openzfs/zfs/commit/a1ba12092744ce4da5ffb8061223cc61c9b8b4f8
 
-0009-final-patches/ has the final upstreamed patches ported back to 0.8.4 and functional in debian 0.8.4-1;
+0009-final-patches/ has the final upstreamed patches ported back to 0.8.4 and usable in debian's 0.8.4-1;
   these match the ones in the zfsv16+rollup branch.
